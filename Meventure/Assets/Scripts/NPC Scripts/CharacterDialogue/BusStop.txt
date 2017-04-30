@@ -1,0 +1,6 @@
+{
+	"textLines":[
+		"The bus costs $20 for a ride to the city",
+		"Do you want to take the bus?"
+	]
+}

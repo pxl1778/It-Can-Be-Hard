@@ -1,0 +1,11 @@
+{
+	"textLines":[
+		"Box: Hi there!",
+		"How's it going?",
+		"Today I spent the whole day just sitting here. Can you believe that? just sitting here...being a box...how can I even talk?"
+	],
+	"options":[ { "textLines":["Yes"], "nextObject":{
+										"textLines":["Thanks!!"]}}, 
+				{ "textLines":["No"], "nextObject":{
+										"textLines":["Oh, okay..."]}}]
+}
