@@ -1,4 +1,10 @@
 sceneSetups:
-- path: Assets/Scenes/test1.unity
+- path: Assets/Scenes/Template.unity
+  isLoaded: 1
+  isActive: 0
+- path: Assets/Scenes/Neighborhood1.unity
+  isLoaded: 0
+  isActive: 0
+- path: Assets/Scenes/Prologue.unity
   isLoaded: 1
   isActive: 1

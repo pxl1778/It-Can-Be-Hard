@@ -7,14 +7,22 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance = null;
 
 	private Player playerInfo;
-
 	public Player PlayerInfo{ get { return playerInfo; } set { playerInfo = value; } }
+    private InventoryManager inventoryMan;
+    public InventoryManager InventoryMan { get { return inventoryMan; } }
+    private DialogueManager dialogueMan;
+    public DialogueManager DialogueMan { get { return dialogueMan; } }
+    private EventManager eventMan;
+    public EventManager EventMan { get { return eventMan; } }
 
 	void Awake(){
 		if (instance == null) {
 			instance = this;
 			playerInfo = (Player)(GameObject.Find("Player").GetComponent<Player>());
-		} else if (instance != null) {
+            inventoryMan = this.gameObject.GetComponent<InventoryManager>();
+            dialogueMan = this.gameObject.GetComponent<DialogueManager>();
+            eventMan = this.gameObject.GetComponent<EventManager>();
+        } else if (instance != null) {
 			Destroy (gameObject);
 		}
 		DontDestroyOnLoad (gameObject);

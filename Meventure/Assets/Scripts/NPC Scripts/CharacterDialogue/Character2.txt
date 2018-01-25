@@ -1,8 +1,0 @@
-{
-	"textLines":[
-		"Greenie: 'Sup.",
-		"Did you see that guy over there? He's just sitting there and saying he's a box.",
-		"If you can talk, you 'ain't no box. Maybe his brains full of rocks",
-		"Heh, rhymes."
-	]
-}

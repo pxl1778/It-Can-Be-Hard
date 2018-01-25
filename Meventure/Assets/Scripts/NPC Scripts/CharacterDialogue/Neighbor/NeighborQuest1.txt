@@ -1,0 +1,9 @@
+{
+	"textLines":[
+		"Hey, sorry about the mess, It'll only take me a couple of hours to clean up."
+	],
+	"options": [{"optionText": "Yikes, I can help!", "nextObject": {
+					"textLines":["That'd be great! I'd be able to get this done much quicker."]}},
+				{"optionText": "Can you hurry up at least?", "nextObject": {
+					"textLines":["You got it! If you wanna help out it'll be done "]}}]
+}

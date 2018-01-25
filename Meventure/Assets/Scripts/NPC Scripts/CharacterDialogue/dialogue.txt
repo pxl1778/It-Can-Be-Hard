@@ -1,0 +1,37 @@
+{
+	"packs":[
+		{
+			"name": "Neighbor1",
+			"objects":[
+				{
+					"text":"Hey, sorry about the mess. It'll only take me a couple of hours to clean it up.",
+					"name":"neighbor1_1"
+				},
+				{
+					"text":"I'll try to help!",
+					"name":"neighbor1_option1"
+				},
+				{
+					"text":"That'd be great! If you can find a shovel to help me get out this stump, it'll go much faster.",
+					"name":"neighbor1_2"
+				},
+				{
+					"text":"Can yah hurry it up?",
+					"name":"neighbor1_option2"
+				},
+				{ 
+					"text":"You got it! But if you happen to come across a shovel, that'd help me out a lot!",
+					"name":"neighbor1_3"
+				},
+				{ 
+					"text":"Let me know if you find a shovel!",
+					"name":"neighbor1_preshovel"
+				},
+				{ 
+					"text":"Thanks for the help!",
+					"name":"neighbor1_helped"
+				}
+			]
+		}
+	]
+}
