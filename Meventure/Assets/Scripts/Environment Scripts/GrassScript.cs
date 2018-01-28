@@ -7,7 +7,7 @@ public class GrassScript : MonoBehaviour {
     private GameObject player;
     private GameObject glow;
     private Material mat;
-    private Renderer renderer;
+    private Renderer grassRenderer;
     private MaterialPropertyBlock propBlock;
     [SerializeField]
     //private Color topColor = new Color(0, .796f, .368f, 1);
@@ -21,7 +21,7 @@ public class GrassScript : MonoBehaviour {
         player = GameObject.Find("Player");
         glow = GameObject.Find("Dog");
         mat = this.transform.GetComponent<MeshRenderer>().material;
-        renderer = this.transform.GetComponent<Renderer>();
+        grassRenderer = this.transform.GetComponent<Renderer>();
         propBlock = new MaterialPropertyBlock();
     }
 	
@@ -32,9 +32,9 @@ public class GrassScript : MonoBehaviour {
         {
             mat.SetVector("_GlowObjectPoint", new Vector4(glow.transform.position.x, glow.transform.position.y, glow.transform.position.z, 0));
         }
-        renderer.GetPropertyBlock(propBlock);
+        grassRenderer.GetPropertyBlock(propBlock);
         propBlock.SetColor("_Color", topColor);
         propBlock.SetColor("_BottomColor", bottomColor);
-        renderer.SetPropertyBlock(propBlock);
+        grassRenderer.SetPropertyBlock(propBlock);
     }
 }

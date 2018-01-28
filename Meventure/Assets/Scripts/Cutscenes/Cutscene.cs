@@ -17,10 +17,10 @@ public class Cutscene : MonoBehaviour {
 		
 	}
 
-    private void StartCutscene()
+    protected virtual void StartCutscene()
     {
-        Debug.Log(gm);
         gm.PlayerInfo.State = PlayerState.INACTIVE;
+        gm.EventMan.stopPlayer.Invoke();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,9 +33,5 @@ public class Cutscene : MonoBehaviour {
 
     protected virtual void PlayCutscene()
     {
-        //camera lerping
-        //characters moving
-        //graphical changes
-        //type of lerp, length of time of lerp, thing to happen after lerp is done
     }
 }
