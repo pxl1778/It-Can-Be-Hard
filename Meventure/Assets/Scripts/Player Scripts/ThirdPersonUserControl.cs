@@ -78,10 +78,6 @@ public class ThirdPersonUserControl : MonoBehaviour
         {
             m_Character.Move(m_Move, crouch, m_Jump);
         }
-        else
-        {
-            m_Character.Move(Vector3.zero, false, false);
-        }
         m_Jump = false;
     }
 
