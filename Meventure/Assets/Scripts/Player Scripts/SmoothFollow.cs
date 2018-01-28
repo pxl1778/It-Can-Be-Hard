@@ -2,7 +2,7 @@
 
 public enum CameraState
 {
-    PLAYERFOCUS, LERPTOTARGET, LERPCOMPLETED, LERPTOPLAYER
+    PLAYERFOCUS, LERPTOTARGET, LERPCOMPLETED, LERPTOPLAYER, LERPTONODE
 }
 
 public class SmoothFollow : MonoBehaviour
@@ -35,15 +35,18 @@ public class SmoothFollow : MonoBehaviour
     private Quaternion targetRotation;
     private float lerpDuration;
     private float lerpAlpha=0f;
+    private float lerpDelay=0f;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private Quaternion originalPlayerRotation;
+    public delegate void finishLerp();
 
     // Use this for initialization
     void Start() {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        gm.EventMan.lookAtPlayer.AddListener(lookAtPlayer);
+        gm.EventMan.lookAtPlayer.AddListener(LookAtPlayer);
         gm.EventMan.lerpToTarget.AddListener(LerpToTarget);
+        gm.EventMan.lerpCameraToTransform.AddListener(StartLerpToNode);
     }
 
     private void Update()
@@ -66,7 +69,10 @@ public class SmoothFollow : MonoBehaviour
                 lerp();
                 break;
             case CameraState.LERPTOPLAYER:
-                lerpToPlayer();
+                LerpToPlayer();
+                break;
+            case CameraState.LERPTONODE:
+                LerpToNode();
                 break;
             default:
                 break;
@@ -132,7 +138,7 @@ public class SmoothFollow : MonoBehaviour
         return pAlpha * pAlpha * (3.0f - 2.0f * pAlpha);
     }
 
-    public void lerpToPlayer()
+    public void LerpToPlayer()
     {
         lerpAlpha = (lerpAlpha + Time.deltaTime) / lerpDuration;
         Debug.Log("[lerpToPlayer]lerpalpha: " + lerpAlpha);
@@ -188,7 +194,7 @@ public class SmoothFollow : MonoBehaviour
         }
     }
 
-    public void lookAtPlayer()
+    public void LookAtPlayer()
     {
         state = CameraState.LERPTOPLAYER;
 
@@ -204,5 +210,33 @@ public class SmoothFollow : MonoBehaviour
         originalRotation = transform.rotation;
         targetRotation = originalPlayerRotation;
         lerpDuration = 1.0f;
+    }
+
+    public void StartLerpToNode(Transform pTransform, float pDelay, float pDuration)
+    {
+        state = CameraState.LERPTONODE;
+        originalPosition = transform.position;
+        originalRotation = transform.rotation;
+        target = pTransform;
+        targetRotation = pTransform.rotation;
+        lerpDuration = pDuration;
+        lerpDelay = pDelay;
+    }
+
+    public void LerpToNode()
+    {
+        lerpAlpha = lerpAlpha + Time.deltaTime - lerpDelay;
+        if(lerpAlpha > 0)
+        {
+            transform.position = Vector3.Lerp(originalPosition, targetPosition, calcEase(lerpAlpha / lerpDuration));
+            transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, calcEase(lerpAlpha / lerpDuration));
+            if (lerpAlpha / lerpDuration >= 1)
+            {
+                Debug.Log("end of lerp");
+                lerpAlpha = 0;
+                state = CameraState.LERPCOMPLETED;
+                gm.EventMan.finishedLerp.Invoke("Camera");
+            }
+        }
     }
 }

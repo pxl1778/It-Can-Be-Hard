@@ -11,6 +11,9 @@ public class ThirdPersonUserControl : MonoBehaviour
     private Vector3 m_Move;
     private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
     private GameManager gm;
+    //lerping
+    private Vector3 targetPosition;
+    private bool isRunning;
     public delegate void finishLerp();
 
         
@@ -32,6 +35,7 @@ public class ThirdPersonUserControl : MonoBehaviour
         // get the third person character ( this should never be null due to require component )
         m_Character = GetComponent<ThirdPersonCharacter>();
         gm.EventMan.stopPlayer.AddListener(StopPlayer);
+        gm.EventMan.movePlayerToPosition.AddListener(StartMoveToPosition);
     }
 
 
@@ -74,16 +78,22 @@ public class ThirdPersonUserControl : MonoBehaviour
         {
             m_Character.Move(m_Move, crouch, m_Jump);
         }
+        else
+        {
+            m_Character.Move(Vector3.zero, false, false);
+        }
         m_Jump = false;
     }
 
     public void StopPlayer()
     {
         m_Character.Move(Vector3.zero, false, false);
+        m_Character.StopMovement();
     }
 
-    public void MoveToPosition(Vector3 pPosition, finishLerp pFinishLerp)
+    public void StartMoveToPosition(Vector3 pPosition, bool pIsRunning)
     {
-
+        targetPosition = pPosition;
+        isRunning = pIsRunning;
     }
 }

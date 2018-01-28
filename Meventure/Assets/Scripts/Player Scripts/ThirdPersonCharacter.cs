@@ -219,4 +219,8 @@ public class ThirdPersonCharacter : MonoBehaviour
 			m_Animator.applyRootMotion = false;
 		}
 	}
+    public void StopMovement()
+    {
+        m_Rigidbody.velocity = Vector3.zero;
+    }
 }
