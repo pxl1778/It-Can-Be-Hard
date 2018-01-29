@@ -30,8 +30,26 @@ public class GameManager : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-        SceneManager.LoadScene("Prologue", LoadSceneMode.Additive);
 	}
+
+    private void OnEnable()
+    {
+        SceneManager.LoadScene("Prologue", LoadSceneMode.Additive);
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene pScene, LoadSceneMode pMode)
+    {
+        if(pScene.name == "Prologue")
+        {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Prologue"));
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {

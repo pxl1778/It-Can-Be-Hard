@@ -78,6 +78,14 @@ public class ThirdPersonUserControl : MonoBehaviour
         {
             m_Character.Move(m_Move, crouch, m_Jump);
         }
+        else if (gm.PlayerInfo.State == PlayerState.MOVING)
+        {
+            MoveToPosition();
+        }
+        else
+        {
+            m_Character.Move(Vector3.zero, false, false);
+        }
         m_Jump = false;
     }
 
@@ -91,5 +99,19 @@ public class ThirdPersonUserControl : MonoBehaviour
     {
         targetPosition = pPosition;
         isRunning = pIsRunning;
+        gm.PlayerInfo.State = PlayerState.MOVING;
+    }
+
+    public void MoveToPosition()
+    {
+        Vector3 m_CamForward = Vector3.Scale(Vector3.Normalize(targetPosition - this.transform.position), new Vector3(1, 0, 1)).normalized;
+        float speed = (isRunning) ? 1.0f : .3f;
+        Vector3 m_Move = speed * m_CamForward;
+        m_Character.Move(m_Move, false, false);
+        if ((m_Character.transform.position - targetPosition).magnitude < .7)
+        {
+            gm.PlayerInfo.State = PlayerState.INACTIVE;
+            gm.EventMan.finishedLerp.Invoke("PlayerNodes");
+        }
     }
 }

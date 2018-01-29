@@ -8,17 +8,18 @@ public class Cutscene : MonoBehaviour {
     protected GameManager gm;
     protected Dictionary<string, CutsceneObject[]> objectDictionary = new Dictionary<string, CutsceneObject[]>();
     protected Dictionary<string, int> indexDictionary = new Dictionary<string, int>();
-    protected Dictionary<string, List<FinishedLerp>> callbackDictionary = new Dictionary<string, List<FinishedLerp>>();
+    protected Dictionary<string, FinishedLerp[]> callbackDictionary = new Dictionary<string, FinishedLerp[]>();
 
     // Use this for initialization
     void Start ()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gm.EventMan.finishedLerp.AddListener(LerpCallback);
         foreach(Transform t in this.transform)
         {
             objectDictionary.Add(t.name, t.GetComponentsInChildren<CutsceneObject>());
             indexDictionary.Add(t.name, 0);
-            callbackDictionary.Add(t.name, new List<FinishedLerp>());
+            callbackDictionary.Add(t.name, new FinishedLerp[objectDictionary[t.name].Length]);
         }
     }
 	
@@ -27,11 +28,13 @@ public class Cutscene : MonoBehaviour {
 		
 	}
 
-    public void LerpCallback(string pName)
+    public virtual void LerpCallback(string pName)
     {
-        callbackDictionary[pName][indexDictionary[pName]].Invoke();
+        if(callbackDictionary[pName][indexDictionary[pName]] != null)
+        {
+            callbackDictionary[pName][indexDictionary[pName]].Invoke();
+        }
         indexDictionary[pName]++;
-        //TODO: START NEXT OBJECT
     }
 
     protected virtual void StartCutscene()

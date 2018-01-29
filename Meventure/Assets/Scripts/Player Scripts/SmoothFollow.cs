@@ -228,14 +228,14 @@ public class SmoothFollow : MonoBehaviour
         lerpAlpha = lerpAlpha + Time.deltaTime - lerpDelay;
         if(lerpAlpha > 0)
         {
-            transform.position = Vector3.Lerp(originalPosition, targetPosition, calcEase(lerpAlpha / lerpDuration));
-            transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, calcEase(lerpAlpha / lerpDuration));
+            transform.position = Vector3.Lerp(originalPosition, target.position, calcEase(lerpAlpha / lerpDuration));
+            transform.rotation = Quaternion.Slerp(originalRotation, target.rotation, calcEase(lerpAlpha / lerpDuration));
             if (lerpAlpha / lerpDuration >= 1)
             {
                 Debug.Log("end of lerp");
                 lerpAlpha = 0;
                 state = CameraState.LERPCOMPLETED;
-                gm.EventMan.finishedLerp.Invoke("Camera");
+                gm.EventMan.finishedLerp.Invoke("CameraNodes");
             }
         }
     }

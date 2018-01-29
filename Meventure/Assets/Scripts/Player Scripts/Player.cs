@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum PlayerState
 {
-    ACTIVE, INACTIVE
+    ACTIVE, INACTIVE, MOVING
 }
 
 public class Player : MonoBehaviour {
