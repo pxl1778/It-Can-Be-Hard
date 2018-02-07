@@ -3,6 +3,9 @@
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
+		_NoiseTex("Noise", 2D) = "white" {}
+		_Intensity("Intensity", Float) = 0
+		_Displacement("Displacement", Float) = 0
 	}
 	SubShader
 	{
@@ -34,6 +37,9 @@
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
+			sampler2D _NoiseTex;
+			float _Intensity;
+			float _Displacement;
 			
 			v2f vert (appdata v)
 			{
@@ -50,7 +56,13 @@
 				fixed4 col = tex2D(_MainTex, i.uv);
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, col);
-				return col;
+				float4 glitch = tex2D(_NoiseTex, i.uv);
+
+				float threshold = 1.001 - _Intensity*1.001;
+				//float displacement = step(threshold, pow(glitch.z, 2.5));
+				float2 uv = frac(i.uv + glitch.xy * _Displacement/5);
+				float4 source = tex2D(_MainTex, uv);
+				return source;
 			}
 			ENDCG
 		}

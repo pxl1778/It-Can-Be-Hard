@@ -30,7 +30,8 @@ abstract public class NPCTalkScript : MonoBehaviour {
     // Use this for initialization
     void Start() {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        textUI = GameObject.Find("OnScreenText").GetComponent<Canvas>();
+        //textUI = GameObject.Find("OnScreenText").GetComponent<Canvas>();
+        textUI = this.GetComponentInChildren<Canvas>();
         optionsUI = GameObject.Find("DialogueOptions").GetComponent<Canvas>();
         text = textUI.GetComponentInChildren<Text>();
         optionsArray = optionsUI.GetComponentsInChildren<Text>();
