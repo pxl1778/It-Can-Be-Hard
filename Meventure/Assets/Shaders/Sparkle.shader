@@ -49,12 +49,16 @@
 			v2f vert (appdata v)
 			{
 				v2f o;
-				o.vertex = UnityObjectToClipPos(v.vertex+(v.normal * (sin(_Time[2])+.5)/15));
-
+				//v.vertex = v.vertex + float4((v.normal * sin(v.vertex.y*10 + _Time[2])), 0); //fun weird wobbly thing
+				v.vertex = v.vertex + float4(v.normal * saturate(sin(_Time[2] + v.vertex.y*80)*.1), 0);
+				v.vertex = v.vertex + float4(-v.normal * saturate(sin(_Time[2] + v.vertex.x * 40)*.05), 0);
+				//o.vertex = UnityObjectToClipPos(v.vertex+(v.normal * (sin(_Time[2])+.5)/15));
+				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				UNITY_TRANSFER_FOG(o,o.vertex);
 				o.wPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 				o.wNormal = UnityObjectToWorldNormal(v.normal);
+
 				return o;
 			}
 			

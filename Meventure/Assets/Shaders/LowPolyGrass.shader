@@ -122,7 +122,7 @@
 				topPoint = topPoint + float4(rand1(P.xyz)-.5, rand2(P.xyz)-.5, rand2(p1), 0.0)/10;// + (tex2Dlod(_RandomTex, float4(P.xy, 0, 0)/float4(512, 512, 0.0, 0.0)) - float4(.5, .5, 0, 0));
 				float2 PUV = ((P.xy + 1.0)/2); ///iffy wind randomness that only kinda works
 
-				float4 col = tex2Dlod(_RandomTex, float4(P.x+_Time[1]/5,P.y + _Time[1]/5, 0, 0));
+				float4 col = tex2Dlod(_RandomTex, float4((P.x+_Time[1]/5),P.y + _Time[1]/5, 0, 0));
 				col = col - float4(.3, .3, 0, 0);
 				col = col/4;
 				

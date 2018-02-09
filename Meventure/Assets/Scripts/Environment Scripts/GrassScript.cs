@@ -20,8 +20,16 @@ public class GrassScript : MonoBehaviour {
     void Start () {
         player = GameObject.Find("Player");
         glow = GameObject.Find("Dog");
-        mat = this.transform.GetComponent<MeshRenderer>().material;
-        grassRenderer = this.transform.GetComponent<Renderer>();
+        Terrain t = this.transform.GetComponent<Terrain>();
+        if(t != null)
+        {
+            mat = t.materialTemplate;
+        }
+        else
+        {
+            mat = this.transform.GetComponent<MeshRenderer>().material;
+            grassRenderer = this.transform.GetComponent<Renderer>();
+        }
         propBlock = new MaterialPropertyBlock();
     }
 	
@@ -32,9 +40,12 @@ public class GrassScript : MonoBehaviour {
         {
             mat.SetVector("_GlowObjectPoint", new Vector4(glow.transform.position.x, glow.transform.position.y, glow.transform.position.z, 0));
         }
-        grassRenderer.GetPropertyBlock(propBlock);
-        propBlock.SetColor("_Color", topColor);
-        propBlock.SetColor("_BottomColor", bottomColor);
-        grassRenderer.SetPropertyBlock(propBlock);
+        if(grassRenderer != null)
+        {
+            grassRenderer.GetPropertyBlock(propBlock);
+            propBlock.SetColor("_Color", topColor);
+            propBlock.SetColor("_BottomColor", bottomColor);
+            grassRenderer.SetPropertyBlock(propBlock);
+        }
     }
 }

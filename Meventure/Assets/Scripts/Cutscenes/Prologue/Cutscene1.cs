@@ -29,7 +29,7 @@ public class Cutscene1 : Cutscene
         };
         callbackDictionary["DogNodes"][0] = () => {
             ParticleSystem.EmissionModule em = dog.GetComponentInChildren<ParticleSystem>().emission;
-            em.rateOverTime = 350.0f;
+            em.rateOverTime = 250.0f;
             ParticleSystem.MainModule mm = dog.GetComponentInChildren<ParticleSystem>().main;
             mm.startSpeed = 3.0f;
         };
