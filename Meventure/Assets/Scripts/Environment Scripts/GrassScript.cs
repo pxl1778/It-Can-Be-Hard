@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class GrassScript : MonoBehaviour {
 
     private GameObject player;
@@ -27,7 +28,7 @@ public class GrassScript : MonoBehaviour {
         }
         else
         {
-            mat = this.transform.GetComponent<MeshRenderer>().material;
+            mat = this.transform.GetComponent<MeshRenderer>().sharedMaterial;
             grassRenderer = this.transform.GetComponent<Renderer>();
         }
         propBlock = new MaterialPropertyBlock();

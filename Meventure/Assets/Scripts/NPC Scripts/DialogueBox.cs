@@ -7,7 +7,7 @@ public class DialogueBox : MonoBehaviour {
 
     private RectTransform rt;
     private Camera cam;
-    private Transform parent;
+    private Transform target;
     private RectTransform canvasRect;
     private Text text;
 
@@ -15,7 +15,7 @@ public class DialogueBox : MonoBehaviour {
 	void Start () {
         rt = this.GetComponent<RectTransform>();
         cam = Camera.main;
-        parent = this.transform.parent.transform.parent;
+        target = this.transform.parent.transform.parent.transform;
         canvasRect = this.transform.parent.GetComponent<RectTransform>();
         text = this.GetComponentInChildren<Text>();
 	}
@@ -23,16 +23,16 @@ public class DialogueBox : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //rt.transform.forward = cam.transform.forward;
-        Vector3 targetPos = new Vector3(parent.transform.position.x, parent.transform.position.y + 2, parent.transform.position.z);
+        Vector3 targetPos = new Vector3(target.position.x, target.position.y + 2, target.position.z);
         Vector2 viewportPoint = cam.WorldToViewportPoint(targetPos);
         rt.position = new Vector3(viewportPoint.x * canvasRect.sizeDelta.x, viewportPoint.y * canvasRect.sizeDelta.y, 0);
-        if(rt.position.x < 150)
+        if(rt.position.x < 200)
         {
-            rt.position = new Vector3(150, rt.position.y, rt.position.z);
+            rt.position = new Vector3(200, rt.position.y, rt.position.z);
         }
-        if (rt.position.x > canvasRect.sizeDelta.x - 150)
+        if (rt.position.x > canvasRect.sizeDelta.x - 200)
         {
-            rt.position = new Vector3(canvasRect.sizeDelta.x - 150, rt.position.y, rt.position.z);
+            rt.position = new Vector3(canvasRect.sizeDelta.x - 200, rt.position.y, rt.position.z);
         }
         if (rt.position.y < 100)
         {
