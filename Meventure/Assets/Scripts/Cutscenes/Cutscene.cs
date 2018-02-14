@@ -39,7 +39,7 @@ public class Cutscene : MonoBehaviour {
 
     protected virtual void StartCutscene()
     {
-        gm.PlayerInfo.State = PlayerState.INACTIVE;
+        gm.Player.State = PlayerState.INACTIVE;
         gm.EventMan.stopPlayer.Invoke();
     }
 

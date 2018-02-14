@@ -51,7 +51,7 @@ public class SmoothFollow : MonoBehaviour
 
     private void Update()
     {
-        if(gm.PlayerInfo.State == PlayerState.ACTIVE)
+        if(gm.Player.State == PlayerState.ACTIVE)
         {
             rotation += Input.GetAxis("Mouse X");
         }

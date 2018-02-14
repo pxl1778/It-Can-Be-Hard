@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
 
-	private Player playerInfo;
-	public Player PlayerInfo{ get { return playerInfo; } set { playerInfo = value; } }
+	private Player player;
+	public Player Player{ get { return player; } set { player = value; } }
     private InventoryManager inventoryMan;
     public InventoryManager InventoryMan { get { return inventoryMan; } }
     private DialogueManager dialogueMan;
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 	void Awake(){
 		if (instance == null) {
 			instance = this;
-			playerInfo = (Player)(GameObject.Find("Player").GetComponent<Player>());
+			player = (Player)(GameObject.Find("Player").GetComponent<Player>());
             inventoryMan = this.gameObject.GetComponent<InventoryManager>();
             dialogueMan = this.gameObject.GetComponent<DialogueManager>();
             eventMan = this.gameObject.GetComponent<EventManager>();
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene pScene, LoadSceneMode pMode)
     {
-        if(pScene.name == "Prologue")
+        if (pScene.name == "Prologue")
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("Prologue"));
         }

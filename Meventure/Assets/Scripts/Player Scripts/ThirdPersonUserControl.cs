@@ -74,11 +74,11 @@ public class ThirdPersonUserControl : MonoBehaviour
 #endif
 
         // pass all parameters to the character control script
-        if(gm.PlayerInfo.State == PlayerState.ACTIVE)
+        if(gm.Player.State == PlayerState.ACTIVE)
         {
             m_Character.Move(m_Move, crouch, m_Jump);
         }
-        else if (gm.PlayerInfo.State == PlayerState.MOVING)
+        else if (gm.Player.State == PlayerState.MOVING)
         {
             MoveToPosition();
         }
@@ -99,7 +99,7 @@ public class ThirdPersonUserControl : MonoBehaviour
     {
         targetPosition = pPosition;
         isRunning = pIsRunning;
-        gm.PlayerInfo.State = PlayerState.MOVING;
+        gm.Player.State = PlayerState.MOVING;
     }
 
     public void MoveToPosition()
@@ -110,7 +110,7 @@ public class ThirdPersonUserControl : MonoBehaviour
         m_Character.Move(m_Move, false, false);
         if ((m_Character.transform.position - targetPosition).magnitude < .7)
         {
-            gm.PlayerInfo.State = PlayerState.INACTIVE;
+            gm.Player.State = PlayerState.INACTIVE;
             gm.EventMan.finishedLerp.Invoke("PlayerNodes");
         }
     }

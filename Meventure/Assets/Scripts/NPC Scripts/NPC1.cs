@@ -9,7 +9,7 @@ public class NPC1 : NPCTalkScript {
 
     public override void secondStart()
     {
-        Debug.Log(gm.DialogueMan.getLine("neighbor1_1"));
+        //Debug.Log(gm.DialogueMan.getLine("neighbor1_1"));
         lines = new DialogueLine[] { new DialogueLine(gm.DialogueMan.getLine("neighbor1_1"))
                                     };
         options = new string[] { gm.DialogueMan.getLine("neighbor1_option1"), gm.DialogueMan.getLine("neighbor1_option2") };
