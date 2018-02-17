@@ -8,7 +8,7 @@ public enum PlayerState
 }
 
 public class Player : MonoBehaviour {
-	public string playerName = "Dan";
+	public string playerName = "Luke";
     private PlayerState state = PlayerState.ACTIVE;
     public PlayerState State { get { return state; } set { state = value; } }
 	//private GameManager gm;

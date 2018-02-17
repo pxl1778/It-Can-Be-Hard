@@ -4,31 +4,31 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     
-    public float acceleration;
+    private float acceleration;
+    private float turnSpeed = 650.0f;
     
     private Rigidbody rb;
-    public GameObject cam;
+    private GameObject cam;
+    private GameManager gm;
+    private Animator anim;
 
-	// Use this for initialization
-	void Start () {
+    //lerping
+    private Vector3 targetPosition;
+    private bool isRunning;
+    public delegate void finishLerp();
+
+    // Use this for initialization
+    void Start () {
         rb = this.GetComponentInParent<Rigidbody>();
+        cam = Camera.main.gameObject;
+        anim = this.GetComponent<Animator>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //get the horizontal and vertical input components
-        float h = Input.GetAxis("Horizontal") * acceleration;
-        float v = Input.GetAxis("Vertical") * acceleration;
-
-        //create velocity vector
-        Vector3 velocity = new Vector3(v, rb.velocity.y, -h);
-        float angle = Vector3.Angle(Vector3.forward, Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up));
-        //rotate in direction of camera
-        velocity = Quaternion.AngleAxis(angle, Vector3.up) * velocity;
-
-        //set the velocity
-        rb.velocity = velocity;
-	}
+        
+    }
 
     void FixedUpdate()
     {
@@ -39,6 +39,56 @@ public class PlayerMovement : MonoBehaviour {
         else
         {
             acceleration = 5;
+        }
+        //get the horizontal and vertical input components
+        float h = Input.GetAxis("Horizontal");
+        h = (Mathf.Abs(h) < .1f) ? 0 : h;
+        float v = Input.GetAxis("Vertical");
+        v = (Mathf.Abs(v) < .1f) ? 0 : v;
+
+        //create velocity vector
+        Vector3 m_CamForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Debug.Log(m_CamForward);
+
+        if (cam.transform.rotation.y == 0)//checking weird quaternion forward issue
+        {
+            m_CamForward.x += .001f;
+        }
+        Vector3 m_Move = v * m_CamForward + h * cam.transform.right;
+        anim.SetFloat("Velocity", m_Move.magnitude);
+
+        //set the velocity
+        rb.velocity = m_Move * acceleration;
+
+        if (m_Move.x != 0 || m_Move.y != 0)
+        {
+            this.transform.rotation = /*Quaternion.LookRotation(m_Move, Vector3.up);*/Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(m_Move), turnSpeed * Time.deltaTime);
+        }
+    }
+
+    public void StopPlayer()
+    {
+        rb.velocity = Vector3.zero;
+    }
+
+    public void StartMoveToPosition(Vector3 pPosition, bool pIsRunning)
+    {
+        targetPosition = pPosition;
+        isRunning = pIsRunning;
+        gm.PlayerInfo.State = PlayerState.MOVING;
+    }
+
+    public void MoveToPosition()
+    {
+        Vector3 m_CamForward = Vector3.Scale(Vector3.Normalize(targetPosition - this.transform.position), new Vector3(1, 0, 1)).normalized;
+        float speed = (isRunning) ? 1.0f : .3f;
+        Vector3 m_Move = speed * m_CamForward;
+        //m_Character.Move(m_Move, false, false);
+        rb.velocity = m_Move * acceleration;
+        if ((this.transform.position - targetPosition).magnitude < .7)
+        {
+            gm.PlayerInfo.State = PlayerState.INACTIVE;
+            gm.EventMan.finishedLerp.Invoke("PlayerNodes");
         }
     }
 }
