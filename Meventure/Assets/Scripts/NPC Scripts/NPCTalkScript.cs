@@ -7,10 +7,9 @@ using UnityEngine.UI;
 abstract public class NPCTalkScript : MonoBehaviour {
 
     [SerializeField]
-    private float textSpeed = .2f;
+    private float textSpeed = .01f;
     private bool active = false;
     private bool state = true; //true = dialog, false = option
-    private Object json;
     private int currentCharacter = 0;
     protected int currentText = 0;
     private int choice = 0;
@@ -73,7 +72,8 @@ abstract public class NPCTalkScript : MonoBehaviour {
         optionNumber = -1;
         //lines = originalLines;
         //options = originalOptions;
-        gm.PlayerInfo.State = PlayerState.ACTIVE;
+        gm.Player.State = PlayerState.ACTIVE;
+        text.text = "";
     }
 
     //handles the input from the player for the update loop
@@ -87,7 +87,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 currentCharacter = 0;
                 textUI.enabled = true;
                 lines[currentText].doLineStart();
-                gm.PlayerInfo.State = PlayerState.INACTIVE;
+                gm.Player.State = PlayerState.INACTIVE;
             }
             else if (textUI.enabled && currentCharacter < lines[currentText].line.Length - 1)
             {//if the text hasn't finished, the player can skip to display the whole text.

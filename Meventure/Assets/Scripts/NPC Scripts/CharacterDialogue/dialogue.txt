@@ -32,6 +32,15 @@
 					"name":"neighbor1_helped"
 				}
 			]
+		},
+		{
+			"name":"Player",
+			"objects":[
+				{
+					"text":"Where did that light go...",
+					"name":"player_prologue_1"
+				}
+			]
 		}
 	]
 }
