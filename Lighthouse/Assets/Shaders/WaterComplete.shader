@@ -18,11 +18,11 @@ Shader "Unlit/water"
 	SubShader
 	{
 	 
-		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" "LightMode"="ForwardBase" }
-		Blend SrcAlpha OneMinusSrcAlpha
-		 
 		Pass
 		{
+			Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" "LightMode" = "ForwardBase" }
+			Blend SrcAlpha OneMinusSrcAlpha
+
 			CGPROGRAM
 			#include "UnityCG.cginc"
 			#pragma vertex vert
@@ -156,9 +156,81 @@ Shader "Unlit/water"
 			fixed4 frag (g2f i) : SV_Target
 			{
 				half3 viewDirection = normalize(i.wpos - _WorldSpaceCameraPos);
-				return float4(i.specularColor + i.diffuseColor, 1.3 - saturate(0.1f + dot(i.norm, -viewDirection)));
+				float3 lightPos = float3(unity_4LightPosX0[0], unity_4LightPosY0[0], unity_4LightPosZ0[0]);
+				float3 lightDir = normalize(lightPos - i.wpos);
+				float3 lightDistance = lightPos - i.wpos;
+				float nDotL = saturate(dot(i.norm, lightDir));
+				float attenuation = 1.0 / (1 + unity_4LightAtten0[0] * pow(dot(lightDistance, lightDistance), 2));
+				float4 pointLight = nDotL * unity_LightColor[0] * attenuation;
+				return float4(i.specularColor + i.diffuseColor, 1.3 - saturate(0.1f + dot(i.norm, -viewDirection))) + pointLight;
 			}
 			ENDCG
 		}
+
+		/*Pass
+		{
+			Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" "LightMode" = "ForwardAdd" }
+			Blend One One
+
+			CGPROGRAM
+			#include "UnityCG.cginc"
+			#pragma vertex vert
+			#pragma geometry geom
+			#pragma fragment frag
+
+			float rand(float3 co)
+			{
+				return frac(sin(dot(co.xyz ,float3(12.9898,78.233,45.5432))) * 43758.5453);
+			}
+
+			float rand2(float3 co)
+			{
+				return frac(sin(dot(co.xyz ,float3(19.9128,75.2,34.5122))) * 12765.5213);
+			}
+
+			float _WaveLength;
+			float _WaveHeight;
+			float _WaveSpeed;
+			float _RandomHeight;
+			float _RandomSpeed;
+
+			uniform float4 _LightColor0;
+
+			uniform float4 _Color;
+			uniform float4 _SpecColor;
+			uniform float _Shininess;
+
+			struct v2f
+			{
+				float4 pos : SV_POSITION;
+				float3 norm : NORMAL;
+				float2 uv : TEXCOORD0;
+			};
+
+			v2g vert(appdata_full v)
+			{
+				float4 v0 = mul(unity_ObjectToWorld, v.vertex);
+
+				float phase0 = (_WaveHeight)* sin((_Time[1] * _WaveSpeed) + (v0.x * _WaveLength) + (v0.z * _WaveLength) + rand2(v0.xzz));
+				float phase0_1 = (_RandomHeight)*sin(cos(rand(v0.xzz) * _RandomHeight * cos(_Time[1] * _RandomSpeed * sin(rand(v0.xxz)))));
+
+				v0.y += phase0 + phase0_1;
+
+				v.vertex = mul(unity_WorldToObject, v0);
+
+				v2f OUT;
+				OUT.pos = v.vertex;
+				OUT.norm = v.normal;
+				OUT.uv = v.texcoord;
+				return OUT;
+			}
+
+			fixed4 frag(g2f i) : SV_Target
+			{
+				half3 viewDirection = normalize(i.wpos - _WorldSpaceCameraPos);
+				return float4(i.specularColor + i.diffuseColor, 1.3 - saturate(0.1f + dot(i.norm, -viewDirection)));
+			}
+			ENDCG
+		}*/
 	}
 }

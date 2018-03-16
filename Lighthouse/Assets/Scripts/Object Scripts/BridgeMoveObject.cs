@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BridgeMoveObject : MonoBehaviour {
 
-    private Vector3 endPos = new Vector3(-16.72f, -7.57f, 47.05f);
-    private Vector3 startPos = new Vector3(-13.99f, -7.57f, 47.25f);
+    private Vector3 endPos = new Vector3(-16.72f, -0.51f, 47.05f);
+    private Vector3 startPos = new Vector3(-13.99f, -0.51f, 47.25f);
     private float alpha = 0;
     private bool active = false;
+    private bool standingOn = false;
     private bool dragging = false;
     private float prevX = 0;
     private float prevY = 0;
@@ -43,8 +44,8 @@ public class BridgeMoveObject : MonoBehaviour {
         }
         if (dragging && Input.GetMouseButton(0))
         {//use normalized direction of start and end point to drag object
-            float xAmount = (prevX * 0.01f - Input.mousePosition.x * 0.01f) * moveDirection.x * -1;
-            float yAmount = (prevY * 0.01f - Input.mousePosition.y * 0.01f) * moveDirection.y * -1;
+            float xAmount = (prevX * 0.001f - Input.mousePosition.x * 0.001f) * moveDirection.x * -1;
+            float yAmount = (prevY * 0.001f - Input.mousePosition.y * 0.001f) * moveDirection.y * -1;
             alpha = Mathf.Clamp01(alpha + xAmount + yAmount);
             this.transform.localPosition = Vector3.Lerp(startPos, endPos, alpha);
             prevX = Input.mousePosition.x;
@@ -52,17 +53,22 @@ public class BridgeMoveObject : MonoBehaviour {
         }
         else if(dragging && !Input.GetMouseButton(0))
         {//reset after fininshing dragging
-            dragging = false;
-            active = false;
             gm.Player.State = PlayerState.ACTIVE;
-            Material m = GetComponent<MeshRenderer>().material;
-            m.SetColor("_Color", originalColor);
+            DeactivateObject();
         }
+    }
+
+    public void DeactivateObject()
+    {
+        dragging = false;
+        active = false;
+        Material m = GetComponent<MeshRenderer>().material;
+        m.SetColor("_Color", originalColor);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerBubble>())
+        if (other.GetComponent<PlayerBubble>() && !standingOn)
         {//check if you touched the object WITH YOUR MIND
             active = true;
             Material m = GetComponent<MeshRenderer>().material;
@@ -71,6 +77,21 @@ public class BridgeMoveObject : MonoBehaviour {
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            standingOn = true;
+            DeactivateObject();
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            standingOn = false;
+        }
+    }
     private void OnMouseDown()
     {
         Debug.Log("you hit it");
