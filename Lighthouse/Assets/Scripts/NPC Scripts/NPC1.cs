@@ -50,6 +50,7 @@ public class NPC1 : NPCTalkScript {
         if (gm.InventoryMan.HasItem("shovel"))
         {
             lines = new DialogueLine[] { new DialogueLine(gm.DialogueMan.getLine("neighbor1_helped"), null, ()=> { GameObject.Destroy(GameObject.Find("stump")); }) };
+            options = new string[] { };
         }
     }
 }

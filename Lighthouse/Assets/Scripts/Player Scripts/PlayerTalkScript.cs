@@ -19,7 +19,7 @@ public class PlayerTalkScript : MonoBehaviour {
     private Canvas optionsUI;
     private Text text;
     private Text[] optionsArray;
-    protected string[] lines;
+    protected string[] lines = new string[] { };
     protected GameManager gm;
 
     void Start () {
@@ -27,7 +27,9 @@ public class PlayerTalkScript : MonoBehaviour {
         //textUI = this.transform.GetComponentInChildren<Canvas>();
         
         text = GameObject.Find("ThoughtPanel").GetComponentInChildren<Text>();
-        /*player.GetComponent<PlayerTalkScript>().*/StartDialogue(new string[] { gm.DialogueMan.getLine("player_prologue_1") });
+        /*player.GetComponent<PlayerTalkScript>().*/
+        gm.EventMan.startPlayerDialogue.AddListener(StartDialogue);
+        gm.EventMan.endPlayerDialogue.AddListener(EndDialogue);
     }
 	
 	// Update is called once per frame

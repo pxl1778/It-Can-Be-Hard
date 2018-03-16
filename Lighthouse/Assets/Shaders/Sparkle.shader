@@ -13,6 +13,7 @@
 		LOD 100
 
 		Blend SrcAlpha OneMinusSrcAlpha
+			ColorMask RGB
 
 		Pass
 		{
@@ -81,7 +82,9 @@
 				if (col.a < 0) {
 					col.a = 0;
 				}
-				col += half4(sparkle, sparkle, sparkle, sparkle);
+				col += half4(sparkle, sparkle, sparkle, 0);
+				col = saturate(col);
+				col.rgb = col.rgb * 1.8;
 				return col;
 			}
 			ENDCG

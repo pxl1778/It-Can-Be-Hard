@@ -8,6 +8,8 @@ public class StringFloat2UnityEvent : UnityEvent<string, float, float> { }
 [System.Serializable]
 public class StringUnityEvent : UnityEvent<string> { }
 [System.Serializable]
+public class StringArrayUnityEvent : UnityEvent<string[]> { }
+[System.Serializable]
 public class Vector3UnityEvent : UnityEvent<Vector3, bool> { }
 [System.Serializable]
 public class TransformUnityEvent : UnityEvent<Transform, float, float> { }
@@ -23,4 +25,8 @@ public class EventManager : MonoBehaviour {
     public UnityEvent stopPlayer = new UnityEvent();
     public Vector3UnityEvent movePlayerToPosition = new Vector3UnityEvent();
     public TransformUnityEvent lerpCameraToTransform = new TransformUnityEvent();
+
+    //Dialogue Events
+    public StringArrayUnityEvent startPlayerDialogue = new StringArrayUnityEvent();
+    public UnityEvent endPlayerDialogue = new UnityEvent();
 }

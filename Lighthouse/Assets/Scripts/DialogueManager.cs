@@ -10,6 +10,8 @@ public class DialogueManager : MonoBehaviour {
     private Dictionary<string, string> lines = new Dictionary<string, string>();
     private DialogueSystem originalDialog;
     private GameManager gm;
+    private bool doneLoading = false;
+    public bool DoneLoading { get { return doneLoading; } }
 
     void Awake()
     {
@@ -50,6 +52,7 @@ public class DialogueManager : MonoBehaviour {
                 lines.Add(originalDialog.packs[i].objects[j].name, originalDialog.packs[i].objects[j].text);
             }
         }
+        doneLoading = true;
     }
 
     void Start () {

@@ -47,13 +47,19 @@ public class SmoothFollow : MonoBehaviour
         gm.EventMan.lookAtPlayer.AddListener(LookAtPlayer);
         gm.EventMan.lerpToTarget.AddListener(LerpToTarget);
         gm.EventMan.lerpCameraToTransform.AddListener(StartLerpToNode);
+        this.GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
     }
 
     private void Update()
     {
         if(gm.Player.State == PlayerState.ACTIVE)
         {
-            rotation += Input.GetAxis("Mouse X");
+            if(Input.GetMouseButton(0))
+            {
+                rotation += Input.GetAxis("Mouse X") * 2;
+                height += Input.GetAxis("Mouse Y");
+                height = Mathf.Clamp(height, 3, 6);
+            }
             rotation -= Input.GetAxis("Joy X");
         }
     }

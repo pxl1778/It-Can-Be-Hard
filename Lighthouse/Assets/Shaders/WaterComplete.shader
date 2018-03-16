@@ -18,7 +18,7 @@ Shader "Unlit/water"
 	SubShader
 	{
 	 
-		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
+		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" "LightMode"="ForwardBase" }
 		Blend SrcAlpha OneMinusSrcAlpha
 		 
 		Pass
@@ -65,18 +65,19 @@ Shader "Unlit/water"
 				float2 uv : TEXCOORD0;
 				float3 diffuseColor : TEXCOORD1;
 				float3 specularColor : TEXCOORD2;
+				float3 wpos : WORLD;
 			};
 			
 			v2g vert(appdata_full v)
 			{
-				float3 v0 = mul(unity_ObjectToWorld, v.vertex).xyz;
+				float4 v0 = mul(unity_ObjectToWorld, v.vertex);
 				 
 				float phase0 = (_WaveHeight)* sin((_Time[1] * _WaveSpeed) + (v0.x * _WaveLength) + (v0.z * _WaveLength) + rand2(v0.xzz));
 				float phase0_1 = (_RandomHeight)*sin(cos(rand(v0.xzz) * _RandomHeight * cos(_Time[1] * _RandomSpeed * sin(rand(v0.xxz)))));
 				 
 				v0.y += phase0 + phase0_1;
 				 
-				v.vertex.xyz = mul((float3x3)unity_WorldToObject, v0);
+				v.vertex = mul(unity_WorldToObject, v0);
 				 
 				v2g OUT;
 				OUT.pos = v.vertex;
@@ -109,6 +110,8 @@ Shader "Unlit/water"
 			float3 diffuseReflection =
 			attenuation * _LightColor0.rgb * _Color.rgb
 			* max(0.0, dot(normalDirection, lightDirection));
+
+			//diffuseReflection = lightDirection;
 			 
 			float3 specularReflection;
 			if(dot(normalDirection, lightDirection) < 0.0){
@@ -121,33 +124,39 @@ Shader "Unlit/water"
 				viewDirection)), _Shininess);
 			}
 
+			//specularReflection = float3(0.0f, 0.0f, 0.0f);
+			//diffuseReflection = float3(0.0f, 0.0f, 0.0f);
 			 
 			g2f OUT;
 			OUT.pos = UnityObjectToClipPos(i[0].pos);
-			OUT.norm = vn;
+			OUT.norm = UnityObjectToWorldNormal(vn);
 			OUT.uv = i[0].uv;
 			OUT.diffuseColor = ambientLighting + diffuseReflection;
 			OUT.specularColor = specularReflection;
+			OUT.wpos = mul(unity_ObjectToWorld, i[0].pos).xyz;
 			triStream.Append(OUT);
 			 
 			OUT.pos = UnityObjectToClipPos(i[1].pos);
-			OUT.norm = vn;
+			OUT.norm = UnityObjectToWorldNormal(vn);
 			OUT.uv = i[1].uv;
 			OUT.diffuseColor = ambientLighting + diffuseReflection;
 			OUT.specularColor = specularReflection;
+			OUT.wpos = mul(unity_ObjectToWorld, i[1].pos).xyz;
 			triStream.Append(OUT);
 			 
 			OUT.pos = UnityObjectToClipPos(i[2].pos);
-			OUT.norm = vn;
+			OUT.norm = UnityObjectToWorldNormal(vn);
 			OUT.uv = i[2].uv;
 			OUT.diffuseColor = ambientLighting + diffuseReflection;
 			OUT.specularColor = specularReflection;
+			OUT.wpos = mul(unity_ObjectToWorld, i[2].pos).xyz;
 			triStream.Append(OUT);
 			}
 			
 			fixed4 frag (g2f i) : SV_Target
 			{
-				return float4(i.specularColor + i.diffuseColor, 1.0);
+				half3 viewDirection = normalize(i.wpos - _WorldSpaceCameraPos);
+				return float4(i.specularColor + i.diffuseColor, 1.3 - saturate(0.1f + dot(i.norm, -viewDirection)));
 			}
 			ENDCG
 		}

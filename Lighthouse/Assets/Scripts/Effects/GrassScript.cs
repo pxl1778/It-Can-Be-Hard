@@ -32,6 +32,16 @@ public class GrassScript : MonoBehaviour {
             grassRenderer = this.transform.GetComponent<Renderer>();
         //}
         propBlock = new MaterialPropertyBlock();
+        if (grassRenderer != null)
+        {
+            grassRenderer.GetPropertyBlock(propBlock);
+            if (propBlock != null)
+            {
+                propBlock.SetColor("_Color", topColor);
+                propBlock.SetColor("_BottomColor", bottomColor);
+                grassRenderer.SetPropertyBlock(propBlock);
+            }
+        }
     }
 	
 	// Update is called once per frame
@@ -44,13 +54,6 @@ public class GrassScript : MonoBehaviour {
         else
         {
             mat.SetVector("_GlowObjectPoint", new Vector4(0, -500, 0, 0));
-        }
-        if(grassRenderer != null)
-        {
-            grassRenderer.GetPropertyBlock(propBlock);
-            propBlock.SetColor("_Color", topColor);
-            propBlock.SetColor("_BottomColor", bottomColor);
-            grassRenderer.SetPropertyBlock(propBlock);
         }
     }
 }

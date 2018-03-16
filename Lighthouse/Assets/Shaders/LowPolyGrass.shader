@@ -127,6 +127,7 @@
 				col = col/4;
 				
 				topPoint = topPoint + float4(col.x, col.y, 0, 0);
+				//topPoint = (N * _Length) + P;
 
 				p1 = p1 + (P-p1)*_Width;
 				p2 = p2 + (P-p2)*_Width;

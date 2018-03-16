@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
     
     private float acceleration;
     private float turnSpeed = 650.0f;
@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     private GameObject cam;
     private GameManager gm;
     private Animator anim;
+    private PlayerBubble bubble;
 
     //lerping
     private Vector3 targetPosition;
@@ -23,6 +24,8 @@ public class PlayerMovement : MonoBehaviour {
         cam = Camera.main.gameObject;
         anim = this.GetComponent<Animator>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        bubble = this.GetComponentInChildren<PlayerBubble>();
+        bubble.Deactivate();
 	}
 	
 	// Update is called once per frame
@@ -34,7 +37,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(Input.GetButton("Fire1"))
         {
-            acceleration = 10;
+            acceleration = 7;
         }
         else
         {
@@ -42,7 +45,11 @@ public class PlayerMovement : MonoBehaviour {
         }
         if(gm.Player.State == PlayerState.ACTIVE)
         {
-
+            if(Input.GetButtonDown("Fire3") && bubble.enabled != true)
+            {
+                bubble.enabled = true;
+                bubble.Activate();
+            }
             //get the horizontal and vertical input components
             float h = Input.GetAxis("Horizontal");
             h = (Mathf.Abs(h) < .1f) ? 0 : h;
@@ -60,12 +67,18 @@ public class PlayerMovement : MonoBehaviour {
             anim.SetFloat("Velocity", m_Move.magnitude);
 
             //set the velocity
-            rb.velocity = Vector3.ClampMagnitude(m_Move, 1) * acceleration;
+            Vector3 newVelocity = Vector3.ClampMagnitude(m_Move, 1) * acceleration;
+            rb.velocity = new Vector3(newVelocity.x, Mathf.Clamp(rb.velocity.y, -100, 1), newVelocity.z);
 
             if (m_Move.x != 0 || m_Move.y != 0)
             {
                 this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(m_Move), turnSpeed * Time.deltaTime);
             }
+        }
+        else
+        {
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            anim.SetFloat("Velocity", 0);
         }
     }
 
