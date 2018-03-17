@@ -46,7 +46,7 @@ public class GrassScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        mat.SetVector("_ObjectPoint", new Vector4(player.transform.position.x, 0, player.transform.position.z, 0));
+        mat.SetVector("_ObjectPoint", new Vector4(player.transform.position.x, player.transform.position.y + 0.25f, player.transform.position.z, 0));
         if(glow != null)
         {
             mat.SetVector("_GlowObjectPoint", new Vector4(glow.transform.position.x, glow.transform.position.y, glow.transform.position.z, 0));

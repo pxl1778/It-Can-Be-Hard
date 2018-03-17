@@ -13,6 +13,7 @@ public class PlayerTalkTrigger : MonoBehaviour {
         if(collision.transform.tag == "Player")
         {
             GameManager.instance.EventMan.startPlayerDialogue.Invoke(new string[] { GameManager.instance.DialogueMan.getLine(dialogueLine) });
+            GameObject.Destroy(this.transform.gameObject);
         }
     }
 }

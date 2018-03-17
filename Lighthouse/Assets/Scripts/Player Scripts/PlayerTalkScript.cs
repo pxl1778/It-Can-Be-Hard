@@ -12,7 +12,7 @@ public class PlayerTalkScript : MonoBehaviour {
     protected int currentText = 0;
     private float timer = 0;
     private float boxTimer = 0;
-    private float boxDuration = 3.0f;
+    private float boxDuration = 5.0f;
 
     [SerializeField]
     private Canvas textUI;
@@ -82,6 +82,8 @@ public class PlayerTalkScript : MonoBehaviour {
         active = true;
         textUI.enabled = true;
         boxTimer = 0;
+        currentCharacter = 0;
+        currentText = 0;
     }
 
     /// <summary>

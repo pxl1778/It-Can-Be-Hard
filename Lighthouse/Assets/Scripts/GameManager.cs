@@ -48,6 +48,11 @@ public class GameManager : MonoBehaviour {
         if (pScene.name != "Template")
         {
             SceneManager.SetActiveScene(pScene);
+            GameObject spawnPoint = GameObject.Find("SpawnPoint");
+            if(spawnPoint != null)
+            {
+                player.transform.position = spawnPoint.transform.position;
+            }
             //eventMan.startPlayerDialogue.Invoke(new string[] { dialogueMan.getLine("player_prologue_1") }); //This isn't gonna work cuz startplayerdialogue isn't set yet, has to be done in cutscene that runs when scene begins
         }
     }

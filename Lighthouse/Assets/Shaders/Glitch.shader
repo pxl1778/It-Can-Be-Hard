@@ -4,7 +4,6 @@
 	{
 		_MainTex ("Texture", 2D) = "white" {}
 		_NoiseTex("Noise", 2D) = "white" {}
-		_Intensity("Intensity", Float) = 0
 		_Displacement("Displacement", Float) = 0
 	}
 	SubShader
@@ -52,15 +51,9 @@
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				// sample the texture
-				fixed4 col = tex2D(_MainTex, i.uv);
-				// apply fog
-				UNITY_APPLY_FOG(i.fogCoord, col);
-				float4 glitch = tex2D(_NoiseTex, i.uv);
-
-				float threshold = 1.001 - _Intensity*1.001;
-				//float displacement = step(threshold, pow(glitch.z, 2.5));
-				float2 uv = frac(i.uv + glitch.xy * _Displacement/5);
+				float gTime = 1.0f;//step(0.95, sin(_Time.w));
+				float4 glitch = tex2D(_NoiseTex, i.uv + (_Time.w * .005));
+				float2 uv = frac(i.uv + glitch.xy * ((_Displacement + _Time.w * .005) * gTime)/5);
 				float4 source = tex2D(_MainTex, uv);
 				return source;
 			}
