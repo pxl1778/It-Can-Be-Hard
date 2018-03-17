@@ -37,8 +37,20 @@
 			"name":"Player",
 			"objects":[
 				{
-					"text":"Where did that light go...",
+					"text":"That movie has to be somewhere on the trail in the woods",
 					"name":"player_prologue_1"
+				},
+				{
+					"text":"What the...?",
+					"name":"player_prologue_2"
+				},
+				{
+					"text":"Following a mysterious glowing light in the woods, what could go wrong?",
+					"name":"player_prologue_3"
+				},
+				{
+					"text":"Please, please, please don't be a demon going to kill me.",
+					"name":"player_prologue_4"
 				}
 			]
 		}

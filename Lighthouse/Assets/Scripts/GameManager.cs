@@ -45,9 +45,9 @@ public class GameManager : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene pScene, LoadSceneMode pMode)
     {
-        if (pScene.name == "Prologue")
+        if (pScene.name != "Template")
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Prologue"));
+            SceneManager.SetActiveScene(pScene);
             //eventMan.startPlayerDialogue.Invoke(new string[] { dialogueMan.getLine("player_prologue_1") }); //This isn't gonna work cuz startplayerdialogue isn't set yet, has to be done in cutscene that runs when scene begins
         }
     }
@@ -55,5 +55,11 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 }

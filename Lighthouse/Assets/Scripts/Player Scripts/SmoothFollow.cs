@@ -142,25 +142,14 @@ public class SmoothFollow : MonoBehaviour
 
     public float calcEase(float pAlpha)
     {
-        return pAlpha * pAlpha * (3.0f - 2.0f * pAlpha);
+        return pAlpha * pAlpha * (3.0f - (2.0f * pAlpha));
     }
 
     public void LerpToPlayer()
     {
-        lerpAlpha = (lerpAlpha + Time.deltaTime) / lerpDuration;
-        Debug.Log("[lerpToPlayer]lerpalpha: " + lerpAlpha);
-        var wantedHeight = target.position.y + height;
-        
-        var currentHeight = Mathf.Lerp(transform.position.y, wantedHeight, heightDamping * Time.deltaTime);
-        
-        var currentRotation = Quaternion.Euler(0, rotation, 0);
-        
-        Vector3 tTargetPosition = target.position;
-        tTargetPosition -= currentRotation * Vector3.forward * distance;
-        tTargetPosition = new Vector3(tTargetPosition.x, currentHeight, tTargetPosition.z);
-
-        transform.position = Vector3.Lerp(originalPosition, tTargetPosition, calcEase(lerpAlpha));
-        transform.rotation = Quaternion.Lerp(originalRotation, targetRotation, calcEase(lerpAlpha));
+        lerpAlpha = lerpAlpha + Time.deltaTime;
+        transform.position = Vector3.Lerp(originalPosition, targetPosition, calcEase(lerpAlpha / lerpDuration));
+        transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, calcEase(lerpAlpha / lerpDuration));
         if (lerpAlpha >= 1)
         {
             lerpAlpha = 0;
@@ -207,15 +196,18 @@ public class SmoothFollow : MonoBehaviour
 
         target = GameObject.Find("Player").transform;
         targetPosition = target.position;
-        var currentHeight = target.position.y + height;
+        float currentHeight = target.position.y + height;
         // Convert the angle into a rotation
-        var currentRotation = Quaternion.Euler(0, rotation, 0);
+        Quaternion currentRotation = Quaternion.Euler(0, rotation, 0);
         targetPosition -= currentRotation * Vector3.forward * distance;
         targetPosition = new Vector3(targetPosition.x, currentHeight, targetPosition.z);
 
         originalPosition = transform.position;
         originalRotation = transform.rotation;
-        targetRotation = originalPlayerRotation;
+        //get it
+        Quaternion rot = Quaternion.LookRotation(Vector3.Normalize(target.position - targetPosition));
+        //done getting it
+        targetRotation = rot;
         lerpDuration = 1.0f;
     }
 
@@ -235,11 +227,12 @@ public class SmoothFollow : MonoBehaviour
         lerpAlpha = lerpAlpha + Time.deltaTime - lerpDelay;
         if(lerpAlpha > 0)
         {
-            transform.position = Vector3.Lerp(originalPosition, target.position, calcEase(lerpAlpha / lerpDuration));
-            transform.rotation = Quaternion.Slerp(originalRotation, target.rotation, calcEase(lerpAlpha / lerpDuration));
-            if (lerpAlpha / lerpDuration >= 1)
+            float clampedAlpha = Mathf.Clamp01(lerpAlpha / lerpDuration);
+            transform.position = Vector3.Lerp(originalPosition, target.position, calcEase(clampedAlpha));
+            transform.rotation = Quaternion.Slerp(originalRotation, target.rotation, calcEase(clampedAlpha));
+            if (clampedAlpha >= 1)
             {
-                Debug.Log("end of lerp");
+                Debug.Log("end of cam lerp to node");
                 lerpAlpha = 0;
                 state = CameraState.LERPCOMPLETED;
                 gm.EventMan.finishedLerp.Invoke("CameraNodes");

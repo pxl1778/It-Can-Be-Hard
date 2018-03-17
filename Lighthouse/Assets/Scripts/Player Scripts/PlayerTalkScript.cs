@@ -56,13 +56,17 @@ public class PlayerTalkScript : MonoBehaviour {
     //handles the input from the player for the update loop
     void handleInput()
     {
-        boxTimer += Time.deltaTime;
-        if(boxTimer >= boxDuration)
+        if (textUI.enabled)
         {
-            currentText++;
-            if (currentText >= lines.Length)
+            boxTimer += Time.deltaTime;
+            if (boxTimer >= boxDuration)
             {
-                EndDialogue();
+                currentText++;
+                if (currentText >= lines.Length)
+                {
+                    Debug.Log("end dialogue");
+                    EndDialogue();
+                }
             }
         }
     }
@@ -77,6 +81,7 @@ public class PlayerTalkScript : MonoBehaviour {
         lines = pLines;
         active = true;
         textUI.enabled = true;
+        boxTimer = 0;
     }
 
     /// <summary>

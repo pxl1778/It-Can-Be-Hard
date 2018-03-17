@@ -60,4 +60,10 @@ public class Cutscene1 : Cutscene
         }
     }
 
+    protected override void EndCutscene()
+    {
+        base.EndCutscene();
+        GameManager.instance.LoadScene("Neighborhood1");
+    }
+
 }

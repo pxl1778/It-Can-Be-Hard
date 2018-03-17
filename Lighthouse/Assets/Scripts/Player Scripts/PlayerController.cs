@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
         cam = Camera.main.gameObject;
         anim = this.GetComponent<Animator>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gm.EventMan.movePlayerToPosition.AddListener(StartMoveToPosition);
         bubble = this.GetComponentInChildren<PlayerBubble>();
         bubble.Deactivate();
 	}
@@ -35,17 +36,17 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if(Input.GetButton("Fire1"))
-        {
-            acceleration = 7;
-        }
-        else
-        {
-            acceleration = 5;
-        }
         if(gm.Player.State == PlayerState.ACTIVE)
         {
-            if(Input.GetButtonDown("Fire3") && bubble.enabled != true)
+            if (Input.GetButton("Fire1"))
+            {
+                acceleration = 7;
+            }
+            else
+            {
+                acceleration = 5;
+            }
+            if (Input.GetButtonDown("Fire3") && bubble.enabled != true)
             {
                 bubble.enabled = true;
                 bubble.Activate();
@@ -75,6 +76,10 @@ public class PlayerController : MonoBehaviour {
                 this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(m_Move), turnSpeed * Time.deltaTime);
             }
         }
+        else if (gm.Player.State == PlayerState.MOVING)
+        {
+            MoveToPosition();
+        }
         else
         {
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
@@ -96,11 +101,18 @@ public class PlayerController : MonoBehaviour {
 
     public void MoveToPosition()
     {
-        Vector3 m_CamForward = Vector3.Scale(Vector3.Normalize(targetPosition - this.transform.position), new Vector3(1, 0, 1)).normalized;
-        float speed = (isRunning) ? 1.0f : .3f;
-        Vector3 m_Move = speed * m_CamForward;
-        //m_Character.Move(m_Move, false, false);
-        rb.velocity = m_Move * acceleration;
+        Vector3 m_Move = Vector3.Scale(Vector3.Normalize(targetPosition - this.transform.position), new Vector3(1, 0, 1)).normalized;
+        float speed = (isRunning) ? 5.0f : 1.6f;
+        float animSpeed = (isRunning) ? 1.0f : .6f;//maybe ease this so it doesn't cut off so quickly at end 
+        anim.SetFloat("Velocity", m_Move.magnitude * animSpeed);
+        Vector3 newVelocity = Vector3.ClampMagnitude(m_Move, 1) * speed;
+        rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+
+        if (m_Move.x != 0 || m_Move.y != 0)
+        {
+            this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(m_Move), turnSpeed * Time.deltaTime);
+        }
+
         if ((this.transform.position - targetPosition).magnitude < .7)
         {
             gm.Player.State = PlayerState.INACTIVE;
