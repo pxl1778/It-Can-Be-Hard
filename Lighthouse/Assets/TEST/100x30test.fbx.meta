@@ -1,18 +1,16 @@
 fileFormatVersion: 2
-guid: 0cd6a806ef1909f44acb170521840435
-timeCreated: 1521398214
+guid: 1d67cd5a292adbb4fbae74ed9aedf114
+timeCreated: 1521419385
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert2
-    2100002: lambert1
-    2100004: lambert3
+    2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pPlane4
+    4300000: pPlane1
     9500000: //RootNode
   externalObjects: {}
   materials:
