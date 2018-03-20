@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     private EventManager eventMan;
     public EventManager EventMan { get { return eventMan; } }
 
+    private Canvas transitionCanvas;
+
 	void Awake(){
 		if (instance == null) {
 			instance = this;
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour {
             inventoryMan = this.gameObject.GetComponent<InventoryManager>();
             dialogueMan = this.gameObject.GetComponent<DialogueManager>();
             eventMan = this.gameObject.GetComponent<EventManager>();
+            transitionCanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
         } else if (instance != null) {
 			Destroy (gameObject);
 		}
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour {
     {
         if (pScene.name != "Template")
         {
+            StartCoroutine(Example());
             SceneManager.SetActiveScene(pScene);
             GameObject spawnPoint = GameObject.Find("SpawnPoint");
             if(spawnPoint != null)
@@ -64,7 +68,14 @@ public class GameManager : MonoBehaviour {
 
     public void LoadScene(string sceneName)
     {
+        transitionCanvas.enabled = true;
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+    }
+
+    IEnumerator Example()
+    {
+        yield return new WaitForSeconds(2);
+        transitionCanvas.enabled = false;
     }
 }

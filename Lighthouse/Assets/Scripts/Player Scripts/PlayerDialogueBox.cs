@@ -27,8 +27,9 @@ public class PlayerDialogueBox : MonoBehaviour {
     void Update()
     {
         //rt.transform.forward = cam.transform.forward;
-        Vector3 targetPos = new Vector3(target.position.x, target.position.y + 2, target.position.z);
+        Vector3 targetPos = new Vector3(target.position.x, target.position.y, target.position.z);
         Vector2 viewportPoint = cam.WorldToViewportPoint(targetPos);
+        viewportPoint = new Vector2(viewportPoint.x - 0.12f, viewportPoint.y + 0.3f);
         Vector2 desiredPoint = new Vector2(viewportPoint.x * canvasRect.sizeDelta.x, viewportPoint.y * canvasRect.sizeDelta.y);
 
         //if (desiredPoint.x < 200)
@@ -59,13 +60,13 @@ public class PlayerDialogueBox : MonoBehaviour {
         {
             rt.position = new Vector3(canvasRect.sizeDelta.x - 200, rt.position.y, rt.position.z);
         }
-        if (rt.position.y < 100)
+        if (rt.position.y < 50)
         {
-            rt.position = new Vector3(rt.position.x, 100, rt.position.z);
+            rt.position = new Vector3(rt.position.x, 50, rt.position.z);
         }
-        if (rt.position.y > canvasRect.sizeDelta.y - 100)
+        if (rt.position.y > canvasRect.sizeDelta.y - 50)
         {
-            rt.position = new Vector3(rt.position.x, canvasRect.sizeDelta.y - 100, rt.position.z);
+            rt.position = new Vector3(rt.position.x, canvasRect.sizeDelta.y - 50, rt.position.z);
         }
 
         Canvas.ForceUpdateCanvases();
