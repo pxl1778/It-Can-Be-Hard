@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 
     private void OnEnable()
     {
-        //SceneManager.LoadScene("Prologue", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
+        SceneManager.LoadScene("Prologue", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour {
             {
                 player.transform.position = spawnPoint.transform.position;
             }
-            //eventMan.startPlayerDialogue.Invoke(new string[] { dialogueMan.getLine("player_prologue_1") }); //This isn't gonna work cuz startplayerdialogue isn't set yet, has to be done in cutscene that runs when scene begins
         }
     }
 	
