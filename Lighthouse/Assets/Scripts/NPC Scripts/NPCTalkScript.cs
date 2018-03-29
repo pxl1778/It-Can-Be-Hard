@@ -17,7 +17,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
     private float timer = 0;
 
     private Canvas textUI;
-    private Canvas optionsUI;
+    private PlayerOptionsBox optionsBox;
     private Text text;
     private Text[] optionsArray;
     protected DialogueLine[] lines;
@@ -31,9 +31,11 @@ abstract public class NPCTalkScript : MonoBehaviour {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         //textUI = GameObject.Find("OnScreenText").GetComponent<Canvas>();
         textUI = this.transform.parent.GetComponentInChildren<Canvas>();
-        optionsUI = GameObject.Find("DialogueOptions").GetComponent<Canvas>();
         text = textUI.GetComponentInChildren<Text>();
-        optionsArray = optionsUI.GetComponentsInChildren<Text>();
+        optionsBox = textUI.GetComponentInChildren<PlayerOptionsBox>();
+        optionsBox.OtherBox = textUI.GetComponentInChildren<DialogueBox>().GetComponent<RectTransform>();
+        optionsArray = optionsBox.GetComponentsInChildren<Text>();
+        optionsBox.transform.gameObject.SetActive(false);
         secondStart();
     }
 
@@ -66,7 +68,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
     {
         active = false;
         textUI.enabled = false;
-        optionsUI.enabled = false;
+        optionsBox.transform.gameObject.SetActive(false);
         currentCharacter = 0;
         currentText = 0;
         optionNumber = -1;
@@ -106,7 +108,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
             else if (options.Length > 0)
             {
                 optionNumber++;
-                this.optionsUI.enabled = true;
+                this.optionsBox.transform.gameObject.SetActive(true);
                 state = false;
                 choice = 0;
                 for (int i = 0; i < options.Length; i++)
@@ -122,7 +124,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
         }
         else if (active && !state)//if we are at an option
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 choice--;
                 if (choice < 0)
@@ -132,14 +134,16 @@ abstract public class NPCTalkScript : MonoBehaviour {
 
                 for (int i = 0; i < optionsArray.Length; i++)
                 {
-                    optionsArray[i].color = new Color(0, 0, 0, 0.5f);
+                    optionsArray[i].fontStyle = FontStyle.Normal;
+                    optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 0.5f);
                     if (i == choice)
                     {
-                        optionsArray[i].color = new Color(0, 0, 0, 1.0f);
+                        optionsArray[i].fontStyle = FontStyle.Bold;
+                        optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 1.0f);
                     }
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.S))
             {
                 choice++;
                 if (choice > 1)
@@ -149,10 +153,12 @@ abstract public class NPCTalkScript : MonoBehaviour {
 
                 for (int i = 0; i < optionsArray.Length; i++)
                 {
-                    optionsArray[i].color = new Color(0, 0, 0, 0.5f);
+                    optionsArray[i].fontStyle = FontStyle.Normal;
+                    optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 0.5f);
                     if (i == choice)
                     {
-                        optionsArray[i].color = new Color(0, 0, 0, 1.0f);
+                        optionsArray[i].fontStyle = FontStyle.Bold;
+                        optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 1.0f);
                     }
                 }
             }
@@ -161,9 +167,8 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 state = true;
                 currentText = 0;
                 currentCharacter = 0;
-                optionsUI.enabled = false;
+                optionsBox.gameObject.SetActive(false);
                 textUI.enabled = true;
-                //Debug.Log(dialog.options[choice].nextObject);
                 if(choice == 0)
                 {
                     topOption();

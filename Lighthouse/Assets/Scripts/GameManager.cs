@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 
     private void OnEnable()
     {
-        SceneManager.LoadScene("Prologue", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
+        //SceneManager.LoadScene("Prologue", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
