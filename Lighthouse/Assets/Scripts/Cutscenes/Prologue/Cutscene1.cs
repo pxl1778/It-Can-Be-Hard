@@ -20,7 +20,7 @@ public class Cutscene1 : Cutscene
         //    pair.Value[0];
         //}
         dog = GameObject.Find("Dog").GetComponent<PathFollowingCharacter>();
-        dog.MoveToFinalPosition();
+        dog.MoveToFinalPosition();//handy for testing
         gm.EventMan.movePlayerToPosition.Invoke(objectDictionary["PlayerNodes"][0].transform.position, objectDictionary["PlayerNodes"][0].running);
         gm.EventMan.lerpCameraToTransform.Invoke(objectDictionary["CameraNodes"][0].transform, objectDictionary["CameraNodes"][0].delay, objectDictionary["CameraNodes"][0].duration);
 
@@ -32,11 +32,11 @@ public class Cutscene1 : Cutscene
             em.rateOverTime = 250.0f;
             ParticleSystem.MainModule mm = dog.GetComponentInChildren<ParticleSystem>().main;
             mm.startSpeed = 3.0f;
+            GameManager.instance.EventMan.lerpGlobalValue.Invoke("glowRadius", 10, 1);
         };
         callbackDictionary["DogNodes"][1] = () => {
             
         };
-        //graphical changes
     }
 
     public override void LerpCallback(string pName)

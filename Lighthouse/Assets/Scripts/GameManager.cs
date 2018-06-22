@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public DialogueManager DialogueMan { get { return dialogueMan; } }
     private EventManager eventMan;
     public EventManager EventMan { get { return eventMan; } }
+    private Globals globals;
+    public Globals Globals { get { return globals; } }
 
     private Canvas transitionCanvas;
 
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour {
             dialogueMan = this.gameObject.GetComponent<DialogueManager>();
             eventMan = this.gameObject.GetComponent<EventManager>();
             transitionCanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
+            globals = this.gameObject.GetComponent<Globals>();
         } else if (instance != null) {
 			Destroy (gameObject);
 		}

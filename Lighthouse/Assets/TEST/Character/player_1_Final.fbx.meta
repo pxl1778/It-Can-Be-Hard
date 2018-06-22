@@ -1,9 +1,7 @@
 fileFormatVersion: 2
-guid: ee67766bc2a14c84b8281e7e68e83bf4
-timeCreated: 1519698326
-licenseType: Free
+guid: 51440fd1663217240a0862cb5a14c6a8
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Mesh
     100002: mixamorig:Head
@@ -139,13 +137,21 @@ ModelImporter:
     400128: mixamorig:Spine1
     400130: mixamorig:Spine2
     400132: //RootNode
+    2100000: lambert3
+    2100002: lambert5
+    2100004: lambert6
+    2100006: lambert4
+    2100008: lambert7
+    2100010: lambert2
     4300000: Mesh
     9500000: //RootNode
     13700000: Mesh
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -158,12 +164,15 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -171,13 +180,18 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 1
     importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -187,6 +201,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

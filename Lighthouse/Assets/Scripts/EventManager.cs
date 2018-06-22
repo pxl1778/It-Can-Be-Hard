@@ -25,6 +25,7 @@ public class EventManager : MonoBehaviour {
     public UnityEvent stopPlayer = new UnityEvent();
     public Vector3UnityEvent movePlayerToPosition = new Vector3UnityEvent();
     public TransformUnityEvent lerpCameraToTransform = new TransformUnityEvent();
+    public StringFloat2UnityEvent lerpGlobalValue = new StringFloat2UnityEvent();
 
     //Dialogue Events
     public StringArrayUnityEvent startPlayerDialogue = new StringArrayUnityEvent();

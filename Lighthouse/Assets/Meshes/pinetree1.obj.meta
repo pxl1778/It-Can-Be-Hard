@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: a54c88186f489d2409b568ae729ee5ea
-timeCreated: 1521395916
-licenseType: Free
+guid: 69f17850716536442a5e563a54215aa1
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: lambert1
-    2300000: //RootNode
-    3300000: //RootNode
+    100000: pCone5
+    100002: //RootNode
+    400000: pCone5
+    400002: //RootNode
+    2100000: pCone5Mat
+    2100002: initialShadingGroup
+    2300000: pCone5
+    3300000: pCone5
     4300000: pCone5
-    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -31,6 +31,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -86,7 +87,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -37,6 +37,7 @@ public class PlayerBubble : MonoBehaviour {
 
     public void Activate()
     {
+        Debug.Log("bubble activate");
         active = true;
         this.transform.localScale = startScale;
         alpha = 0;

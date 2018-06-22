@@ -25,6 +25,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
     protected string[] options = new string[] { };
     protected string[] originalOptions = new string[] { };
     protected GameManager gm;
+    protected NPCSpeechBubble speechBubble;
 
     // Use this for initialization
     void Start() {
@@ -36,6 +37,8 @@ abstract public class NPCTalkScript : MonoBehaviour {
         optionsBox.OtherBox = textUI.GetComponentInChildren<DialogueBox>().GetComponent<RectTransform>();
         optionsArray = optionsBox.GetComponentsInChildren<Text>();
         optionsBox.transform.gameObject.SetActive(false);
+        speechBubble = this.transform.parent.GetComponentInChildren<NPCSpeechBubble>();
+        speechBubble.GetComponent<MeshRenderer>().enabled = false;
         secondStart();
     }
 
@@ -52,6 +55,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
         if (col.gameObject.tag == "Player")
         {
             active = true;
+            speechBubble.GetComponent<MeshRenderer>().enabled = true;
             checkWhenActivated();
         }
     }
@@ -61,6 +65,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
         if (col.gameObject.tag == "Player")
         {//makes the text window go away
             exitDialogue();
+            speechBubble.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
@@ -68,6 +73,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
     {
         active = false;
         textUI.enabled = false;
+        speechBubble.GetComponent<MeshRenderer>().enabled = true;
         optionsBox.transform.gameObject.SetActive(false);
         currentCharacter = 0;
         currentText = 0;
@@ -86,6 +92,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
             if (!textUI.enabled)//starting conversation
             {
                 Debug.Log("1");
+                speechBubble.GetComponent<MeshRenderer>().enabled = false;
                 currentCharacter = 0;
                 textUI.enabled = true;
                 lines[currentText].doLineStart();
