@@ -120,6 +120,13 @@ public class SmoothFollow : MonoBehaviour
         // Set the height of the camera
         //transform.position = Vector3.Lerp(transform.position, tTargetPosition, translateDamping * Time.deltaTime);
         transform.position = tTargetPosition;
+        Ray ray = new Ray(target.position, Camera.main.transform.position - target.position );
+        RaycastHit hit = new RaycastHit();
+        if (Physics.Raycast(ray, out hit))
+        {
+            Debug.Log(hit.collider.name);
+            //transform.position = hit.point;
+        }
 
         // Always look at the target
         transform.LookAt(target);

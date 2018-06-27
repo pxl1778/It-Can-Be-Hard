@@ -7,8 +7,8 @@ Shader "Custom/Triplaner" {
 		_RandomTex("Random", 2D) = "white" {}
 		_GrassSpread("Grass Spread", Range(-2, 2)) = 0.0
 		_EdgeWidth("Edge Width", Range(-1, 1)) = 0.0
-		//_Glossiness ("Smoothness", Range(0,1)) = 0.5
-		//_Metallic ("Metallic", Range(0,1)) = 0.0
+		_RampAmount("Ramp Amount", Range(-1, 1)) = 0
+		_ShadowColor("Shadow Color", Color) = (1,1,1,1)
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -16,10 +16,22 @@ Shader "Custom/Triplaner" {
 		
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows
+		#pragma surface surf Ramp fullforwardshadows
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
+
+		half _RampAmount;
+		fixed4 _ShadowColor;
+
+		half4 LightingRamp(SurfaceOutput s, half3 lightDir, half atten) {
+			half NdotL = dot(s.Normal, lightDir);
+			half4 color;
+			half shadowDiff = 0.2 + step(_RampAmount - 0.5, NdotL);
+			color.rgb = s.Albedo * _LightColor0.rgb * (step(_RampAmount, NdotL) * _ShadowColor);// * shadowDiff);
+			color.a = s.Alpha;
+			return color;
+		}
 
 		sampler2D _MainTex;
 		float4 _MainTex_ST;
@@ -42,7 +54,7 @@ Shader "Custom/Triplaner" {
 		fixed4 _Color;
 
 
-		void surf (Input IN, inout SurfaceOutputStandard o) {
+		void surf (Input IN, inout SurfaceOutput o) {
 			//blended normal to modify textures to look projected onto the mesh.
 			float3 blendedNormal = saturate(pow(IN.worldNormal.xyz * 1.4, 4));
 
