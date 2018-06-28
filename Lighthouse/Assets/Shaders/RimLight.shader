@@ -26,17 +26,17 @@
 		half4 LightingRamp(SurfaceOutput s, half3 lightDir, half atten) {
 			half NdotL = dot(s.Normal, lightDir);
 			half4 color;
-			if (_RampAmount - 0.2f >= NdotL) {//darkest shadow
-				color.rgb = (s.Albedo * _LightColor0.rgb) * -0.7f;//_DarkShadowAmount;
+			//if (_RampAmount - 0.2f >= NdotL) {//darkest shadow
+			//	color.rgb = (s.Albedo * _LightColor0.rgb) * -0.7f;//_DarkShadowAmount;
+			//}
+			if(_RampAmount >= NdotL){//ramp shadow
+				color.rgb = (s.Albedo * _LightColor0.rgb) * 0.1;//(step(_RampAmount, NdotL));
 			}
-			else if(_RampAmount >= NdotL){//ramp shadow
-				color.rgb = s.Albedo * _LightColor0.rgb * NdotL;//(step(_RampAmount, NdotL));
-			}
-			else if (0.95 >= NdotL) {//midtone
+			else if (0.96 >= NdotL) {//midtone
 				color.rgb = s.Albedo * _LightColor0.rgb;
 			}
 			else {//highlight
-				color.rgb = half3(1, 1, 1) * s.Albedo + .2;
+				color.rgb = half3(1, 1, 1) * _LightColor0.rgb  * s.Albedo + .2;
 			}
 			color.a = s.Alpha;
 			return color;

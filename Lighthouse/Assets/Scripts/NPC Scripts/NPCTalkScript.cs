@@ -8,6 +8,8 @@ abstract public class NPCTalkScript : MonoBehaviour {
 
     [SerializeField]
     private float textSpeed = .01f;
+    [SerializeField]
+    private bool turnTowardsPlayer = true;
     private bool active = false;
     private bool state = true; //true = dialog, false = option
     private int currentCharacter = 0;
@@ -15,6 +17,9 @@ abstract public class NPCTalkScript : MonoBehaviour {
     private int choice = 0;
     protected int optionNumber = -1;
     private float timer = 0;
+    protected Vector3 targetRotation;
+    protected Vector3 originalRotation;
+    protected Vector3 originalCamPosition;
 
     private Canvas textUI;
     private PlayerOptionsBox optionsBox;
@@ -26,6 +31,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
     protected string[] originalOptions = new string[] { };
     protected GameManager gm;
     protected NPCSpeechBubble speechBubble;
+    protected Cinemachine.CinemachineVirtualCamera npcCam;
 
     // Use this for initialization
     void Start() {
@@ -39,6 +45,8 @@ abstract public class NPCTalkScript : MonoBehaviour {
         optionsBox.transform.gameObject.SetActive(false);
         speechBubble = this.transform.parent.GetComponentInChildren<NPCSpeechBubble>();
         speechBubble.GetComponent<MeshRenderer>().enabled = false;
+        npcCam = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();
+        originalCamPosition = npcCam.transform.position;
         secondStart();
     }
 
@@ -97,6 +105,13 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 textUI.enabled = true;
                 lines[currentText].doLineStart();
                 gm.Player.State = PlayerState.INACTIVE;
+                if(npcCam != null){
+                    npcCam.Priority = 11; 
+                }
+                if (turnTowardsPlayer)
+                {
+                    TurnTowardsPlayer();
+                }
             }
             else if (textUI.enabled && currentCharacter < lines[currentText].line.Length - 1)
             {//if the text hasn't finished, the player can skip to display the whole text.
@@ -126,6 +141,10 @@ abstract public class NPCTalkScript : MonoBehaviour {
             else
             {//else close the canvas
                 lines[currentText].doLineComplete();
+                if (npcCam != null)
+                {
+                    npcCam.Priority = 1;
+                }
                 exitDialogue();
             }
         }
@@ -207,6 +226,36 @@ abstract public class NPCTalkScript : MonoBehaviour {
                     lines[currentText].doLineEnd();
                 }
             }
+        }
+    }
+
+    void TurnTowardsPlayer()
+    {
+        Vector3 tempNormal = -Vector3.Normalize(this.transform.position - GameManager.instance.Player.transform.position);
+        targetRotation = Vector3.Normalize(Vector3.ProjectOnPlane(tempNormal, new Vector3(0, 1, 0)));
+        originalRotation = this.transform.forward;
+        if(Vector3.Dot(this.transform.parent.transform.right, Camera.main.transform.forward) < 0)
+        {
+            npcCam.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>().m_PathPosition = 0;
+        }
+        else
+        {
+            npcCam.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>().m_PathPosition = 1;
+        }
+        StartCoroutine("LerpTowardsPlayer");
+    }
+
+    IEnumerator LerpTowardsPlayer()
+    {
+        float elapsedTime = 0.0f;
+        float alpha = 0;
+        float duration = 0.3f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            alpha = elapsedTime / duration;
+            this.transform.parent.transform.forward = Vector3.Lerp(originalRotation, targetRotation, alpha);
+            yield return new WaitForEndOfFrame();
         }
     }
 
