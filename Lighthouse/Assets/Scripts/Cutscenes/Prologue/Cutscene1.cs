@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Cutscene1 : Cutscene
 {
     PathFollowingCharacter dog;
+    
 
     protected override void StartCutscene()
     {
         base.StartCutscene();
+        this.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().Priority = 11;
+        cameraTimeline.Play();
+        ResetPlayerParent();
+        GameManager.instance.EventMan.endCutscene.AddListener(EndCutscene);
         PlayCutscene();
     } 
 
@@ -19,10 +25,10 @@ public class Cutscene1 : Cutscene
         //    //START LERPS
         //    pair.Value[0];
         //}
-        dog = GameObject.Find("Dog").GetComponent<PathFollowingCharacter>();
-        dog.MoveToFinalPosition();//handy for testing
-        gm.EventMan.movePlayerToPosition.Invoke(objectDictionary["PlayerNodes"][0].transform.position, objectDictionary["PlayerNodes"][0].running);
-        gm.EventMan.lerpCameraToTransform.Invoke(objectDictionary["CameraNodes"][0].transform, objectDictionary["CameraNodes"][0].delay, objectDictionary["CameraNodes"][0].duration);
+        //dog = GameObject.Find("Dog").GetComponent<PathFollowingCharacter>();
+        //dog.MoveToFinalPosition();//handy for testing
+        //gm.EventMan.movePlayerToPosition.Invoke(objectDictionary["PlayerNodes"][0].transform.position, objectDictionary["PlayerNodes"][0].delay, objectDictionary["PlayerNodes"][0].running);
+        //gm.EventMan.lerpCameraToTransform.Invoke(objectDictionary["CameraNodes"][0].transform, objectDictionary["CameraNodes"][0].delay, objectDictionary["CameraNodes"][0].duration);
 
         callbackDictionary["PlayerNodes"][1] = () => {
             dog.StartMoveToPosition(objectDictionary["DogNodes"][0].transform.position, objectDictionary["DogNodes"][0].delay, objectDictionary["DogNodes"][0].duration);
@@ -47,7 +53,7 @@ public class Cutscene1 : Cutscene
         {
             if (objectDictionary[pName].Length > indexDictionary[pName])
             {
-                gm.EventMan.movePlayerToPosition.Invoke(objectDictionary["PlayerNodes"][indexDictionary[pName]].transform.position, objectDictionary["PlayerNodes"][indexDictionary[pName]].running);
+                //gm.EventMan.movePlayerToPosition.Invoke(objectDictionary["PlayerNodes"][indexDictionary[pName]].transform.position, objectDictionary["PlayerNodes"][indexDictionary[pName]].delay, objectDictionary["PlayerNodes"][indexDictionary[pName]].running);
             }
         }
         if (pName == "DogNodes")
@@ -63,6 +69,7 @@ public class Cutscene1 : Cutscene
     protected override void EndCutscene()
     {
         base.EndCutscene();
+        cameraTimeline.Stop();
         GameManager.instance.LoadScene("Neighborhood1");
     }
 

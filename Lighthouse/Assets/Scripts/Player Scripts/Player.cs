@@ -4,7 +4,12 @@ using UnityEngine;
 
 public enum PlayerState
 {
-    ACTIVE, INACTIVE, MOVING
+    ACTIVE, INACTIVE, MOVING, CUTSCENE
+}
+
+public enum PlayerExpression
+{
+    SMILE, MEH, SURPRISED
 }
 
 public class Player : MonoBehaviour {

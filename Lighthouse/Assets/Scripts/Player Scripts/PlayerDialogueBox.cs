@@ -23,11 +23,6 @@ public class PlayerDialogueBox : MonoBehaviour {
         text = this.GetComponentInChildren<Text>();
     }
 
-    private void Awake()
-    {
-        Debug.Log("awake");
-    }
-
     // Update is called once per frame
     void Update()
     {

@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour {
     
     private float acceleration;
     private float turnSpeed = 650.0f;
+    private float timer = 0;
+    private float delay = 0;
     
     private Rigidbody rb;
     private GameObject cam;
@@ -80,6 +82,10 @@ public class PlayerController : MonoBehaviour {
         {
             MoveToPosition();
         }
+        else if(gm.Player.State == PlayerState.CUTSCENE)
+        {
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        }
         else
         {
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
@@ -90,33 +96,55 @@ public class PlayerController : MonoBehaviour {
     public void StopPlayer()
     {
         rb.velocity = Vector3.zero;
+        anim.SetFloat("Velocity", 0);
     }
 
-    public void StartMoveToPosition(Vector3 pPosition, bool pIsRunning)
+    public void StartMoveToPosition(Vector3 pPosition, float delay, bool pIsRunning)
     {
+        Debug.Log("Started Moving");
         targetPosition = pPosition;
         isRunning = pIsRunning;
-        gm.Player.State = PlayerState.MOVING;
+        timer = 0;
+        this.delay = delay;
+        StartCoroutine(delayWait());
     }
 
     public void MoveToPosition()
     {
-        Vector3 m_Move = Vector3.Scale(Vector3.Normalize(targetPosition - this.transform.position), new Vector3(1, 0, 1)).normalized;
-        float speed = (isRunning) ? 5.0f : 1.6f;
-        float animSpeed = (isRunning) ? 1.0f : .6f;//maybe ease this so it doesn't cut off so quickly at end 
-        anim.SetFloat("Velocity", m_Move.magnitude * animSpeed);
-        Vector3 newVelocity = Vector3.ClampMagnitude(m_Move, 1) * speed;
-        rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
-
-        if (m_Move.x != 0 || m_Move.y != 0)
+        if(timer >= delay)
         {
-            this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(m_Move), turnSpeed * Time.deltaTime);
-        }
+            Vector3 m_Move = Vector3.Scale(Vector3.Normalize(targetPosition - this.transform.position), new Vector3(1, 0, 1)).normalized;
+            float speed = (isRunning) ? 5.0f : 1.6f;
+            float animSpeed = (isRunning) ? 1.0f : .6f;//maybe ease this so it doesn't cut off so quickly at end 
+            anim.SetFloat("Velocity", m_Move.magnitude * animSpeed);
+            Vector3 newVelocity = Vector3.ClampMagnitude(m_Move, 1) * speed;
+            rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
 
-        if ((this.transform.position - targetPosition).magnitude < .7)
-        {
-            gm.Player.State = PlayerState.INACTIVE;
-            gm.EventMan.finishedLerp.Invoke("PlayerNodes");
+            if (m_Move.x != 0 || m_Move.y != 0)
+            {
+                this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(m_Move), turnSpeed * Time.deltaTime);
+            }
+
+            if ((this.transform.position - targetPosition).magnitude < .6)
+            {
+                this.transform.position = new Vector3(targetPosition.x, this.transform.position.y, targetPosition.z);
+                gm.Player.State = PlayerState.INACTIVE;
+                gm.EventMan.finishedLerp.Invoke("PlayerNodes");
+            }
         }
+        else
+        {
+            timer += Time.deltaTime;
+        }
+    }
+
+    IEnumerator delayWait()
+    {
+        while(timer<delay)
+        {
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        gm.Player.State = PlayerState.MOVING;
     }
 }

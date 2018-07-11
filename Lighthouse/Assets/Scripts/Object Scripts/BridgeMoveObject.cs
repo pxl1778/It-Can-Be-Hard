@@ -74,6 +74,7 @@ public class BridgeMoveObject : MonoBehaviour {
             Material m = GetComponent<MeshRenderer>().material;
             originalColor = m.color;
             m.SetColor("_Color", Color.blue);
+            //Cinemachine.CinemachineFreeLook freeLook = Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera
         }
     }
 

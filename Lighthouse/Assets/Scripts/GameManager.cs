@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 
     private void OnEnable()
     {
-        //SceneManager.LoadScene("Prologue", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
+        SceneManager.LoadScene("Template", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
@@ -55,11 +55,11 @@ public class GameManager : MonoBehaviour {
         {
             StartCoroutine(Example());
             SceneManager.SetActiveScene(pScene);
-            GameObject spawnPoint = GameObject.Find("SpawnPoint");
-            if(spawnPoint != null)
-            {
-                player.transform.position = spawnPoint.transform.position;
-            }
+            //GameObject spawnPoint = GameObject.Find("SpawnPoint");
+            //if(spawnPoint != null)
+            //{
+            //    player.transform.position = spawnPoint.transform.position;
+            //}
         }
     }
 	
@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviour {
     IEnumerator Example()
     {
         yield return new WaitForSeconds(2);
-        transitionCanvas.enabled = false;
+        if(transitionCanvas != null)
+        {
+            transitionCanvas.enabled = false;
+        }
     }
 }

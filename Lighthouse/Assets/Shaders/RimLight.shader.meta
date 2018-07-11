@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 9b731fd440184e14480a0a8230acc6c1
-timeCreated: 1521403616
-licenseType: Free
 ShaderImporter:
   externalObjects: {}
-  defaultTextures: []
+  defaultTextures:
+  - _MainTex: {instanceID: 0}
+  - _RampTex: {fileID: 2800000, guid: f709325313ef54e4f82f783947e46088, type: 3}
+  nonModifiableTextures: []
   userData: 
   assetBundleName: 
   assetBundleVariant: 

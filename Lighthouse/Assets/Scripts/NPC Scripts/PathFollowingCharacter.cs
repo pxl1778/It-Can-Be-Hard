@@ -95,4 +95,20 @@ public class PathFollowingCharacter : MonoBehaviour {
         inCutscene = true;
         moving = false;
     }
+
+    public void DoParticles1()
+    {
+        ParticleSystem.EmissionModule em = this.GetComponentInChildren<ParticleSystem>().emission;
+        em.rateOverTime = 100.0f;
+        ParticleSystem.MainModule mm = this.GetComponentInChildren<ParticleSystem>().main;
+        mm.startSpeed = 1.0f;
+    }
+
+    public void DoParticles2()
+    {
+        ParticleSystem[] psArray = this.GetComponentsInChildren<ParticleSystem>();
+        psArray[1].Play();
+        psArray[0].Stop();
+        GameManager.instance.EventMan.lerpGlobalValue.Invoke("glowRadius", 10, 2);
+    }
 }

@@ -13,6 +13,7 @@ public class PlayerFace : MonoBehaviour {
     // Use this for initialization
     void Start () {
         faceRenderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
+        GameManager.instance.EventMan.changePlayerFace.AddListener(changePlayerFace);
         mat = faceRenderer.materials;
 	}
 	
@@ -35,4 +36,13 @@ public class PlayerFace : MonoBehaviour {
             faceNum = 0.0f;
         }
 	}
+
+    void changePlayerFace(float offset)
+    {
+        faceNum = offset;
+        for (int i = 0; i < 5; i++)
+        {
+            mat[i].SetFloat("_FaceNumber", faceNum);
+        }
+    }
 }

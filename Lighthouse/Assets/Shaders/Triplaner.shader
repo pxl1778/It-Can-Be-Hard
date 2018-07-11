@@ -5,6 +5,9 @@ Shader "Custom/Triplaner" {
 		_MainTex ("Albedo1 (RGB)", 2D) = "white" {}
 		_SecondaryTex("Albedo2 (RGB)", 2D) = "white" {}
 		_RandomTex("Random", 2D) = "white" {}
+		_RampTex("Ramp Texture", 2D) = "white" {}
+		_Smoothness("Smoothness", Range(0, 1)) = 0
+		_SpecPower("Specular Power", Range(0, 100)) = 0
 		_GrassSpread("Grass Spread", Range(-2, 2)) = 0.0
 		_EdgeWidth("Edge Width", Range(-1, 1)) = 0.0
 		_RampAmount("Ramp Amount", Range(-1, 1)) = 0
@@ -23,12 +26,24 @@ Shader "Custom/Triplaner" {
 
 		half _RampAmount;
 		fixed4 _ShadowColor;
+		half _Smoothness;
+		half _SpecPower;
+		sampler2D _RampTex;
 
-		half4 LightingRamp(SurfaceOutput s, half3 lightDir, half atten) {
+		half4 LightingRamp(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten) {
+
 			half NdotL = dot(s.Normal, lightDir);
 			half4 color;
-			half shadowDiff = 0.2 + step(_RampAmount - 0.5, NdotL);
-			color.rgb = s.Albedo * _LightColor0.rgb * (step(_RampAmount, NdotL) * _ShadowColor);// * shadowDiff);
+			half diff = NdotL * 0.5 + 0.5;
+
+			half3 h = normalize(lightDir + viewDir);
+			half maxNdotL = max(0, dot(s.Normal, lightDir));
+			float nh = max(0, dot(s.Normal, h));
+			float spec = pow(nh, _SpecPower);
+
+			float3 specLighting = _LightColor0.rgb * step(0.1, spec) *_Smoothness;
+
+			color.rgb = s.Albedo * _LightColor0.rgb * atten * (tex2D(_RampTex, float2(diff, 0)).rgb + 0.2) + specLighting;
 			color.a = s.Alpha;
 			return color;
 		}

@@ -95,7 +95,7 @@ public class ThirdPersonUserControl : MonoBehaviour
         m_Character.StopMovement();
     }
 
-    public void StartMoveToPosition(Vector3 pPosition, bool pIsRunning)
+    public void StartMoveToPosition(Vector3 pPosition, float delay, bool pIsRunning)
     {
         targetPosition = pPosition;
         isRunning = pIsRunning;

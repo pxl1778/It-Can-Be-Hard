@@ -30,7 +30,10 @@ public class PlayerBubble : MonoBehaviour {
             }
             if(alpha >= 1)
             {
-                Deactivate();
+                if(meshRenderer != null)
+                {
+                    Deactivate();
+                }
             }
         }
 	}
@@ -49,10 +52,13 @@ public class PlayerBubble : MonoBehaviour {
 
     public void Deactivate()
     {
-        active = false;
-        alpha = 0;
-        this.transform.localScale = startScale;
-        this.enabled = false;
-        meshRenderer.enabled = false;
+        if (meshRenderer != null)
+        {
+            active = false;
+            alpha = 0;
+            this.transform.localScale = startScale;
+            this.enabled = false;
+            meshRenderer.enabled = false;
+        }
     }
 }
