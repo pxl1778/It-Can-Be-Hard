@@ -9,7 +9,6 @@ public class PlayerTalkTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("here");
         if(collision.transform.tag == "Player")
         {
             GameManager.instance.EventMan.startPlayerDialogue.Invoke(new string[] { GameManager.instance.DialogueMan.getLine(dialogueLine) });

@@ -3,7 +3,7 @@
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_RampTex("Ramp Texture", 2D) = "white" {}
-		_RimColor("Rim Color", Color) = (1,1,1,1)
+		_RimColor("Rim Color", Color) = (0,0,0,0)
 		_RimPower("Rim Power", Range(0, 10)) = 1
 		//_RampAmount("Ramp Amount", Range(-1, 1)) = 0
 		_Smoothness("Smoothness", Range(0, 1)) = 0

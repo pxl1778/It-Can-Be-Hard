@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 2a6fc172cd268b24fb388fcedc885712
-timeCreated: 1521397400
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -27,10 +25,17 @@ ModelImporter:
     400018: //RootNode
     2100000: lambert1
     2300000: pCylinder9
+    2300002: //RootNode
     3300000: pCylinder9
+    3300002: //RootNode
     4300000: pCylinder9
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 1b2bd555f09c48245b4dfefbf137c989, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -49,6 +54,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

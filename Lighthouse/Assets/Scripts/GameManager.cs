@@ -23,7 +23,10 @@ public class GameManager : MonoBehaviour {
 	void Awake(){
 		if (instance == null) {
 			instance = this;
-			player = (Player)(GameObject.Find("Player").GetComponent<Player>());
+            if(GameObject.Find("Player") != null)
+            {
+                player = (Player)(GameObject.Find("Player").GetComponent<Player>());
+            }
             inventoryMan = this.gameObject.GetComponent<InventoryManager>();
             dialogueMan = this.gameObject.GetComponent<DialogueManager>();
             eventMan = this.gameObject.GetComponent<EventManager>();
@@ -36,7 +39,11 @@ public class GameManager : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-	}
+        if (GameObject.Find("Player") != null)
+        {
+            player = (Player)(GameObject.Find("Player").GetComponent<Player>());
+        }
+    }
 
     private void OnEnable()
     {

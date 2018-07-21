@@ -33,7 +33,9 @@ ModelImporter:
     400026: transform19
     2100000: lambert1
     2300000: pSphere12
+    2300002: //RootNode
     3300000: pSphere12
+    3300002: //RootNode
     4300000: pSphere12
   externalObjects:
   - first:

@@ -8,6 +8,11 @@ public class UIManager : MonoBehaviour {
     
     public void StartGame()
     {
+        GameManager.instance.LoadScene("Prologue");
+    }
 
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

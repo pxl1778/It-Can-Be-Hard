@@ -109,6 +109,11 @@ public class PathFollowingCharacter : MonoBehaviour {
         ParticleSystem[] psArray = this.GetComponentsInChildren<ParticleSystem>();
         psArray[1].Play();
         psArray[0].Stop();
+        MeshRenderer[] meshArray = GameObject.Find("Invisible").GetComponentsInChildren<MeshRenderer>();
+        for (int i = 0; i < meshArray.Length; i++)
+        {
+            meshArray[i].enabled = true;
+        }
         GameManager.instance.EventMan.lerpGlobalValue.Invoke("glowRadius", 10, 2);
     }
 }

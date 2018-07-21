@@ -64,7 +64,6 @@ public class PlayerTalkScript : MonoBehaviour {
                 currentText++;
                 if (currentText >= lines.Length)
                 {
-                    Debug.Log("end dialogue");
                     EndDialogue();
                 }
             }
@@ -77,7 +76,6 @@ public class PlayerTalkScript : MonoBehaviour {
     /// <param name="pLines">An array of strings that the player will say.</param>
     public void StartDialogue(string[] pLines)
     {
-        Debug.Log("Started player dialogue");
         lines = pLines;
         active = true;
         textUI.enabled = true;

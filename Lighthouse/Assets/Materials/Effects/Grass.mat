@@ -71,10 +71,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Gravity: 0.84
-    - _Length: 0.48
+    - _Gravity: 0
+    - _Length: 0.47
     - _LengthIntensity: 1
-    - _MaxDistance: 0.34
+    - _MaxDistance: 0.91
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -84,7 +84,7 @@ Material:
     - _SrcBlend: 1
     - _Steps: 13.3
     - _UVSec: 0
-    - _Width: 0
+    - _Width: -0.1
     - _ZWrite: 1
     m_Colors:
     - _BottomColor: {r: 0, g: 0.24746445, b: 0.58823526, a: 1}

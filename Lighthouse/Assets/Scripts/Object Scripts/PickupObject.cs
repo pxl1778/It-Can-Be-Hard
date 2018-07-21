@@ -19,7 +19,6 @@ public class PickupObject : MonoBehaviour {
 	void Update () {
         if (active && Input.GetButtonDown("Jump"))
         {
-            Debug.Log("shovel used");
             gm.InventoryMan.AddItemToInventory(itemName);
             Destroy(this.transform.parent.gameObject);
         }
@@ -29,7 +28,6 @@ public class PickupObject : MonoBehaviour {
     {
         if(other.gameObject.tag == "Player")
         {
-            Debug.Log("shovel activated");
             active = true;
         }
     }
@@ -38,7 +36,6 @@ public class PickupObject : MonoBehaviour {
     {
         if(other.gameObject.tag == "Player")
         {
-            Debug.Log("shovel deactivated");
             active = false;
         }
     }

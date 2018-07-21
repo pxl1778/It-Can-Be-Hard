@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        if(gm.Player == null)
+        {//making sure that game manager has the player
+            gm.Player = this.GetComponent<Player>();
+        }
         if(gm.Player.State == PlayerState.ACTIVE)
         {
             if (Input.GetButton("Fire1"))
