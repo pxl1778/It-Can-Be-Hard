@@ -34,6 +34,8 @@
 			half NdotL = dot(s.Normal, lightDir);
 			half4 color;
 			half diff = NdotL * 0.5 + 0.5;
+			diff -= step(0.99, diff) * 0.01;
+			diff += step(diff, 0.01) * 0.01;
 
 			half3 h = normalize(lightDir + viewDir);
 			half maxNdotL = max(0, dot(s.Normal, lightDir));

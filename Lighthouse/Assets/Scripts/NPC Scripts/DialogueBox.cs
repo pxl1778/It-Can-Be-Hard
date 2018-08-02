@@ -23,10 +23,10 @@ public class DialogueBox : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //rt.transform.forward = cam.transform.forward;
-        Vector3 targetPos = new Vector3(target.position.x, target.position.y + 1.5f, target.position.z);
+        Vector3 targetPos = new Vector3(target.position.x, target.position.y + (1.5f * canvasRect.localScale.x), target.position.z);
         Vector2 viewportPoint = cam.WorldToViewportPoint(targetPos);
-        rt.position = new Vector3(viewportPoint.x * canvasRect.sizeDelta.x, viewportPoint.y * canvasRect.sizeDelta.y, 0);
-        if(rt.position.x < 200)
+        rt.position = new Vector3(viewportPoint.x * canvasRect.sizeDelta.x, viewportPoint.y * canvasRect.sizeDelta.y, 0) * canvasRect.localScale.x;
+        if (rt.position.x < 200)
         {
             rt.position = new Vector3(200, rt.position.y, rt.position.z);
         }
@@ -43,7 +43,7 @@ public class DialogueBox : MonoBehaviour {
             rt.position = new Vector3(rt.position.x, canvasRect.sizeDelta.y - 100, rt.position.z);
         }
 
-        Canvas.ForceUpdateCanvases();
-        rt.sizeDelta = new Vector2(rt.sizeDelta.x, 90 * text.cachedTextGenerator.lines.Count);
+        //Canvas.ForceUpdateCanvases();
+        //rt.sizeDelta = new Vector2(rt.sizeDelta.x, 130 * text.cachedTextGenerator.lines.Count);
     }
 }

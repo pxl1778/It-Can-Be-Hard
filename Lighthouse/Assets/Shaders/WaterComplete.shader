@@ -22,7 +22,7 @@ Shader "Unlit/water"
 	 
 		Pass
 		{
-			Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" "LightMode" = "ForwardBase" }
+			Tags{ "RenderType"="Opaque"}
 			Blend SrcAlpha OneMinusSrcAlpha
 
 			CGPROGRAM
@@ -174,8 +174,8 @@ Shader "Unlit/water"
 				float attenuation = 1.0 / (1 + unity_4LightAtten0[0] * pow(dot(lightDistance, lightDistance), 2));
 				float4 pointLight = nDotL * unity_LightColor[0] * attenuation;
 				float4 lightColor = float4(i.specularColor + i.diffuseColor, 1.3 - saturate(0.1f + dot(i.norm, -viewDirection))) + pointLight;
+				lightColor.a = 1; //get rid of for transparency
 				return (lightColor * step(-0.5, -foamLine)) + (step(0.5, foamLine) * _FoamColor);
-				return lightColor;
 			}
 			ENDCG
 		}

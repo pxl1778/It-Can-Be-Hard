@@ -73,13 +73,13 @@ abstract public class NPCTalkScript : MonoBehaviour {
         if (col.gameObject.tag == "Player")
         {//makes the text window go away
             exitDialogue();
+            active = false;
             speechBubble.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
     private void exitDialogue()
     {
-        active = false;
         textUI.enabled = false;
         speechBubble.GetComponent<MeshRenderer>().enabled = true;
         optionsBox.transform.gameObject.SetActive(false);
@@ -111,6 +111,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 if (turnTowardsPlayer)
                 {
                     TurnTowardsPlayer();
+                    TurnPlayerTowardsNPC();
                 }
             }
             else if (textUI.enabled && currentCharacter < lines[currentText].line.Length - 1)
@@ -242,7 +243,18 @@ abstract public class NPCTalkScript : MonoBehaviour {
         {
             npcCam.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>().m_PathPosition = 1;
         }
+        transform.parent.GetComponentInChildren<Animator>().SetBool("Turning", true);
         StartCoroutine("LerpTowardsPlayer");
+    }
+
+    void TurnPlayerTowardsNPC()
+    {
+        Vector3 tempNormal = -Vector3.Normalize(GameManager.instance.Player.transform.position - this.transform.position);
+        Vector3 playerTargetRotation = Vector3.Normalize(Vector3.ProjectOnPlane(tempNormal, new Vector3(0, 1, 0)));
+        Vector3 playerOriginalRotation = GameManager.instance.Player.transform.forward;
+
+        GameManager.instance.Player.GetComponentInChildren<Animator>().SetBool("Turning", true);
+        StartCoroutine(LerpPlayerTowardsNPC(playerOriginalRotation, playerTargetRotation));
     }
 
     IEnumerator LerpTowardsPlayer()
@@ -257,6 +269,23 @@ abstract public class NPCTalkScript : MonoBehaviour {
             this.transform.parent.transform.forward = Vector3.Lerp(originalRotation, targetRotation, alpha);
             yield return new WaitForEndOfFrame();
         }
+        transform.parent.GetComponentInChildren<Animator>().SetBool("Turning", false);
+    }
+
+    IEnumerator LerpPlayerTowardsNPC(Vector3 playerOriginalRotation, Vector3 playerTargetRotation)
+    {
+        float elapsedTime = 0.0f;
+        float alpha = 0;
+        float duration = 0.3f;
+        Transform target = GameManager.instance.Player.transform;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            alpha = elapsedTime / duration;
+            target.forward = Vector3.Lerp(playerOriginalRotation, playerTargetRotation, alpha);
+            yield return new WaitForEndOfFrame();
+        }
+        GameManager.instance.Player.GetComponentInChildren<Animator>().SetBool("Turning", false);
     }
 
     public abstract void topOption();

@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour {
     private GameManager gm;
     private Animator anim;
     private PlayerBubble bubble;
+    [SerializeField]
+    private Cinemachine.CinemachineFreeLook playerCam;
 
     //lerping
     private Vector3 targetPosition;
@@ -56,6 +58,20 @@ public class PlayerController : MonoBehaviour {
             {
                 bubble.enabled = true;
                 bubble.Activate();
+            }
+
+            //controlling camera when mouse is down
+            if (Input.GetMouseButton(0))
+            {
+                playerCam.m_XAxis.m_InputAxisName = "Mouse X";
+                playerCam.m_YAxis.m_InputAxisName = "Mouse Y";
+            }
+            else
+            {
+                playerCam.m_XAxis.m_InputAxisName = "";
+                playerCam.m_YAxis.m_InputAxisName = "";
+                playerCam.m_XAxis.m_InputAxisValue = 0;
+                playerCam.m_YAxis.m_InputAxisValue = 0;
             }
             //get the horizontal and vertical input components
             float h = Input.GetAxis("Horizontal");

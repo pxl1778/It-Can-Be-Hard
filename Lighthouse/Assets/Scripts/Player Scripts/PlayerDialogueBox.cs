@@ -27,14 +27,13 @@ public class PlayerDialogueBox : MonoBehaviour {
     void Update()
     {
         //rt.transform.forward = cam.transform.forward;
-        Vector3 targetPos = new Vector3(target.position.x, target.position.y + 2.0f, target.position.z);
+        Vector3 targetPos = new Vector3(target.position.x, target.position.y + (3.0f * canvasRect.localScale.x), target.position.z);
         Vector2 viewportPoint = cam.WorldToViewportPoint(targetPos);
-        viewportPoint = new Vector2(viewportPoint.x, viewportPoint.y);
-        Vector2 desiredPoint = new Vector2(viewportPoint.x * canvasRect.sizeDelta.x, viewportPoint.y * canvasRect.sizeDelta.y);
+        Vector2 desiredPoint = new Vector2(viewportPoint.x * canvasRect.sizeDelta.x, viewportPoint.y * canvasRect.sizeDelta.y) * canvasRect.localScale.x;
 
+        //Vector2 desiredPoint = new Vector2(viewportPoint.x, viewportPoint.y);
         rt.position = new Vector3(rt.position.x + ((desiredPoint.x - rt.position.x)*followSpeed), rt.position.y + ((desiredPoint.y - rt.position.y)*followSpeed), 0);
         //rt.position = new Vector3(desiredPoint.x, desiredPoint.y, 0);
-
         if (rt.position.x < 200)
         {
             rt.position = new Vector3(200, rt.position.y, rt.position.z);
@@ -51,8 +50,5 @@ public class PlayerDialogueBox : MonoBehaviour {
         {
             rt.position = new Vector3(rt.position.x, canvasRect.sizeDelta.y - 50, rt.position.z);
         }
-
-        Canvas.ForceUpdateCanvases();
-        rt.sizeDelta = new Vector2(rt.sizeDelta.x, 90 * text.cachedTextGenerator.lines.Count);
     }
 }
