@@ -19,7 +19,7 @@ public class birdController : MonoBehaviour {
 	void Update () {
         timePassed += Time.deltaTime;
         anim.SetFloat("time", timePassed / timeTilJump);
-        if (timePassed >= timeTilJump)
+        if (!flying && timePassed >= timeTilJump)
         {
             timePassed = 0;
             move = false;
@@ -29,7 +29,7 @@ public class birdController : MonoBehaviour {
 
     private void LateUpdate()
     {
-        if(!move && timePassed/timeTilJump >= 0.8)
+        if(!flying && !move && timePassed/timeTilJump >= 0.8)
         {
             move = true;
             if(Random.Range(0, 10) >= 5)
@@ -42,6 +42,10 @@ public class birdController : MonoBehaviour {
                 anim.SetBool("move", false);
             }
         }
+        if (flying && timePassed >= 6)
+        {
+            Destroy(this.transform.gameObject);
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -50,6 +54,7 @@ public class birdController : MonoBehaviour {
         {
             anim.SetBool("fly", true);
             flying = true;
+            timePassed = 0;
             Vector3 direction = other.gameObject.transform.position - transform.position;
             this.transform.rotation = Quaternion.LookRotation(Vector3.Normalize(new Vector3(direction.x, 0, direction.z)));
         }
