@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour {
@@ -62,5 +63,10 @@ public class InventoryManager : MonoBehaviour {
             inventory[pItemName] = inventory[pItemName] - pAmount;
             return true;
         }
+    }
+
+    public string[] GetAllItems()
+    {
+        return inventory.Keys.ToArray();
     }
 }

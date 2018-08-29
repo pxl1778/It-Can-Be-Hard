@@ -37,7 +37,6 @@
 				float2 uv : TEXCOORD0;
 				float3 wPos:TEXCOORD1;
 				float3 wNormal:TEXCOORD2;
-				UNITY_FOG_COORDS(1)
 				float4 vertex : SV_POSITION;
 			};
 
@@ -56,7 +55,7 @@
 				//o.vertex = UnityObjectToClipPos(v.vertex+(v.normal * (sin(_Time[2])+.5)/15));
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-				UNITY_TRANSFER_FOG(o,o.vertex);
+				//UNITY_TRANSFER_FOG(o,o.vertex);
 				o.wPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 				o.wNormal = UnityObjectToWorldNormal(v.normal);
 
@@ -68,7 +67,7 @@
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
 				// apply fog
-				UNITY_APPLY_FOG(i.fogCoord, col);
+				//UNITY_APPLY_FOG(i.fogCoord, col);
 
 				fixed3 sparklemap = tex2D(_NoiseTex, i.uv*_Scale);
 				sparklemap -= half3(0.5, 0.5, 0.5);

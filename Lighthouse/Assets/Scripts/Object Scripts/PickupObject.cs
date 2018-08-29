@@ -20,7 +20,7 @@ public class PickupObject : MonoBehaviour {
         if (active && Input.GetButtonDown("Jump"))
         {
             gm.InventoryMan.AddItemToInventory(itemName);
-            Destroy(this.transform.parent.gameObject);
+            Destroy(this.transform.gameObject);
         }
 	}
 

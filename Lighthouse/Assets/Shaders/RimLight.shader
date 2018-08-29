@@ -3,6 +3,9 @@
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_RampTex("Ramp Texture", 2D) = "white" {}
+		_SpecTex("Specular Map", 2D) = "white" {}
+		_NormalTex("Normal Map", 2D) = "white" {}
+		_RimTex("Rim Map", 2D) = "white" {}
 		_RimColor("Rim Color", Color) = (0,0,0,0)
 		_RimPower("Rim Power", Range(0, 10)) = 1
 		//_RampAmount("Ramp Amount", Range(-1, 1)) = 0
@@ -41,8 +44,7 @@
 			half maxNdotL = max(0, dot(s.Normal, lightDir));
 			float nh = max(0, dot(s.Normal, h));
 			float spec = pow(nh, _SpecPower);
-
-			float3 specLighting = _LightColor0.rgb * step(0.1, spec) *_Smoothness;
+			float3 specLighting = _LightColor0.rgb * step(0.1, spec) *_Smoothness * s.Specular;
 
 			color.rgb = s.Albedo * _LightColor0.rgb * atten * (tex2D(_RampTex, float2(diff, 0)).rgb + 0.2) + specLighting;
 			//if (_RampAmount - 0.2f >= NdotL) {//darkest shadow
@@ -62,9 +64,15 @@
 		}
 
 		sampler2D _MainTex;
+		sampler2D _NormalTex;
+		sampler2D _SpecTex;
+		sampler2D _RimTex;
 
 		struct Input {
 			float2 uv_MainTex;
+			float2 uv_NormalTex;
+			float2 uv_SpecTex;
+			float2 uv_RimTex;
 			float3 worldPos;
 			float3 worldNormal;
 			float3 viewDir;
@@ -87,7 +95,13 @@
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
 			o.Alpha = c.a;
-			o.Emission = _RimColor * pow(1.0 - saturate(dot(IN.viewDir, o.Normal)), _RimPower);
+			o.Specular = tex2D(_SpecTex, IN.uv_SpecTex).r;
+			if (tex2D(_NormalTex, IN.uv_NormalTex).r <= 0.99)
+			{
+				o.Normal = UnpackNormal(tex2D(_NormalTex, IN.uv_NormalTex));
+			}
+			float rimAmount = tex2D(_RimTex, IN.uv_RimTex).r;
+			o.Emission = _RimColor * pow(1.0 - saturate(dot(IN.viewDir, o.Normal)), _RimPower) * rimAmount;
 		}
 		ENDCG
 	}

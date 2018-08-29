@@ -8,13 +8,25 @@ public class Globals : MonoBehaviour {
     public Dictionary<string, object> Dictionary { get { return dictionary; } }
     public delegate void finishLerp();
 
-    void Start () {
-        //savedata
-        GameManager.instance.EventMan.lerpGlobalValue.AddListener(StartGlobalLerp);
+    private void Awake()
+    {
         dictionary = new Dictionary<string, object>();
 
         dictionary.Add("glowRadius", 0.0f);
+        dictionary.Add("mateo1Count", 0);
+        dictionary.Add("doorActive", false);
+    }
+
+    void Start () {
+        //savedata
+        GameManager.instance.EventMan.lerpGlobalValue.AddListener(StartGlobalLerp);
 	}
+
+    public void incrementTalkCount(string dictionaryKey)
+    {
+        dictionary[dictionaryKey] = ((int)dictionary[dictionaryKey]) + 1;
+        Debug.Log("incrementing: " + dictionary[dictionaryKey]);
+    }
 
     public void StartGlobalLerp(string variableName, float endLerp, float duration)
     {

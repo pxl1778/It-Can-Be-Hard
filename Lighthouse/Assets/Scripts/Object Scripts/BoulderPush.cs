@@ -60,6 +60,7 @@ public class BoulderPush : MonoBehaviour {
         tkParticle.Stop();
         boulderCam.Priority = 0;
         GameManager.instance.Player.State = PlayerState.ACTIVE;
+        GameObject.Find("TutorialCanvas").GetComponent<TutorialCanvasScript>().FadeOutTutorial();
     }
 
     private void OnTriggerEnter(Collider other)

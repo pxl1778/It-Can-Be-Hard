@@ -1,35 +1,59 @@
 {
 	"packs":[
 		{
-			"name": "Neighbor1",
+			"name": "Mateo1",
 			"objects":[
 				{
-					"text":"Hey, sorry about the mess. It'll only take me a couple of hours to clean it up.",
-					"name":"neighbor1_1"
+					"text":"Hey, I'm still waiting on that text book, you know I need it to do the homework, too!",
+					"name":"mateo1_1_1"
 				},
 				{
-					"text":"I'll try to help!",
-					"name":"neighbor1_option1"
+					"text":"Yeah, just gimme a sec!",
+					"name":"mateo1_1_option1"
 				},
 				{
-					"text":"That'd be great! If you can find a shovel to help me get out this stump, it'll go much faster.",
-					"name":"neighbor1_2"
+					"text":"Hurry up! I have my bassoon lesson in an hour.",
+					"name":"mateo1_1_2"
 				},
 				{
-					"text":"Can yah hurry it up?",
-					"name":"neighbor1_option2"
+					"text":"Don't you have straight A's?",
+					"name":"mateo1_1_option2"
 				},
 				{ 
-					"text":"You got it! But if you happen to come across a shovel, that'd help me out a lot!",
-					"name":"neighbor1_3"
+					"text":"Yeah, but I gotta keep those straight A's, buddy.",
+					"name":"mateo1_1_3"
 				},
 				{ 
-					"text":"Let me know if you find a shovel!",
-					"name":"neighbor1_preshovel"
+					"text":"Don't even think about leaving until I get my book back!",
+					"name":"mateo1_1_pretextbook"
 				},
 				{ 
-					"text":"Thanks for the help!",
-					"name":"neighbor1_helped"
+					"text":"Thanks, took you long enough!",
+					"name":"mateo1_1_helped"
+				},
+				{ 
+					"text":"Luke, can you help me on question 3 of the physics homework?",
+					"name":"mateo1_2_1"
+				},
+				{ 
+					"text":"Oh, crap...",
+					"name":"mateo1_2_option1"
+				},
+				{ 
+					"text":"Dude! It's due tomorrow! You better get cracking on it.",
+					"name":"mateo1_2_2"
+				},
+				{ 
+					"text":"lol no way!",
+					"name":"mateo1_2_option2"
+				},
+				{ 
+					"text":"Aw c'mon, I need your help...Fine, I'll just ask Lily.",
+					"name":"mateo1_2_3"
+				},
+				{ 
+					"text":"Hey Luke, hope you were able to get the homework finished!",
+					"name":"mateo1_3_1"
 				}
 			]
 		},
@@ -37,7 +61,7 @@
 			"name":"Player",
 			"objects":[
 				{
-					"text":"That movie has to be somewhere on the trail in the woods",
+					"text":"That book has to be somewhere in the woods",
 					"name":"player_prologue_1"
 				},
 				{

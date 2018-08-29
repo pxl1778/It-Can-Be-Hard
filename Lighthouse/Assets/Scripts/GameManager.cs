@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour {
     public Globals Globals { get { return globals; } }
 
     private Canvas transitionCanvas;
+    private string previousScene = "";
 
 	void Awake(){
 		if (instance == null) {
@@ -47,27 +51,40 @@ public class GameManager : MonoBehaviour {
 
     private void OnEnable()
     {
-        SceneManager.LoadScene("Template", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
+        //SceneManager.LoadScene("NeighborhoodTemplate", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
+        //LoadScene("TownTemplate");
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
+        SceneManager.sceneUnloaded += OnLevelFinishedUnloading;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+        SceneManager.sceneUnloaded -= OnLevelFinishedUnloading;
     }
 
     void OnLevelFinishedLoading(Scene pScene, LoadSceneMode pMode)
     {
-        if (pScene.name != "Template")
+        if (!pScene.name.Contains("Template") && pScene.name != "Title")
         {
-            StartCoroutine(Example());
+            //StartCoroutine(Example());
+            string templateName = pScene.name.Substring(0, pScene.name.Length - 1);
+            if (SceneManager.GetSceneByName(templateName + "Template").buildIndex < 0)
+            {
+                SceneManager.LoadScene(templateName + "Template", LoadSceneMode.Additive);
+            }
             SceneManager.SetActiveScene(pScene);
-            //GameObject spawnPoint = GameObject.Find("SpawnPoint");
-            //if(spawnPoint != null)
-            //{
-            //    player.transform.position = spawnPoint.transform.position;
-            //}
         }
+        if(pScene.name == "Title")
+        {
+            SceneManager.LoadScene("NeighborhoodTemplate", LoadSceneMode.Additive);
+            SceneManager.SetActiveScene(pScene);
+        }
+    }
+
+    void OnLevelFinishedUnloading(Scene pScene)
+    {
+
     }
 	
 	// Update is called once per frame
@@ -77,9 +94,68 @@ public class GameManager : MonoBehaviour {
 
     public void LoadScene(string sceneName)
     {
+        if(transitionCanvas == null)
+        {
+            transitionCanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
+        }
         transitionCanvas.enabled = true;
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+
+        string templateName = sceneName.Substring(0, sceneName.Length - 1);
+        if (SceneManager.GetSceneByName(templateName + "Template").buildIndex < 0)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        }
+    }
+
+    public void Save()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
+
+        SaveData data = new SaveData();
+        data.currentScene = SceneManager.GetActiveScene().name;
+        data.mateo1Count = (int)Globals.Dictionary["mateo1Count"];
+        data.inventory = inventoryMan.GetAllItems();
+
+        bf.Serialize(file, data);
+        file.Close();
+    }
+
+    public string Load()
+    {
+        if(File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
+            SaveData data = (SaveData)bf.Deserialize(file);
+            file.Close();
+
+            Globals.Dictionary["mateo1Count"] = data.mateo1Count;
+            for(int i = 0; i < data.inventory.Length; i++)
+            {
+                inventoryMan.AddItemToInventory(data.inventory[i], 1);
+            }
+
+            return data.currentScene;
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    [Serializable]
+    class SaveData
+    {
+        public string currentScene;
+        public int mateo1Count;
+        public string[] inventory;
     }
 
     IEnumerator Example()

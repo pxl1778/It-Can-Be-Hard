@@ -1,5 +1,0 @@
-{
-	"textLines":[
-		"Oh great! With that shovel we can move this stump right now!"
-	]
-}

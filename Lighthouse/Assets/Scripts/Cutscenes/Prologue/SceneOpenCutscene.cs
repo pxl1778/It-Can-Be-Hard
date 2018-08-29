@@ -39,7 +39,7 @@ public class SceneOpenCutscene : Cutscene {
     {
         base.EndCutscene();
         GameManager.instance.EventMan.endCutscene.RemoveListener(EndCutscene);
-        gm.EventMan.startPlayerDialogue.Invoke(new string[] { gm.DialogueMan.getLine("player_prologue_1") });
         cutsceneCam.Priority = 0;
+        GameObject.Find("TutorialCanvas").GetComponent<TutorialCanvasScript>().FadeInTutorial(0);
     }
 }

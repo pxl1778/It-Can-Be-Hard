@@ -7,7 +7,7 @@ using UnityEngine.UI;
 abstract public class NPCTalkScript : MonoBehaviour {
 
     [SerializeField]
-    private float textSpeed = .01f;
+    private float textSpeed = 0.01f;
     [SerializeField]
     private bool turnTowardsPlayer = true;
     private bool active = false;
@@ -105,6 +105,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 textUI.enabled = true;
                 lines[currentText].doLineStart();
                 gm.Player.State = PlayerState.INACTIVE;
+                TalkedTo();
                 if(npcCam != null){
                     npcCam.Priority = 11; 
                 }
@@ -149,63 +150,63 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 exitDialogue();
             }
         }
-        else if (active && !state)//if we are at an option
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                choice--;
-                if (choice < 0)
-                {
-                    choice = 1;
-                }
+        //else if (active && !state)//if we are at an option
+        //{
+        //    if (Input.GetKeyDown(KeyCode.W))
+        //    {
+        //        choice--;
+        //        if (choice < 0)
+        //        {
+        //            choice = 1;
+        //        }
 
-                for (int i = 0; i < optionsArray.Length; i++)
-                {
-                    optionsArray[i].fontStyle = FontStyle.Normal;
-                    optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 0.5f);
-                    if (i == choice)
-                    {
-                        optionsArray[i].fontStyle = FontStyle.Bold;
-                        optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 1.0f);
-                    }
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                choice++;
-                if (choice > 1)
-                {
-                    choice = 0;
-                }
+        //        for (int i = 0; i < optionsArray.Length; i++)
+        //        {
+        //            optionsArray[i].fontStyle = FontStyle.Normal;
+        //            optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 0.5f);
+        //            if (i == choice)
+        //            {
+        //                optionsArray[i].fontStyle = FontStyle.Bold;
+        //                optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 1.0f);
+        //            }
+        //        }
+        //    }
+        //    else if (Input.GetKeyDown(KeyCode.S))
+        //    {
+        //        choice++;
+        //        if (choice > 1)
+        //        {
+        //            choice = 0;
+        //        }
 
-                for (int i = 0; i < optionsArray.Length; i++)
-                {
-                    optionsArray[i].fontStyle = FontStyle.Normal;
-                    optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 0.5f);
-                    if (i == choice)
-                    {
-                        optionsArray[i].fontStyle = FontStyle.Bold;
-                        optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 1.0f);
-                    }
-                }
-            }
-            if (Input.GetButtonDown("Jump"))//selecting an option
-            {
-                state = true;
-                currentText = 0;
-                currentCharacter = 0;
-                optionsBox.gameObject.SetActive(false);
-                textUI.enabled = true;
-                if(choice == 0)
-                {
-                    topOption();
-                }
-                else
-                {
-                    bottomOption();
-                }
-            }
-        }
+        //        for (int i = 0; i < optionsArray.Length; i++)
+        //        {
+        //            optionsArray[i].fontStyle = FontStyle.Normal;
+        //            optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 0.5f);
+        //            if (i == choice)
+        //            {
+        //                optionsArray[i].fontStyle = FontStyle.Bold;
+        //                optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 1.0f);
+        //            }
+        //        }
+        //    }
+        //    if (Input.GetButtonDown("Jump"))//selecting an option
+        //    {
+        //        state = true;
+        //        currentText = 0;
+        //        currentCharacter = 0;
+        //        optionsBox.gameObject.SetActive(false);
+        //        textUI.enabled = true;
+        //        if(choice == 0)
+        //        {
+        //            topOption();
+        //        }
+        //        else
+        //        {
+        //            bottomOption();
+        //        }
+        //    }
+        //}
     }
 
     void textAnimation()
@@ -288,8 +289,27 @@ abstract public class NPCTalkScript : MonoBehaviour {
         GameManager.instance.Player.GetComponentInChildren<Animator>().SetBool("Turning", false);
     }
 
-    public abstract void topOption();
-    public abstract void bottomOption();
+    protected virtual void TalkedTo()
+    {
+
+    }
+
+    public virtual void topOption()
+    {
+        state = true;
+        currentText = 0;
+        currentCharacter = 0;
+        optionsBox.gameObject.SetActive(false);
+        textUI.enabled = true;
+    }
+    public virtual void bottomOption()
+    {
+        state = true;
+        currentText = 0;
+        currentCharacter = 0;
+        optionsBox.gameObject.SetActive(false);
+        textUI.enabled = true;
+    }
     public abstract void secondStart();
     public abstract void checkWhenActivated();
 }
