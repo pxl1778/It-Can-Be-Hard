@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: mainroad1Mat
-  m_Shader: {fileID: 4800000, guid: 9b731fd440184e14480a0a8230acc6c1, type: 3}
+  m_Name: flower1Mat
+  m_Shader: {fileID: 4800000, guid: fc19e61078bac264db090fce38d6f1ee, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -39,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6472dab392fe31e47bb9a5d1e3f61f60, type: 3}
+        m_Texture: {fileID: 2800000, guid: b58a000c08ab6fd409d0e370d31c46f5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -62,6 +62,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: f709325313ef54e4f82f783947e46088, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RandomTex:
+        m_Texture: {fileID: 2800000, guid: ab5ba8c4ca1c4094386dc9f11bf862c9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _RimTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -78,6 +82,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _MaxDistance: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -88,9 +93,11 @@ Material:
     - _SpecPower: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Strength: 0.05
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.8018868, g: 0.7754094, b: 0.7754094, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ObjectPoint: {r: 6.7902694, g: 0.68, b: 2.598164, a: 0}
     - _RimColor: {r: 0, g: 0, b: 0, a: 0}

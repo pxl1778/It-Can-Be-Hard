@@ -47,18 +47,6 @@
 			float3 specLighting = _LightColor0.rgb * step(0.1, spec) *_Smoothness * s.Specular;
 
 			color.rgb = s.Albedo * _LightColor0.rgb * atten * (tex2D(_RampTex, float2(diff, 0)).rgb + 0.2) + specLighting;
-			//if (_RampAmount - 0.2f >= NdotL) {//darkest shadow
-			//	color.rgb = (s.Albedo * _LightColor0.rgb) * -0.7f;//_DarkShadowAmount;
-			//}
-			//if(_RampAmount >= NdotL){//ramp shadow
-			//	color.rgb = (s.Albedo * _LightColor0.rgb) * 0.1;//(step(_RampAmount, NdotL));
-			//}
-			//else if (_Smoothness >= NdotL) {//midtone
-			//	color.rgb = s.Albedo * _LightColor0.rgb * atten;
-			//}
-			//if(_Smoothness < NdotL) {//highlight
-			//	color.rgb = atten * half3(1, 1, 1) * _LightColor0.rgb  * s.Albedo + .2 * atten;
-			//}
 			color.a = s.Alpha;
 			return color;
 		}
