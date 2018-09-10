@@ -11,12 +11,14 @@ public class DialogueLine : ScriptableObject {
     public LineStartDelegate lineStart;
     public LineEndDelegate lineEnd;
     public LineCompleteDelegate lineComplete;
+    public string speaker;
 
-    public DialogueLine(string pLine, LineStartDelegate pLineStart = null, LineEndDelegate pLineEnd = null, LineCompleteDelegate pLineComplete = null){
-        line = pLine;
+    public DialogueLine(string pLine, LineStartDelegate pLineStart = null, LineEndDelegate pLineEnd = null, LineCompleteDelegate pLineComplete = null, string pSpeaker = ""){
+        line = GameManager.instance.DialogueMan.getLine(pLine);
         lineStart = pLineStart;
         lineEnd = pLineEnd;
         lineComplete = pLineComplete;
+        speaker = pSpeaker;
     }
 
     public void doLineStart()

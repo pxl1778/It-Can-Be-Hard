@@ -9,7 +9,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
     [SerializeField]
     private float textSpeed = 0.01f;
     [SerializeField]
-    private bool turnTowardsPlayer = true;
+    protected bool turnTowardsPlayer = true;
     private bool active = false;
     private bool state = true; //true = dialog, false = option
     private int currentCharacter = 0;
@@ -78,7 +78,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
         }
     }
 
-    private void exitDialogue()
+    protected virtual void exitDialogue()
     {
         textUI.enabled = false;
         speechBubble.GetComponent<MeshRenderer>().enabled = true;
@@ -150,63 +150,6 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 exitDialogue();
             }
         }
-        //else if (active && !state)//if we are at an option
-        //{
-        //    if (Input.GetKeyDown(KeyCode.W))
-        //    {
-        //        choice--;
-        //        if (choice < 0)
-        //        {
-        //            choice = 1;
-        //        }
-
-        //        for (int i = 0; i < optionsArray.Length; i++)
-        //        {
-        //            optionsArray[i].fontStyle = FontStyle.Normal;
-        //            optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 0.5f);
-        //            if (i == choice)
-        //            {
-        //                optionsArray[i].fontStyle = FontStyle.Bold;
-        //                optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 1.0f);
-        //            }
-        //        }
-        //    }
-        //    else if (Input.GetKeyDown(KeyCode.S))
-        //    {
-        //        choice++;
-        //        if (choice > 1)
-        //        {
-        //            choice = 0;
-        //        }
-
-        //        for (int i = 0; i < optionsArray.Length; i++)
-        //        {
-        //            optionsArray[i].fontStyle = FontStyle.Normal;
-        //            optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 0.5f);
-        //            if (i == choice)
-        //            {
-        //                optionsArray[i].fontStyle = FontStyle.Bold;
-        //                optionsArray[i].color = new Color(optionsArray[i].color.r, optionsArray[i].color.g, optionsArray[i].color.b, 1.0f);
-        //            }
-        //        }
-        //    }
-        //    if (Input.GetButtonDown("Jump"))//selecting an option
-        //    {
-        //        state = true;
-        //        currentText = 0;
-        //        currentCharacter = 0;
-        //        optionsBox.gameObject.SetActive(false);
-        //        textUI.enabled = true;
-        //        if(choice == 0)
-        //        {
-        //            topOption();
-        //        }
-        //        else
-        //        {
-        //            bottomOption();
-        //        }
-        //    }
-        //}
     }
 
     void textAnimation()
@@ -238,11 +181,17 @@ abstract public class NPCTalkScript : MonoBehaviour {
         originalRotation = this.transform.forward;
         if(Vector3.Dot(this.transform.parent.transform.right, Camera.main.transform.forward) < 0)
         {
-            npcCam.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>().m_PathPosition = 0;
+            if (npcCam.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>() != null)
+            {
+                npcCam.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>().m_PathPosition = 0;
+            }
         }
         else
         {
-            npcCam.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>().m_PathPosition = 1;
+            if(npcCam.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>() != null)
+            {
+                npcCam.GetCinemachineComponent<Cinemachine.CinemachineTrackedDolly>().m_PathPosition = 1;
+            }
         }
         transform.parent.GetComponentInChildren<Animator>().SetBool("Turning", true);
         StartCoroutine("LerpTowardsPlayer");
@@ -263,11 +212,12 @@ abstract public class NPCTalkScript : MonoBehaviour {
         float elapsedTime = 0.0f;
         float alpha = 0;
         float duration = 0.3f;
+        Transform self = this.transform.parent.GetComponentInChildren<Animator>().transform;
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             alpha = elapsedTime / duration;
-            this.transform.parent.transform.forward = Vector3.Lerp(originalRotation, targetRotation, alpha);
+            self.forward = Vector3.Lerp(originalRotation, targetRotation, alpha);
             yield return new WaitForEndOfFrame();
         }
         transform.parent.GetComponentInChildren<Animator>().SetBool("Turning", false);

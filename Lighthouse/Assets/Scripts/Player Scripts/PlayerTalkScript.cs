@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerTalkScript : MonoBehaviour {
+
     [SerializeField]
     private float textSpeed = .01f;
     private bool active = false;
@@ -11,8 +12,6 @@ public class PlayerTalkScript : MonoBehaviour {
     private int currentCharacter = 0;
     protected int currentText = 0;
     private float timer = 0;
-    private float boxTimer = 0;
-    private float boxDuration = 5.0f;
 
     [SerializeField]
     private Canvas textUI;
@@ -22,18 +21,20 @@ public class PlayerTalkScript : MonoBehaviour {
     protected string[] lines = new string[] { };
     protected GameManager gm;
 
-    void Start () {
+    void Start()
+    {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         //textUI = this.transform.GetComponentInChildren<Canvas>();
-        
+
         text = GameObject.Find("ThoughtPanel").GetComponentInChildren<Text>();
-        /*player.GetComponent<PlayerTalkScript>().*/
+        /*player.GetComponent<PlayerThoughtScript>().*/
         gm.EventMan.startPlayerDialogue.AddListener(StartDialogue);
         gm.EventMan.endPlayerDialogue.AddListener(EndDialogue);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         handleInput();
         textAnimation();
     }
@@ -56,16 +57,12 @@ public class PlayerTalkScript : MonoBehaviour {
     //handles the input from the player for the update loop
     void handleInput()
     {
-        if (textUI.enabled)
+        if (textUI.enabled && Input.GetButtonDown("Jump"))
         {
-            boxTimer += Time.deltaTime;
-            if (boxTimer >= boxDuration)
+            currentText++;
+            if (currentText >= lines.Length)
             {
-                currentText++;
-                if (currentText >= lines.Length)
-                {
-                    EndDialogue();
-                }
+                EndDialogue();
             }
         }
     }
@@ -79,7 +76,6 @@ public class PlayerTalkScript : MonoBehaviour {
         lines = pLines;
         active = true;
         textUI.enabled = true;
-        boxTimer = 0;
         currentCharacter = 0;
         currentText = 0;
     }

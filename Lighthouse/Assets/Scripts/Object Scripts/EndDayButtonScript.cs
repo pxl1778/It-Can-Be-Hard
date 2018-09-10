@@ -16,7 +16,7 @@ public class EndDayButtonScript : MonoBehaviour {
     public void EndDay()
     {
         promptCanvas.enabled = false;
-        GameManager.instance.LoadScene(nextSceneName);
+        GameManager.instance.StartLoadScene(nextSceneName);
     }
 
     public void CloseCanvas()

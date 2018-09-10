@@ -1,0 +1,179 @@
+{
+	"packs":[
+		{
+			"name": "Mateo1",
+			"objects":[
+				{
+					"text":"Hey, I'm still waiting on that text book, you know I need it to do the homework, too!",
+					"name":"mateo1_1_1"
+				},
+				{
+					"text":"Yeah, just gimme a sec!",
+					"name":"mateo1_1_option1"
+				},
+				{
+					"text":"Aight, I'll be waiting here 'til you find it.",
+					"name":"mateo1_1_2"
+				},
+				{
+					"text":"Don't you have straight A's?",
+					"name":"mateo1_1_option2"
+				},
+				{ 
+					"text":"Yeah, but I gotta keep those straight A's, buddy.",
+					"name":"mateo1_1_3"
+				},
+				{ 
+					"text":"Hey, don't forget my book!",
+					"name":"mateo1_1_pretextbook"
+				},
+				{ 
+					"text":"Thanks, took yah long enough!",
+					"name":"mateo1_1_helped1"
+				},
+				{ 
+					"text":"Hey, are you okay? You seem a little shaken up...?",
+					"name":"mateo1_1_helped2"
+				},
+				{ 
+					"text":"I, uhh, just...um",
+					"name":"mateo1_1_helped_option1"
+				},
+				{ 
+					"text":"I did...thing..?!",
+					"name":"mateo1_1_helped_option2"
+				},
+				{ 
+					"text":"Uhhh, alright, well if you wanna study with me, I'll be at the cafe in town.",
+					"name":"mateo1_1_helped3"
+				},
+				{ 
+					"text":"Luke, can you help me on question 3 of the physics homework?",
+					"name":"mateo1_2_1"
+				},
+				{ 
+					"text":"Oh, crap...",
+					"name":"mateo1_2_option1"
+				},
+				{ 
+					"text":"Dude! It's due tomorrow! You better get cracking on it.",
+					"name":"mateo1_2_2"
+				},
+				{ 
+					"text":"lol no way!",
+					"name":"mateo1_2_option2"
+				},
+				{ 
+					"text":"Aw c'mon, I need your help...Fine, I'll just ask Lily.",
+					"name":"mateo1_2_3"
+				},
+				{ 
+					"text":"Hey Luke, hope you were able to get the homework finished!",
+					"name":"mateo1_3_1"
+				},
+				{ 
+					"text":"Hey, you made it! Grab a seat.",
+					"name":"mateo1_Town1"
+				}
+			]
+		},
+		{
+			"name":"Player",
+			"objects":[
+				{
+					"text":"That book has to be somewhere on the trail in the woods",
+					"name":"player_prologue_1"
+				},
+				{
+					"text":"What the...?",
+					"name":"player_prologue_2"
+				},
+				{
+					"text":"Following a mysterious glowing light in the woods, what could go wrong?",
+					"name":"player_prologue_3"
+				},
+				{
+					"text":"Please, please, please don't be a demon going to kill me.",
+					"name":"player_prologue_4"
+				}
+			]
+		},
+		{
+			"name":"Town1Seated",
+			"objects":[
+				{ 
+					"text":"So, where's your notebook?",
+					"name":"mateo1_town1seated_1"
+				},
+				{ 
+					"text":"Uh, I'll do the homework later, I gotta tell you something...",
+					"name":"player_town1seated_1"
+				},
+				{ 
+					"text":"Aww, hey it's okay Luke, I always figured you were, yah know...",
+					"name":"mateo1_town1seated_2"
+				},
+				{ 
+					"text":"...playing for the other team.",
+					"name":"mateo1_town1seated_3"
+				},
+				{ 
+					"text":"No! Well actually, yeah, but I'll get to that later.",
+					"name":"player_town1seated_2"
+				},
+				{ 
+					"text":"I think I have...psychic powers.",
+					"name":"player_town1seated_3"
+				},
+				{ 
+					"text":"LOL what? Wait so I was right?",
+					"name":"mateo1_town1seated_4"
+				},
+				{ 
+					"text":"Yes, but also no, just watch!",
+					"name":"player_town1seated_4"
+				},
+				{ 
+					"text":"Well I hope you know I don't think of you any differently. I'm an ally!",
+					"name":"mateo1_town1seated_5"
+				},
+				{ 
+					"text":"Shut. Up. Just watch!",
+					"name":"player_town1seated_5"
+				},
+				{ 
+					"text":"Woah what?",
+					"name":"mateo1_town1seated_6"
+				},
+				{ 
+					"text":"See!",
+					"name":"player_town1seated_6"
+				},
+				{ 
+					"text":"You just hit the table with your foot.",
+					"name":"mateo1_town1seated_7"
+				},
+				{ 
+					"text":"Ugh, hold on.",
+					"name":"player_town1seated_7"
+				},
+				{ 
+					"text":"Woah! Okay, that totally could've been the wind.",
+					"name":"mateo1_town1seated_8"
+				},
+				{ 
+					"text":"C'mooon!",
+					"name":"player_town1seated_8"
+				},
+				{ 
+					"text":"Okay, if you're really telling the truth...",
+					"name":"mateo1_town1seated_9"
+				},
+				{ 
+					"text":"Push me over!",
+					"name":"mateo1_town1seated_10"
+				}
+			]
+		}
+	]
+}

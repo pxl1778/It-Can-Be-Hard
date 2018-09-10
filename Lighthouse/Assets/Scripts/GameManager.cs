@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 
     private Canvas transitionCanvas;
     private string previousScene = "";
+    private string sceneToLoad = "";
 
 	void Awake(){
 		if (instance == null) {
@@ -51,8 +52,8 @@ public class GameManager : MonoBehaviour {
 
     private void OnEnable()
     {
-        //SceneManager.LoadScene("NeighborhoodTemplate", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
-        //LoadScene("TownTemplate");
+        //SceneManager.StartLoadScene("NeighborhoodTemplate", LoadSceneMode.Additive); //Use this when playing through game. Make Scene Manager
+        //StartLoadScene("TownTemplate");
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
         SceneManager.sceneUnloaded += OnLevelFinishedUnloading;
     }
@@ -69,6 +70,10 @@ public class GameManager : MonoBehaviour {
         {
             //StartCoroutine(Example());
             string templateName = pScene.name.Substring(0, pScene.name.Length - 1);
+            if(pScene.name == "Town1Seated")
+            {
+                return;
+            }
             if (SceneManager.GetSceneByName(templateName + "Template").buildIndex < 0)
             {
                 SceneManager.LoadScene(templateName + "Template", LoadSceneMode.Additive);
@@ -79,6 +84,16 @@ public class GameManager : MonoBehaviour {
         {
             SceneManager.LoadScene("NeighborhoodTemplate", LoadSceneMode.Additive);
             SceneManager.SetActiveScene(pScene);
+        }
+        else
+        {
+            if (Player != null) { Player.State = PlayerState.ACTIVE; }
+            transitionCanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
+            if (transitionCanvas != null)
+            {
+                transitionCanvas.enabled = true;
+                transitionCanvas.GetComponent<UITransition>().StartFadeIn();
+            }
         }
     }
 
@@ -92,14 +107,20 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public void LoadScene(string sceneName)
+    public void StartLoadScene(string sceneName)
     {
+        sceneToLoad = sceneName;
         if(transitionCanvas == null)
         {
             transitionCanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
         }
         transitionCanvas.enabled = true;
+        transitionCanvas.GetComponent<UITransition>().StartFadeOut(0.5f);
+    }
 
+    public void LoadScene()
+    {
+        string sceneName = sceneToLoad;
         string templateName = sceneName.Substring(0, sceneName.Length - 1);
         if (SceneManager.GetSceneByName(templateName + "Template").buildIndex < 0)
         {

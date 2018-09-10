@@ -6,6 +6,7 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: lambert1
+    2100002: lambert6
     2300000: //RootNode
     3300000: //RootNode
     4300000: pSphere3
@@ -15,6 +16,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: lambert1
     second: {fileID: 2100000, guid: 0be777e122ab36641b132a31209a1dc7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert6
+    second: {fileID: 2100000, guid: 43fcf45227a929045b3e28044549d82c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

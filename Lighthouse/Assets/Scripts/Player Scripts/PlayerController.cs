@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour {
             {
                 acceleration = 5;
             }
-            if (Input.GetButtonDown("Fire3") && bubble.enabled != true)
+            if (Input.GetButtonDown("Fire3") && !bubble.enabled)
             {
                 bubble.enabled = true;
                 bubble.Activate();
@@ -91,12 +91,15 @@ public class PlayerController : MonoBehaviour {
 
             //set the velocity
             Vector3 newVelocity = Vector3.ClampMagnitude(m_Move, 1) * acceleration;
-            rb.velocity = new Vector3(newVelocity.x, Mathf.Clamp(rb.velocity.y, -100, 1), newVelocity.z);
-
-            if (m_Move.x != 0 || m_Move.y != 0)
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("sitting"))
             {
-                this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(m_Move), turnSpeed * Time.deltaTime);
+                rb.velocity = new Vector3(newVelocity.x, Mathf.Clamp(rb.velocity.y, -100, 1), newVelocity.z);
+                if (m_Move.x != 0 || m_Move.y != 0)
+                {
+                    this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(m_Move), turnSpeed * Time.deltaTime);
+                }
             }
+
         }
         else if (gm.Player.State == PlayerState.MOVING)
         {

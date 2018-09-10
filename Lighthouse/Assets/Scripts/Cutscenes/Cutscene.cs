@@ -46,7 +46,7 @@ public class Cutscene : MonoBehaviour {
         }
     }
 
-    protected virtual void StartCutscene()
+    public virtual void StartCutscene()
     {
         gm.EventMan.finishedLerp.AddListener(LerpCallback);
         gm.Player.State = PlayerState.CUTSCENE;

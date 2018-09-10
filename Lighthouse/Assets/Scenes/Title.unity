@@ -1007,8 +1007,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1456500567}
-  m_LocalRotation: {x: 0.29102543, y: -0.14713728, z: 0.04534911, w: 0.94424486}
-  m_LocalPosition: {x: -10.21, y: 6.75, z: 2.57}
+  m_LocalRotation: {x: -0.0047297245, y: 0.9900314, z: -0.13652495, w: -0.034298316}
+  m_LocalPosition: {x: -13.944128, y: 3.69, z: 15.309759}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2428,6 +2428,7 @@ GameObject:
   - component: {fileID: 2023671625}
   - component: {fileID: 2023671624}
   - component: {fileID: 2023671623}
+  - component: {fileID: 2023671627}
   m_Layer: 0
   m_Name: UICanvas
   m_TagString: Untagged
@@ -2511,6 +2512,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2023671627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2023671622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d81604fbcd4fa2547b2f00d50f856734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2025804543
 GameObject:
   m_ObjectHideFlags: 0

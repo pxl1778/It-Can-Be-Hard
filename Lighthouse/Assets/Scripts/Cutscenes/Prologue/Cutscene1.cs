@@ -8,13 +8,14 @@ public class Cutscene1 : Cutscene
     PathFollowingCharacter dog;
     
 
-    protected override void StartCutscene()
+    public override void StartCutscene()
     {
         base.StartCutscene();
         this.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>().Priority = 11;
         cameraTimeline.Play();
         ResetPlayerParent();
         GameManager.instance.EventMan.endCutscene.AddListener(EndCutscene);
+        StartCoroutine(WaitForEnd(cameraTimeline.playableAsset.duration));
         PlayCutscene();
     } 
 
@@ -70,7 +71,18 @@ public class Cutscene1 : Cutscene
     {
         base.EndCutscene();
         cameraTimeline.Stop();
-        GameManager.instance.LoadScene("Neighborhood1");
+        GameManager.instance.StartLoadScene("Neighborhood1");
+    }
+
+    IEnumerator WaitForEnd(double duration)
+    {
+        float elapsedTime = 0.0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        EndCutscene();
     }
 
 }

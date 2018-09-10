@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         //string dialoguePath = Application.dataPath + "/Scripts/NPC Scripts/CharacterDialogue/dialogue.txt";
-        string dialoguePath = Path.Combine(Application.streamingAssetsPath, "dialogue.txt");
+        string dialoguePath = Path.Combine(Application.streamingAssetsPath, "dialogue.json");
         string jsonText = "";
         //reading in the file
         try

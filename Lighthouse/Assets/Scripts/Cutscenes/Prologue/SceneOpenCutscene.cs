@@ -6,7 +6,7 @@ public class SceneOpenCutscene : Cutscene {
 
     Cinemachine.CinemachineVirtualCamera cutsceneCam;
 
-    protected override void StartCutscene()
+    public override void StartCutscene()
     {
         base.StartCutscene();
         cutsceneCam = this.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();

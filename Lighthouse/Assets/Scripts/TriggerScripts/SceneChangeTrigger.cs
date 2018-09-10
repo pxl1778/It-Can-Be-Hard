@@ -11,7 +11,7 @@ public class SceneChangeTrigger : MonoBehaviour {
     {
         if(other.gameObject.tag == "Player")
         {
-            GameManager.instance.LoadScene(nextScene);
+            GameManager.instance.StartLoadScene(nextScene);
         }
     }
 }

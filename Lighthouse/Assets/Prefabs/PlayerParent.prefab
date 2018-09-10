@@ -176,6 +176,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1150086190620682
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4886012229338458}
+  - component: {fileID: 33490859309850140}
+  - component: {fileID: 23914382412387410}
+  m_Layer: 10
+  m_Name: cellPhone1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1151870944820660
 GameObject:
   m_ObjectHideFlags: 1
@@ -1054,6 +1071,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1963877624646542
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4321384578494508}
+  - component: {fileID: 20872163235274484}
+  m_Layer: 0
+  m_Name: phoneCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1967586616302548
 GameObject:
   m_ObjectHideFlags: 1
@@ -1363,6 +1396,20 @@ Transform:
   m_Father: {fileID: 4713848562090280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4321384578494508
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1963877624646542}
+  m_LocalRotation: {x: 0.3944268, y: 0.06173599, z: -0.022889618, w: 0.91656554}
+  m_LocalPosition: {x: -0.00012193682, y: 0.1271, z: -0.01089934}
+  m_LocalScale: {x: 0.10000013, y: 0.10000005, z: 0.10000013}
+  m_Children:
+  - {fileID: 4886012229338458}
+  m_Father: {fileID: 4370301629903894}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 46.541, y: 187.30699, z: 0.56200004}
 --- !u!4 &4329831164458908
 Transform:
   m_ObjectHideFlags: 1
@@ -1416,6 +1463,7 @@ Transform:
   - {fileID: 4130035021052214}
   - {fileID: 4621960885203508}
   - {fileID: 4555628352742622}
+  - {fileID: 4321384578494508}
   m_Father: {fileID: 4901005752815244}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1957,6 +2005,19 @@ Transform:
   m_Father: {fileID: 4118006851271002}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4886012229338458
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150086190620682}
+  m_LocalRotation: {x: -0.003436741, y: -0.7134889, z: 0.009935319, w: 0.7005877}
+  m_LocalPosition: {x: -0.005, y: 0.004, z: 0.5}
+  m_LocalScale: {x: 0.0003134822, y: 0.0021574567, z: 0.0013853619}
+  m_Children: []
+  m_Father: {fileID: 4321384578494508}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 95.795006, z: -45.462}
 --- !u!4 &4897573394737708
 Transform:
   m_ObjectHideFlags: 1
@@ -1978,7 +2039,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350126113502530}
   m_LocalRotation: {x: -0, y: 0.9999844, z: -0, w: 0.005593509}
-  m_LocalPosition: {x: -14.331, y: 0.536, z: 9.96}
+  m_LocalPosition: {x: -14.256, y: 0.536, z: 8.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4370301629903894}
@@ -2080,6 +2141,42 @@ Transform:
   m_Father: {fileID: 4594693135990462}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &20872163235274484
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1963877624646542}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.1
+  far clip plane: 1
+  field of view: 28
+  orthographic: 0
+  orthographic size: 0.13
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 8400000, guid: 32156111775435e468c0eb225d253eac, type: 2}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_AllowMSAA: 0
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 0
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!23 &23699965865469932
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2115,6 +2212,41 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23914382412387410
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150086190620682}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 621d1e09ede2c864d840d2ba012f3ca2, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!33 &33174555247241424
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -2122,6 +2254,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1867833450269552}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33490859309850140
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150086190620682}
+  m_Mesh: {fileID: 4300000, guid: 6fec08ca80420d143b1d844a89de31c3, type: 3}
 --- !u!54 &54258034069993488
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -2294,9 +2433,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.5
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2312,6 +2451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ec6bbd9b3cc874f8fe651e57ca6e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endScale: {x: 0.7, y: 0.7, z: 0.7}
 --- !u!114 &114563596749306664
 MonoBehaviour:
   m_ObjectHideFlags: 1

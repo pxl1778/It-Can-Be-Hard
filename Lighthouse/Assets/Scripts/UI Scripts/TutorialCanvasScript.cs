@@ -12,9 +12,12 @@ public class TutorialCanvasScript : MonoBehaviour {
 	void Start () {
         foreach(Transform t in transform)
         {
-            t.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
-            t.GetComponentsInChildren<Image>()[1].CrossFadeAlpha(0.0f, 0.0f, false);
-            t.GetComponentInChildren<Text>().CrossFadeAlpha(0.0f, 0.0f, false);
+            if(t.GetComponent<Image>() != null)
+            {
+                t.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+                t.GetComponentsInChildren<Image>()[1].CrossFadeAlpha(0.0f, 0.0f, false);
+                t.GetComponentInChildren<Text>().CrossFadeAlpha(0.0f, 0.0f, false);
+            }
         }
 	}
 	
@@ -58,7 +61,6 @@ public class TutorialCanvasScript : MonoBehaviour {
         }
         else
         {
-            Debug.Log("fade in");
             currentIndex = index;
             transform.GetChild(index).GetComponent<Image>().CrossFadeAlpha(1.0f, 0.5f, false);
             transform.GetChild(index).GetComponentInChildren<Text>().CrossFadeAlpha(1.0f, 0.5f, false);

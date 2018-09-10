@@ -12,7 +12,7 @@ public class Mateo1_2 : NPCTalkScript
 
     public override void secondStart()
     {
-        lines = new DialogueLine[] { new DialogueLine(gm.DialogueMan.getLine("mateo1_2_1"))
+        lines = new DialogueLine[] { new DialogueLine("mateo1_2_1")
                                     };
         options = new string[] { gm.DialogueMan.getLine("mateo1_2_option1"), gm.DialogueMan.getLine("mateo1_2_option2") };
         originalLines = lines;
@@ -25,7 +25,7 @@ public class Mateo1_2 : NPCTalkScript
         switch (optionNumber)
         {
             case 0:
-                lines = new DialogueLine[] { new DialogueLine(gm.DialogueMan.getLine("mateo1_2_2")) };
+                lines = new DialogueLine[] { new DialogueLine("mateo1_2_2") };
                 options = new string[] { };
                 lines[currentText].doLineStart();
                 break;
@@ -40,7 +40,7 @@ public class Mateo1_2 : NPCTalkScript
         switch (optionNumber)
         {
             case 0:
-                lines = new DialogueLine[] { new DialogueLine(gm.DialogueMan.getLine("mateo1_2_3")) };
+                lines = new DialogueLine[] { new DialogueLine("mateo1_2_3") };
                 options = new string[] { };
                 lines[currentText].doLineStart();
                 break;

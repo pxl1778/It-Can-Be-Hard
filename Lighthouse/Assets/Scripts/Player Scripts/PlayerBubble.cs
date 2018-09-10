@@ -6,6 +6,7 @@ public class PlayerBubble : MonoBehaviour {
 
     private bool active;
     private Vector3 startScale = new Vector3(0.01f, 0.01f, 0.01f);
+    [SerializeField]
     private Vector3 endScale = new Vector3(0.7f, 0.7f, 0.7f);
     private float alpha = 0;
     private float speed = 1;
@@ -14,6 +15,7 @@ public class PlayerBubble : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         meshRenderer = this.GetComponent<MeshRenderer>();
+        meshRenderer.enabled = false;
 	}
 	
 	// Update is called once per frame

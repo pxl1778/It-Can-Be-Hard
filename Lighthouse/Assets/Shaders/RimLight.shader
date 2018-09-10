@@ -43,7 +43,7 @@
 			half3 h = normalize(lightDir + viewDir);
 			half maxNdotL = max(0, dot(s.Normal, lightDir));
 			float nh = max(0, dot(s.Normal, h));
-			float spec = pow(nh, _SpecPower);
+			float spec = pow(nh, _SpecPower*2);
 			float3 specLighting = _LightColor0.rgb * step(0.1, spec) *_Smoothness * s.Specular;
 
 			color.rgb = s.Albedo * _LightColor0.rgb * atten * (tex2D(_RampTex, float2(diff, 0)).rgb + 0.2) + specLighting;
