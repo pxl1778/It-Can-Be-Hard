@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene pScene, LoadSceneMode pMode)
     {
-        if (!pScene.name.Contains("Template") && pScene.name != "Title")
+        if (!pScene.name.Contains("Template") && pScene.name != "Title" && pScene.name != "PhoneTransition")
         {
             //StartCoroutine(Example());
             string templateName = pScene.name.Substring(0, pScene.name.Length - 1);

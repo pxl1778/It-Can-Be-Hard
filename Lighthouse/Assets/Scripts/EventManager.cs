@@ -19,6 +19,7 @@ public class FloatUnityEvent : UnityEvent<float> { }
 public class EventManager : MonoBehaviour {
     //Loading events
     public UnityEvent dialogueLoadFinished = new UnityEvent();
+    public UnityEvent uiFaded = new UnityEvent();
 
     //Camera events
     public StringFloat2UnityEvent lerpToTarget = new StringFloat2UnityEvent();

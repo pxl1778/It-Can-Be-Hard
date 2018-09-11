@@ -56,6 +56,7 @@ public class UITransition : MonoBehaviour {
         timeElapsed = 0;
         while (timeElapsed <= duration)
         {
+            Time.timeScale = 1;
             timeElapsed += Time.deltaTime;
             alpha = 1 - (timeElapsed / duration);
             alpha = (alpha < 0.0f) ? 0 : alpha;
@@ -64,5 +65,6 @@ public class UITransition : MonoBehaviour {
         }
         if (GameManager.instance.Player != null) { GameManager.instance.Player.State = PlayerState.ACTIVE; }
         canvas.enabled = false;
+        GameManager.instance.EventMan.uiFaded.Invoke();
     }
 }

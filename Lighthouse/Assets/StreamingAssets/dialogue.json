@@ -1,6 +1,39 @@
 {
 	"packs":[
 		{
+			"name": "Texting1",
+			"objects":[
+				{
+					"text":"Hey, have you done the homework yet?",
+					"name":"texting1_1_1"
+				},
+				{
+					"text":"Naw...why?",
+					"name":"texting1_2_2"
+				},
+				{
+					"text":"Dude, I need help! You still have my book!",
+					"name":"texting1_3_1"
+				},
+				{
+					"text":"Oh yeah, lemme grab it",
+					"name":"texting1_4_2"
+				},
+				{
+					"text":"....so I may or may not still have your book.",
+					"name":"texting1_5_2"
+				},
+				{
+					"text":"Aw, seriously?? You're so clumsy sometimes, you know that?",
+					"name":"texting1_6_1"
+				},
+				{
+					"text":"Yeah yeah yeah, hold on, lemme go look for it.",
+					"name":"texting1_7_2"
+				}
+			]
+		},
+		{
 			"name": "Mateo1",
 			"objects":[
 				{

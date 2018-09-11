@@ -1,25 +1,147 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TextingManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    [SerializeField]
+    private RawImage phoneImage;
+    [SerializeField]
+    private RectTransform content;
+    [SerializeField]
+    private GameObject rightMessage;
+    [SerializeField]
+    private GameObject leftMessage;
+
+    private bool isLeft = true;
+    private string[] textConvo;
+    private int currentText = 0;
+    private bool canReply = false;
+    private float cElapsedTime = 0;
+    private float elapsedTime = 0;
+    private float replyTime = 1.5f;
+    private float closeTime = 3.5f;
+    private bool closing = false;
+
+
+    // Use this for initialization
+    void Start () {
+        GameManager.instance.EventMan.uiFaded.AddListener(startLerp);
+        textConvo = new string[]{ "texting1_1_1", "texting1_2_2", "texting1_3_1", "texting1_4_2", "texting1_5_2", "texting1_6_1", "texting1_7_2"};
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (!canReply && currentText < textConvo.Length && !closing)
+        {
+            elapsedTime += Time.deltaTime;
+            if(elapsedTime >= replyTime)
+            {
+                GameObject newText = Object.Instantiate(leftMessage); newText.transform.parent = content;
+                newText.transform.localScale = new Vector3(1, 1, 1);
+                newText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine(textConvo[currentText]);
+                currentText++;
+                elapsedTime = 0;
+                if (currentText >= textConvo.Length)
+                {
+                    canReply = false;
+                    closing = true;
+                    return;
+                }
+                if (textConvo[currentText].Substring(textConvo[currentText].Length - 1, 1) == "1")
+                {
+                    canReply = false;
+                }
+                else
+                {
+                    canReply = true;
+                }
+            }
+        }
+        if(currentText >= textConvo.Length && closing)
+        {
+            Debug.Log("we made it here");
+            elapsedTime += Time.deltaTime;
+            if(elapsedTime >= closeTime)
+            {
+                Debug.Log("now here!");
+                elapsedTime = 0;
+                StartCoroutine(LerpPhoneDown(0.2f, -1500));
+                closing = false;
+            }
+        }
 	}
+
+    private void OnDestroy()
+    {
+        GameManager.instance.EventMan.uiFaded.RemoveListener(startLerp);
+    }
+
+    public void startLerp()
+    {
+        StartCoroutine(LerpPhone(0.5f, 0));
+    }
 
     public void clickReply()
     {
-        //set to button in phone
-        //start type out message
-        //create new dialogue box after finishing
-        //make parent to dialogue box the same as the scrollview
-        //scroll scrollview down
+        if(currentText >= textConvo.Length || !canReply)
+        {
+            return;
+        }
+        
+        GameObject newText = Object.Instantiate(rightMessage);
+        newText.transform.parent = content;
+        newText.transform.localScale = new Vector3(1, 1, 1);
+        newText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine(textConvo[currentText]);
+        currentText++;
+        if (currentText >= textConvo.Length)
+        {
+            canReply = false;
+            closing = true;
+            return;
+        }
+        if (textConvo[currentText].Substring(textConvo[currentText].Length - 1, 1) == "1")
+        {
+            canReply = false;
+        }
+        else
+        {
+            canReply = true;
+        }
+    }
+
+    IEnumerator LerpPhone(float duration, float endY)
+    {
+        cElapsedTime = 0;
+        float originalY = phoneImage.rectTransform.localPosition.y;
+        while (cElapsedTime < duration)
+        {
+            cElapsedTime += Time.deltaTime;
+            phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, Mathf.Lerp(originalY, endY, calcEase(cElapsedTime / duration)), phoneImage.rectTransform.localPosition.z);
+            yield return new WaitForEndOfFrame();
+        }
+        phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, endY, phoneImage.rectTransform.localPosition.z);
+    }
+    IEnumerator LerpPhoneDown(float duration, float endY)
+    {
+        Debug.Log("lerping down");
+        cElapsedTime = 0;
+        float originalY = phoneImage.rectTransform.localPosition.y;
+        while (cElapsedTime < duration)
+        {
+            cElapsedTime += Time.deltaTime;
+            phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, Mathf.Lerp(originalY, endY, calcEase(cElapsedTime / duration)), phoneImage.rectTransform.localPosition.z);
+            yield return new WaitForEndOfFrame();
+        }
+        phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, endY, phoneImage.rectTransform.localPosition.z);
+        GameManager.instance.StartLoadScene("Neighborhood0");
+    }
+
+    public float calcEase(float pAlpha)
+    {
+        pAlpha = (pAlpha > 1.0f) ? 1.0f : pAlpha;
+        //return pAlpha * pAlpha * (3.0f - 2.0f * pAlpha);
+        return pAlpha * (2.0f - pAlpha);
     }
 }
