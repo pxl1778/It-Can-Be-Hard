@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 021aa1b7437c6c04db40799f0323a4ce
   - enabled: 1
+    path: Assets/Scenes/PhoneTransition1.unity
+    guid: fd89dc72327d20243a1c5f95cf26f29f
+  - enabled: 1
     path: Assets/Scenes/NeighborhoodTemplate.unity
     guid: e7df1309839c2e2408258a9b8882664b
   - enabled: 1

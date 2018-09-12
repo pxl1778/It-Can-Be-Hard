@@ -13,6 +13,8 @@ public class TextingManager : MonoBehaviour {
     private GameObject rightMessage;
     [SerializeField]
     private GameObject leftMessage;
+    [SerializeField]
+    private Button sendButton;
 
     private bool isLeft = true;
     private string[] textConvo;
@@ -20,7 +22,7 @@ public class TextingManager : MonoBehaviour {
     private bool canReply = false;
     private float cElapsedTime = 0;
     private float elapsedTime = 0;
-    private float replyTime = 1.5f;
+    private float replyTime = 2.5f;
     private float closeTime = 3.5f;
     private bool closing = false;
 
@@ -41,21 +43,28 @@ public class TextingManager : MonoBehaviour {
                 GameObject newText = Object.Instantiate(leftMessage); newText.transform.parent = content;
                 newText.transform.localScale = new Vector3(1, 1, 1);
                 newText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine(textConvo[currentText]);
+                StartCoroutine(LerpTextUp(0.2f, newText));
                 currentText++;
                 elapsedTime = 0;
                 if (currentText >= textConvo.Length)
                 {
                     canReply = false;
                     closing = true;
+                    sendButton.interactable = false;
+                    sendButton.image.color = new Color(0.51f, 0.51f, 0.51f, 1.0f);
                     return;
                 }
                 if (textConvo[currentText].Substring(textConvo[currentText].Length - 1, 1) == "1")
                 {
                     canReply = false;
+                    sendButton.interactable = false;
+                    sendButton.image.color = new Color(0.51f, 0.51f, 0.51f, 1.0f);
                 }
                 else
                 {
                     canReply = true;
+                    sendButton.interactable = true;
+                    sendButton.image.color = new Color(1f, 1f, 1f, 1.0f);
                 }
             }
         }
@@ -95,19 +104,26 @@ public class TextingManager : MonoBehaviour {
         newText.transform.localScale = new Vector3(1, 1, 1);
         newText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine(textConvo[currentText]);
         currentText++;
+        StartCoroutine(LerpTextUp(0.2f, newText));
         if (currentText >= textConvo.Length)
         {
             canReply = false;
             closing = true;
+            sendButton.interactable = false;
+            sendButton.image.color = new Color(0.51f, 0.51f, 0.51f, 1.0f);
             return;
         }
         if (textConvo[currentText].Substring(textConvo[currentText].Length - 1, 1) == "1")
         {
             canReply = false;
+            sendButton.interactable = false;
+            sendButton.image.color = new Color(0.51f, 0.51f, 0.51f, 1.0f);
         }
         else
         {
             canReply = true;
+            sendButton.interactable = true;
+            sendButton.image.color = new Color(1f, 1f, 1f, 1.0f);
         }
     }
 
@@ -136,6 +152,21 @@ public class TextingManager : MonoBehaviour {
         }
         phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, endY, phoneImage.rectTransform.localPosition.z);
         GameManager.instance.StartLoadScene("Neighborhood0");
+    }
+
+    IEnumerator LerpTextUp(float duration, GameObject text)
+    {
+        float textTime = 0;
+        text.transform.localScale = new Vector3(0, 0, 1);
+        while (textTime < duration)
+        {
+            textTime += Time.deltaTime;
+            float scale = textTime / duration;
+            if(scale > 1.0f) { scale = 1.0f; }
+            scale = calcEase(scale);
+            text.transform.localScale = new Vector3(scale, scale, 1);
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     public float calcEase(float pAlpha)

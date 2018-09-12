@@ -70,6 +70,7 @@ public class BoulderPush : MonoBehaviour {
             selectable = true;
             tkParticle.Play();
             mat.SetColor("_RimColor", new Vector4(0.9680033f, 1, 0, 1));
+            GameObject.Find("TutorialCanvas").GetComponent<TutorialCanvasScript>().FadeOutTutorial(3);
         }
     }
 }

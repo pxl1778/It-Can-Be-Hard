@@ -127,7 +127,7 @@ public class UIManager : MonoBehaviour {
         }
         else
         {
-            GameManager.instance.StartLoadScene("Neighborhood0");
+            GameManager.instance.StartLoadScene("PhoneTransition1");
         }
     }
 
