@@ -27,7 +27,7 @@ public class DialogueBox : MonoBehaviour {
         Vector2 viewportPoint = cam.WorldToViewportPoint(targetPos);
 
         //Debug.Log(canvasRect.sizeDelta.x);
-        rt.position = new Vector3(viewportPoint.x * canvasRect.sizeDelta.x, viewportPoint.y * canvasRect.sizeDelta.y, 0) * canvasRect.localScale.x;
+        rt.position = new Vector3(viewportPoint.x * canvasRect.sizeDelta.x, (viewportPoint.y + 1.0f) * canvasRect.sizeDelta.y, 0) * canvasRect.localScale.x;
         if (rt.position.x < 100)
         {
             rt.position = new Vector3(100, rt.position.y, rt.position.z);

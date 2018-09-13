@@ -13,6 +13,10 @@ public class PauseMenuScript : MonoBehaviour {
     private Canvas textingCanvas;
     [SerializeField]
     private Canvas quitCanvas;
+    [SerializeField]
+    private AudioSource menuBackBlip;
+    [SerializeField]
+    private AudioSource menuBlip;
 
     public void ExitGame()
     {
@@ -59,5 +63,6 @@ public class PauseMenuScript : MonoBehaviour {
         quitCanvas.enabled = false;
         textingCanvas.enabled = false;
         controlsCanvas.enabled = false;
+        menuBackBlip.Play();
     }
 }

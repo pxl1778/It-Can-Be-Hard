@@ -11,8 +11,8 @@ public class Mateo1Brain : MonoBehaviour {
     [SerializeField]
     private bool normalScene = true;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         this.transform.parent.GetComponentInChildren<Animator>().SetBool("Sitting", sitting);
         if(normalScene)

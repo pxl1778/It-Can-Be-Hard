@@ -32,6 +32,9 @@ abstract public class NPCTalkScript : MonoBehaviour {
     protected GameManager gm;
     protected NPCSpeechBubble speechBubble;
     protected Cinemachine.CinemachineVirtualCamera npcCam;
+    public AudioSource[] talkSounds;
+    private int currentSound = 0;
+    private int soundCount = 0;
 
     // Use this for initialization
     void Start() {
@@ -48,6 +51,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
         npcCam = this.transform.parent.GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();
         originalCamPosition = npcCam.transform.position;
         secondStart();
+        talkSounds = this.GetComponentsInChildren<AudioSource>();
     }
 
     // Update is called once per frame
@@ -165,7 +169,19 @@ abstract public class NPCTalkScript : MonoBehaviour {
             {
                 text.text = lines[currentText].line.Substring(0, currentCharacter + 1);
                 currentCharacter++;
-                timer = 0;
+                soundCount++;
+                if(soundCount >= 5)
+                {
+                    talkSounds[currentSound].pitch = Random.Range(0.7f, 0.9f);
+                    talkSounds[currentSound].Play();
+                    timer = 0;
+                    currentSound++;
+                    if (currentSound >= talkSounds.Length)
+                    {
+                        currentSound = 0;
+                    }
+                    soundCount = 0;
+                }
                 if(currentCharacter >= lines[currentText].line.Length)
                 {
                     lines[currentText].doLineEnd();
