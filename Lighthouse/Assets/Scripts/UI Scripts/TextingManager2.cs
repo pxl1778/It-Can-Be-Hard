@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextingManager : MonoBehaviour {
+public class TextingManager2 : MonoBehaviour {
 
     [SerializeField]
     private RawImage phoneImage;
@@ -28,17 +28,19 @@ public class TextingManager : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         GameManager.instance.EventMan.uiFaded.AddListener(startLerp);
-        textConvo = new string[]{ "texting1_1_1", "texting1_2_2", "texting1_3_1", "texting1_4_2", "texting1_5_2", "texting1_6_1", "texting1_7_2"};
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        textConvo = new string[] { "texting2_1_1", "texting2_2_2", "texting2_3_2", "texting2_4_1", "texting2_5_1", "texting2_6_2" };
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (!canReply && currentText < textConvo.Length && !closing)
         {
             elapsedTime += Time.deltaTime;
-            if(elapsedTime >= replyTime)
+            if (elapsedTime >= replyTime)
             {
                 GameObject newText = Object.Instantiate(leftMessage); newText.transform.parent = content;
                 newText.transform.localScale = new Vector3(1, 1, 1);
@@ -68,11 +70,11 @@ public class TextingManager : MonoBehaviour {
                 }
             }
         }
-        if(currentText >= textConvo.Length && closing)
+        if (currentText >= textConvo.Length && closing)
         {
             Debug.Log("we made it here");
             elapsedTime += Time.deltaTime;
-            if(elapsedTime >= closeTime)
+            if (elapsedTime >= closeTime)
             {
                 Debug.Log("now here!");
                 elapsedTime = 0;
@@ -80,7 +82,7 @@ public class TextingManager : MonoBehaviour {
                 closing = false;
             }
         }
-	}
+    }
 
     private void OnDestroy()
     {
@@ -94,11 +96,11 @@ public class TextingManager : MonoBehaviour {
 
     public void clickReply()
     {
-        if(currentText >= textConvo.Length || !canReply)
+        if (currentText >= textConvo.Length || !canReply)
         {
             return;
         }
-        
+
         GameObject newText = Object.Instantiate(rightMessage);
         newText.transform.parent = content;
         newText.transform.localScale = new Vector3(1, 1, 1);
@@ -143,7 +145,7 @@ public class TextingManager : MonoBehaviour {
     {
         Debug.Log("lerping down");
         cElapsedTime = 0;
-        
+
         float originalY = phoneImage.rectTransform.localPosition.y;
         while (cElapsedTime < duration)
         {
@@ -152,7 +154,7 @@ public class TextingManager : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, endY, phoneImage.rectTransform.localPosition.z);
-        GameManager.instance.StartLoadScene("Neighborhood0");
+        GameManager.instance.StartLoadScene("Neighborhood1");
     }
 
     IEnumerator LerpTextUp(float duration, GameObject text)
@@ -163,7 +165,7 @@ public class TextingManager : MonoBehaviour {
         {
             textTime += Time.deltaTime;
             float scale = textTime / duration;
-            if(scale > 1.0f) { scale = 1.0f; }
+            if (scale > 1.0f) { scale = 1.0f; }
             scale = calcEase(scale);
             text.transform.localScale = new Vector3(scale, scale, 1);
             yield return new WaitForEndOfFrame();

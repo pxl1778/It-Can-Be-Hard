@@ -69,7 +69,24 @@ public class PathFollowingCharacter : MonoBehaviour {
                 maxTimer = path[currentPoint].Speed;
                 originalPoint = this.transform.position;
             }
+            if(currentPoint >= path.Length)
+            {
+                StartCoroutine(LerpScaleDown());
+            }
         }
+    }
+
+    IEnumerator LerpScaleDown()
+    {
+        float lerpTime = 0;
+        Vector3 originalScale = this.transform.localScale;
+        while(lerpTime < 0.7f)
+        {
+            lerpTime += Time.deltaTime;
+            this.transform.localScale = Vector3.Lerp(originalScale, new Vector3(0.01f, 0.01f, 0.01f), lerpTime / 0.7f);
+            yield return new WaitForEndOfFrame();
+        }
+        this.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
     }
 
     public float calcEase(float pAlpha)
@@ -83,6 +100,7 @@ public class PathFollowingCharacter : MonoBehaviour {
         maxTimer = path[path.Length - 1].Speed;
         originalPoint = this.transform.position;
         currentPoint = path.Length - 1;
+        StartCoroutine(LerpScaleDown());
     }
 
     public void StartMoveToPosition(Vector3 pPosition, float pDelay, float pDuration)

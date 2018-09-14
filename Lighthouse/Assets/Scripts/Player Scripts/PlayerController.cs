@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour {
             }
             if (Input.GetButtonDown("Fire3") && !bubble.enabled)
             {
+                Debug.Log("shift pressed");
                 bubble.enabled = true;
                 bubble.Activate();
             }

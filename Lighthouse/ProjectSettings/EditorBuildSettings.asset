@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Town1Seated.unity
     guid: 2e54233e4f276244e86c5527158e2433
+  - enabled: 1
+    path: Assets/Scenes/PhoneTransition2.unity
+    guid: fdd6db9aa7fdd7846b0fd9c6b6f4d5a7
   m_configObjects: {}

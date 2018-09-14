@@ -16,6 +16,7 @@ public class PlayerBubble : MonoBehaviour {
 	void Start () {
         meshRenderer = this.GetComponent<MeshRenderer>();
         meshRenderer.enabled = false;
+        Deactivate();
 	}
 	
 	// Update is called once per frame
@@ -54,8 +55,10 @@ public class PlayerBubble : MonoBehaviour {
 
     public void Deactivate()
     {
+        Debug.Log("deactivating");
         if (meshRenderer != null)
         {
+            Debug.Log("deactivating successfully");
             active = false;
             alpha = 0;
             this.transform.localScale = startScale;

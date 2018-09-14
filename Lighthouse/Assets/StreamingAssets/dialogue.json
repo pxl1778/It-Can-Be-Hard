@@ -34,6 +34,35 @@
 			]
 		},
 		{
+			"name": "Texting2",
+			"objects":[
+				{
+					"text":"Are you awake yet??",
+					"name":"texting2_1_1"
+				},
+				{
+					"text":"Your text just woke me up, Mat.",
+					"name":"texting2_2_2"
+				},
+				{
+					"text":"I had this really weird dream...there was some ball of light and like a deer statue??",
+					"name":"texting2_3_2"
+				},
+				{
+					"text":"There's gotta be some hippy dream meaning in there somewhere. You should ask Shay about it.",
+					"name":"texting2_4_1"
+				},
+				{
+					"text":"Anyways, I'm waiting outside your door.",
+					"name":"texting2_5_1"
+				},
+				{
+					"text":"Omg, let me get pants on first?",
+					"name":"texting2_6_2"
+				}
+			]
+		},
+		{
 			"name": "Mateo1",
 			"objects":[
 				{
@@ -135,7 +164,7 @@
 				},
 				{
 					"text":"How did I...what the?",
-					"name":"player_chapter1_1"
+					"name":"player_chapter1_2"
 				}
 			]
 		},
@@ -195,8 +224,12 @@
 					"name":"mateo1_town1seated_7"
 				},
 				{ 
-					"text":"Ugh, hold on.",
+					"text":"No, I promise I didn't.",
 					"name":"player_town1seated_7"
+				},
+				{ 
+					"text":"Ugh, let me try something else.",
+					"name":"player_town1seated_8"
 				},
 				{ 
 					"text":"Woah! Okay, that totally could've been the wind.",
@@ -204,7 +237,7 @@
 				},
 				{ 
 					"text":"C'mooon!",
-					"name":"player_town1seated_8"
+					"name":"player_town1seated_9"
 				},
 				{ 
 					"text":"Okay, if you're really telling the truth...",
@@ -213,6 +246,30 @@
 				{ 
 					"text":"Push me over!",
 					"name":"mateo1_town1seated_10"
+				},
+				{ 
+					"text":"Uhh, I dunno about that...I haven't used this on people yet.",
+					"name":"player_town1seated_10"
+				},
+				{ 
+					"text":"How about we get back to the gay thing?",
+					"name":"player_town1seated_11"
+				},
+				{ 
+					"text":"Oh, is that too hard for your 'powers'?",
+					"name":"mateo1_town1seated_11"
+				},
+				{ 
+					"text":"Push me!",
+					"name":"mateo1_town1seated_12"
+				},
+				{ 
+					"text":"No I just...I...",
+					"name":"player_town1seated_12"
+				},
+				{ 
+					"text":"I gotta go!",
+					"name":"player_town1seated_13"
 				}
 			]
 		}

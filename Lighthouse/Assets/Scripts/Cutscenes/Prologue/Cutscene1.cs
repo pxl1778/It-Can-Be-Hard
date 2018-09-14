@@ -71,7 +71,7 @@ public class Cutscene1 : Cutscene
     {
         base.EndCutscene();
         cameraTimeline.Stop();
-        GameManager.instance.StartLoadScene("Neighborhood1");
+        GameManager.instance.StartLoadScene("PhoneTransition2");
     }
 
     IEnumerator WaitForEnd(double duration)

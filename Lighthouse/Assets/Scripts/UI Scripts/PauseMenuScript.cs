@@ -65,4 +65,18 @@ public class PauseMenuScript : MonoBehaviour {
         controlsCanvas.enabled = false;
         menuBackBlip.Play();
     }
+
+    public void ResetPhone()
+    {
+        homeCanvas.enabled = true;
+        optionsCanvas.enabled = false;
+        quitCanvas.enabled = false;
+        textingCanvas.enabled = false;
+        controlsCanvas.enabled = false;
+    }
+
+    public void PlayBackBlip()
+    {
+        menuBackBlip.PlayOneShot(menuBackBlip.clip);
+    }
 }

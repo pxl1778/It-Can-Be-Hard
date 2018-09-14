@@ -33,6 +33,26 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    public void ResetPauseMenu()
+    {
+        if (GameObject.Find("Pause Menu") != null)
+        {
+            pauseMenu = GameObject.Find("Pause Menu").GetComponent<Canvas>();
+            phoneImage = pauseMenu.GetComponentInChildren<RawImage>();
+            foreach (Transform t in pauseMenu.transform)
+            {
+                if (t.GetComponent<Image>() != null)
+                {
+                    t.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.0f, false);
+                    if (t.childCount > 0)
+                    {
+                        t.GetComponentInChildren<Text>().CrossFadeAlpha(0.0f, 0.0f, false);
+                    }
+                }
+            }
+        }
+    }
+
     private void Update()
     {
         if(pauseMenu == null)
@@ -43,10 +63,12 @@ public class UIManager : MonoBehaviour {
         {
             if (lastRoutine != null)
             {
+                Debug.Log("last routine isn't null");
                 StopCoroutine(lastRoutine);
             }
             if (paused)
             {
+                Debug.Log("paused");
                 Time.timeScale = 1;
                 paused = false;
                 lastRoutine = StartCoroutine(LerpPhoneDown(0.5f, lowerY));
@@ -64,6 +86,7 @@ public class UIManager : MonoBehaviour {
             }
             else
             {
+                Debug.Log("not paused");
                 paused = true;
                 lastRoutine = StartCoroutine(LerpPhone(0.5f, 0.0f));
                 foreach (Transform t in pauseMenu.transform)
@@ -99,6 +122,7 @@ public class UIManager : MonoBehaviour {
     }
     IEnumerator LerpPhoneDown(float duration, float endY)
     {
+        pauseMenu.GetComponent<PauseMenuScript>().PlayBackBlip();
         elapsedTime = 0;
         float originalY = phoneImage.rectTransform.localPosition.y;
         while (elapsedTime < duration)
@@ -108,7 +132,7 @@ public class UIManager : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, endY, phoneImage.rectTransform.localPosition.z);
-        pauseMenu.GetComponent<PauseMenuScript>().BackHome();
+        pauseMenu.GetComponent<PauseMenuScript>().ResetPhone();
     }
 
     public float calcEase(float pAlpha)
@@ -133,7 +157,6 @@ public class UIManager : MonoBehaviour {
 
     public void ExitGame()
     {
-        Debug.Log("here");
         Time.timeScale = 1;
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

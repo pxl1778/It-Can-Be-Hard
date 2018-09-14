@@ -31,10 +31,17 @@ public class Conversation : MonoBehaviour {
     private bool enableNext = false;
     private bool active = true;
 
+    public AudioSource[] talkSounds;
+    private int currentSound = 0;
+    private int soundCount = 0;
+
 
     void Start () {
         npcText = NPCCanvas.GetComponentInChildren<Text>();
         playerText = playerCanvas.GetComponentInChildren<Text>();
+        
+        talkSounds = NPCCanvas.transform.parent.GetComponentsInChildren<AudioSource>();
+
         lines1 = new DialogueLine[] { new DialogueLine("mateo1_town1seated_1", null, null, null, "mateo"),
             new DialogueLine("player_town1seated_1", null, null, null, "player"),
             new DialogueLine("mateo1_town1seated_2", null, null, null, "mateo"),
@@ -48,11 +55,18 @@ public class Conversation : MonoBehaviour {
         lines2 = new DialogueLine[] { new DialogueLine("mateo1_town1seated_6", null, null, null, "mateo"),
             new DialogueLine("player_town1seated_6", null, null, null, "player"),
             new DialogueLine("mateo1_town1seated_7", null, null, null, "mateo"),
-            new DialogueLine("player_town1seated_7", null, null, null, "player")};
+            new DialogueLine("player_town1seated_7", null, null, null, "player"),
+            new DialogueLine("player_town1seated_8", null, null, null, "player")};
         lines3 = new DialogueLine[] { new DialogueLine("mateo1_town1seated_8", null, null, null, "mateo"),
-            new DialogueLine("player_town1seated_8", null, null, null, "player"),
+            new DialogueLine("player_town1seated_9", null, null, null, "player"),
             new DialogueLine("mateo1_town1seated_9", null, null, null, "mateo"),
-            new DialogueLine("mateo1_town1seated_10", null, null, null, "mateo")};
+            new DialogueLine("mateo1_town1seated_10", null, null, null, "mateo"),
+            new DialogueLine("player_town1seated_10", null, null, null, "player"),
+            new DialogueLine("player_town1seated_11", null, null, null, "player"),
+            new DialogueLine("mateo1_town1seated_11", null, null, null, "mateo"),
+            new DialogueLine("mateo1_town1seated_12", null, null, null, "mateo"),
+            new DialogueLine("player_town1seated_12", null, null, null, "player"),
+            new DialogueLine("player_town1seated_13", null, null, null, "player")};
         lines = new DialogueLine[][]{ lines1, lines2, lines3};
         nextLines();
 	}
@@ -84,6 +98,19 @@ public class Conversation : MonoBehaviour {
                         npcText.text = lines[currentLines][currentText].line.Substring(0, currentCharacter + 1);
                         currentCharacter++;
                         timer = 0;
+                        soundCount++;
+                        if (soundCount >= 5)
+                        {
+                            talkSounds[currentSound].pitch = Random.Range(0.7f, 0.9f);
+                            talkSounds[currentSound].Play();
+                            timer = 0;
+                            currentSound++;
+                            if (currentSound >= talkSounds.Length)
+                            {
+                                currentSound = 0;
+                            }
+                            soundCount = 0;
+                        }
                     }
                 }
                 else

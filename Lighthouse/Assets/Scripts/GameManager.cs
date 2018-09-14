@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     public DialogueManager DialogueMan { get { return dialogueMan; } }
     private EventManager eventMan;
     public EventManager EventMan { get { return eventMan; } }
+    private UIManager uiMan;
+    public UIManager UIMan { get { return uiMan; } }
     private Globals globals;
     public Globals Globals { get { return globals; } }
 
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour {
             eventMan = this.gameObject.GetComponent<EventManager>();
             transitionCanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
             globals = this.gameObject.GetComponent<Globals>();
+            uiMan = this.gameObject.GetComponent<UIManager>();
         } else if (instance != null) {
 			Destroy (gameObject);
 		}
@@ -66,12 +69,13 @@ public class GameManager : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene pScene, LoadSceneMode pMode)
     {
-        if (!pScene.name.Contains("Template") && pScene.name != "Title" && pScene.name != "PhoneTransition")
+        if (!pScene.name.Contains("Template") && pScene.name != "Title" && !pScene.name.Contains("PhoneTransition"))
         {
             //StartCoroutine(Example());
             string templateName = pScene.name.Substring(0, pScene.name.Length - 1);
             if(pScene.name == "Town1Seated")
             {
+                SceneManager.LoadScene("TownTemplate", LoadSceneMode.Additive);
                 return;
             }
             if (SceneManager.GetSceneByName(templateName + "Template").buildIndex < 0)
@@ -95,6 +99,7 @@ public class GameManager : MonoBehaviour {
                 transitionCanvas.GetComponent<UITransition>().StartFadeIn();
             }
         }
+        uiMan.ResetPauseMenu();
     }
 
     void OnLevelFinishedUnloading(Scene pScene)
@@ -115,7 +120,14 @@ public class GameManager : MonoBehaviour {
             transitionCanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
         }
         transitionCanvas.enabled = true;
-        transitionCanvas.GetComponent<UITransition>().StartFadeOut(0.5f);
+        if(SceneManager.GetActiveScene().name == "Neighborhood0")
+        {
+            transitionCanvas.GetComponent<UITransition>().StartFadeOut(0.1f);
+        }
+        else
+        {
+            transitionCanvas.GetComponent<UITransition>().StartFadeOut(0.5f);
+        }
     }
 
     public void LoadScene()
