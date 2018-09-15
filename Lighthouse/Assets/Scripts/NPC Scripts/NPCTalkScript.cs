@@ -10,7 +10,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
     private float textSpeed = 0.01f;
     [SerializeField]
     protected bool turnTowardsPlayer = true;
-    private bool active = false;
+    protected bool active = false;
     private bool state = true; //true = dialog, false = option
     private int currentCharacter = 0;
     protected int currentText = 0;
@@ -173,6 +173,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 if(soundCount >= 5)
                 {
                     talkSounds[currentSound].pitch = Random.Range(0.7f, 0.9f);
+                    talkSounds[currentSound].volume = 0.2f;
                     talkSounds[currentSound].Play();
                     timer = 0;
                     currentSound++;

@@ -8,12 +8,15 @@ public class BoulderPush : MonoBehaviour {
     private float alpha = 0;
     private bool selectable = false;
     private bool active = false;
+    private bool moved = false;
     private PlayableDirector director;
     private ParticleSystem tkParticle;
     private Material mat;
     //Cinemachine.CinemachineFreeLook freeLook;
     [SerializeField]
     private Cinemachine.CinemachineVirtualCamera boulderCam;
+    [SerializeField]
+    private ParticleSystem hitParticles;
 
     private void Start()
     {
@@ -39,6 +42,7 @@ public class BoulderPush : MonoBehaviour {
                     boulderCam.Priority = 100;
                     selectable = false;
                     active = true;
+                    moved = true;
                 }
             }
         }
@@ -48,6 +52,7 @@ public class BoulderPush : MonoBehaviour {
             tkParticle.Stop();
             mat.SetColor("_RimColor", new Vector4(0, 0, 0, 1));
             director.Play();
+            hitParticles.Play();
         }
     }
 
@@ -65,12 +70,12 @@ public class BoulderPush : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerBubble>())
+        if (other.GetComponent<PlayerBubble>() && !moved)
         {//check if you touched the object WITH YOUR MIND
             selectable = true;
             tkParticle.Play();
             mat.SetColor("_RimColor", new Vector4(0.9680033f, 1, 0, 1));
-            GameObject.Find("TutorialCanvas").GetComponent<TutorialCanvasScript>().FadeOutTutorial(3);
+            GameObject.Find("TutorialCanvas").GetComponent<TutorialCanvasScript>().FadeOutTutorial(4);
         }
     }
 }

@@ -31,7 +31,7 @@ public class FrustrationCutscene : Cutscene {
     protected override void EndCutscene()
     {
         gm.Player.State = PlayerState.ACTIVE;
-        tutorialCanvasScript.FadeInTutorial(2);
+        tutorialCanvasScript.FadeInTutorial(3);
         GameManager.instance.EventMan.changePlayerFace.Invoke(0.0f);
         GameManager.instance.EventMan.startPlayerDialogue.Invoke(new string[] { GameManager.instance.DialogueMan.getLine("player_chapter1_1") });
     }

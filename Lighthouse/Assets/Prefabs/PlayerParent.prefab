@@ -569,6 +569,7 @@ GameObject:
   - component: {fileID: 114144601810968722}
   - component: {fileID: 114632472614153002}
   - component: {fileID: 136211460097083244}
+  - component: {fileID: 114058871887842954}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1456,8 +1457,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1507965030266082}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.98449534, z: -0, w: 0.17541093}
+  m_LocalPosition: {x: -0.937, y: 0, z: 2.641}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4130035021052214}
@@ -1466,7 +1467,7 @@ Transform:
   - {fileID: 4321384578494508}
   m_Father: {fileID: 4901005752815244}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -560.20496, z: 0}
 --- !u!4 &4371160804773972
 Transform:
   m_ObjectHideFlags: 1
@@ -2038,15 +2039,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350126113502530}
-  m_LocalRotation: {x: -0, y: 0.9999844, z: -0, w: 0.005593509}
-  m_LocalPosition: {x: -14.256, y: 0.536, z: 8.5}
+  m_LocalRotation: {x: -0, y: 0.16174175, z: -0, w: 0.9868331}
+  m_LocalPosition: {x: 6.7745442, y: 0.43, z: 2.6152446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4370301629903894}
   - {fileID: 224741819018299064}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 179.35901, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 18.616001, z: 0}
 --- !u!4 &4915073639687006
 Transform:
   m_ObjectHideFlags: 1
@@ -2183,7 +2184,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1867833450269552}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2288,7 +2289,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: f24b9810008d8674da9bb6ee6c915d57, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2312,6 +2313,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114058871887842954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1507965030266082}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134a061346c920b40a7a79d3e180f84b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114074128942791268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2340,7 +2352,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1507965030266082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c318dbce47ce7ce4c8ea91e08c1d30c6, type: 3}
   m_Name: 
@@ -2371,14 +2383,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.95299745, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c53f98ad6ca9fe64490bdf0b8172d8f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c9c8d3ddc91eee440ae41304af3496bb, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2451,7 +2463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ec6bbd9b3cc874f8fe651e57ca6e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endScale: {x: 0.7, y: 0.7, z: 0.7}
+  endScale: {x: 1, y: 1, z: 1}
 --- !u!114 &114563596749306664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2516,6 +2528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followSpeed: 0.2
+  target: {fileID: 4329831164458908}
 --- !u!135 &135287780216407904
 SphereCollider:
   m_ObjectHideFlags: 1

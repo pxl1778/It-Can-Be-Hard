@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.44856566, g: 0.49861574, b: 0.5756604, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -227,12 +227,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cea6cd95ae6c4944abfc996209ab5198, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &470217845 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114270085618209148, guid: cea6cd95ae6c4944abfc996209ab5198,
-    type: 2}
-  m_PrefabInternal: {fileID: 470217844}
-  m_Script: {fileID: 11500000, guid: 70700d5d12dc1fa458f770a8a76ffff4, type: 3}
 --- !u!1 &593690519
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &735133757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -418,9 +412,9 @@ RectTransform:
   m_Father: {fileID: 1324404943}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -453.8}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -70.1}
   m_SizeDelta: {x: 969.01, y: 614.30005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &735133758
@@ -444,18 +438,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 110
+    m_FontSize: 53
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 142
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Project Lighthouse
+  m_Text: Thank you for playing!
 --- !u!222 &735133759
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -639,6 +633,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1324404943}
   - component: {fileID: 1324404942}
+  - component: {fileID: 1324404944}
   - component: {fileID: 1324404941}
   - component: {fileID: 1324404940}
   m_Layer: 5
@@ -726,6 +721,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1324404944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1324404939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 278bf4178af938b40bbd48468bc82292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1668260370
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +768,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -119.08}
+  m_AnchoredPosition: {x: 0, y: -208.67}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1668260372
@@ -840,9 +846,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 470217845}
-        m_MethodName: StartLoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 1324404944}
+        m_MethodName: BackToTitle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

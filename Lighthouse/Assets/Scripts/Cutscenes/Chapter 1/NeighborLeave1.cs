@@ -15,6 +15,11 @@ public class NeighborLeave1 : Cutscene
         cutsceneCam = this.GetComponent<Cinemachine.CinemachineVirtualCamera>();
         cameraTimeline.Play();
         StartCoroutine(WaitForEnd(cameraTimeline.playableAsset.duration));
+        if (NPC.GetComponentInChildren<Collider>().isTrigger)
+        {
+            NPC.GetComponentInChildren<Collider>().enabled = false;
+            NPC.GetComponentInChildren<NPCTalkScript>().enabled = false;
+        }
         PlayCutscene();
     }
 

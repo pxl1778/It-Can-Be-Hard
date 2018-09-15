@@ -17,6 +17,11 @@ public class InventoryManager : MonoBehaviour {
 		
 	}
 
+    public void resetInventory()
+    {
+        inventory = new Dictionary<string, int>();
+    }
+
     public void AddItemToInventory(string pItemName, int pAmount = 1)
     {
         if (inventory.ContainsKey(pItemName))

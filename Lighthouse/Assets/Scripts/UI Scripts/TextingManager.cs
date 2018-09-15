@@ -15,6 +15,10 @@ public class TextingManager : MonoBehaviour {
     private GameObject leftMessage;
     [SerializeField]
     private Button sendButton;
+    [SerializeField]
+    private AudioSource getMessageSound;
+    [SerializeField]
+    private AudioSource sendMessageSound;
 
     private bool isLeft = true;
     private string[] textConvo;
@@ -43,6 +47,7 @@ public class TextingManager : MonoBehaviour {
                 GameObject newText = Object.Instantiate(leftMessage); newText.transform.parent = content;
                 newText.transform.localScale = new Vector3(1, 1, 1);
                 newText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine(textConvo[currentText]);
+                getMessageSound.PlayOneShot(getMessageSound.clip);
                 StartCoroutine(LerpTextUp(0.2f, newText));
                 currentText++;
                 elapsedTime = 0;
@@ -104,6 +109,7 @@ public class TextingManager : MonoBehaviour {
         newText.transform.localScale = new Vector3(1, 1, 1);
         newText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine(textConvo[currentText]);
         currentText++;
+        sendMessageSound.PlayOneShot(sendMessageSound.clip);
         StartCoroutine(LerpTextUp(0.2f, newText));
         if (currentText >= textConvo.Length)
         {

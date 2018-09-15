@@ -101,7 +101,8 @@ public class Conversation : MonoBehaviour {
                         soundCount++;
                         if (soundCount >= 5)
                         {
-                            talkSounds[currentSound].pitch = Random.Range(0.7f, 0.9f);
+                            talkSounds[currentSound].pitch = Random.Range(0.65f, 0.85f);
+                            talkSounds[currentSound].volume = 0.1f;
                             talkSounds[currentSound].Play();
                             timer = 0;
                             currentSound++;
@@ -127,6 +128,20 @@ public class Conversation : MonoBehaviour {
                         playerText.text = lines[currentLines][currentText].line.Substring(0, currentCharacter + 1);
                         currentCharacter++;
                         timer = 0;
+                        soundCount++;
+                        if (soundCount >= 5)
+                        {
+                            talkSounds[currentSound].pitch = Random.Range(0.85f, 1.0f);
+                            talkSounds[currentSound].volume = 0.1f;
+                            talkSounds[currentSound].Play();
+                            timer = 0;
+                            currentSound++;
+                            if (currentSound >= talkSounds.Length)
+                            {
+                                currentSound = 0;
+                            }
+                            soundCount = 0;
+                        }
                     }
                 }
                 else
@@ -166,6 +181,7 @@ public class Conversation : MonoBehaviour {
                             townChair.enabled = true;
                             break;
                         case 2:
+                            GameManager.instance.StartLoadScene("EndScreen");
                             break;
                         case 3:
                             break;

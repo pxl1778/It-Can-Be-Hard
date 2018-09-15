@@ -17,7 +17,8 @@ public class PathFollowingCharacter : MonoBehaviour {
     Vector3 target;
     float lerpDelay;
     bool inCutscene = false;
-
+    [SerializeField]
+    private AudioSource moveSound;
 
 	// Use this for initialization
 	void Start () {
@@ -68,8 +69,10 @@ public class PathFollowingCharacter : MonoBehaviour {
                 moving = true;
                 maxTimer = path[currentPoint].Speed;
                 originalPoint = this.transform.position;
+                moveSound.pitch = Random.Range(0.9f, 1.1f);
+                moveSound.PlayOneShot(moveSound.clip);
             }
-            if(currentPoint >= path.Length)
+            if(currentPoint >= path.Length -1)
             {
                 StartCoroutine(LerpScaleDown());
             }

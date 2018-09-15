@@ -7,12 +7,15 @@ public class PillarScript : MonoBehaviour {
     private Material mat;
     private GameObject glow;
     private GameManager gm;
+    private MeshRenderer mr;
 
 	// Use this for initialization
 	void Start () {
         mat = this.GetComponent<MeshRenderer>().material;
         glow = GameObject.Find("Dog");
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        mr = this.GetComponent<MeshRenderer>();
+        mr.enabled = false;
     }
 	
 	// Update is called once per frame

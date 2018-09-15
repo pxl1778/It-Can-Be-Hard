@@ -17,6 +17,8 @@ public class PauseMenuScript : MonoBehaviour {
     private AudioSource menuBackBlip;
     [SerializeField]
     private AudioSource menuBlip;
+    [SerializeField]
+    private AudioSource menuClick;
 
     public void ExitGame()
     {
@@ -36,22 +38,26 @@ public class PauseMenuScript : MonoBehaviour {
 
     public void OpenOptions()
     {
+        menuClick.PlayOneShot(menuClick.clip);
         homeCanvas.enabled = false;
         optionsCanvas.enabled = true;
     }
 
     public void OpenQuit()
     {
+        menuClick.PlayOneShot(menuClick.clip);
         //homeCanvas.enabled = false;
         quitCanvas.enabled = true;
     }
     public void OpenControls()
     {
+        menuClick.PlayOneShot(menuClick.clip);
         homeCanvas.enabled = false;
         controlsCanvas.enabled = true;
     }
     public void OpenTexting()
     {
+        menuClick.PlayOneShot(menuClick.clip);
         homeCanvas.enabled = false;
         textingCanvas.enabled = true;
     }
@@ -78,5 +84,10 @@ public class PauseMenuScript : MonoBehaviour {
     public void PlayBackBlip()
     {
         menuBackBlip.PlayOneShot(menuBackBlip.clip);
+    }
+
+    public void PlayTick()
+    {
+        menuBlip.PlayOneShot(menuBlip.clip);
     }
 }

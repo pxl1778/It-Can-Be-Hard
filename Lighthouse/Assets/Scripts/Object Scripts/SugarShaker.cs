@@ -12,6 +12,8 @@ public class SugarShaker : MonoBehaviour {
     private Rigidbody rb;
     [SerializeField]
     private Conversation convo;
+    [SerializeField]
+    private ParticleSystem hitParticles;
 
     private void Start()
     {
@@ -40,6 +42,7 @@ public class SugarShaker : MonoBehaviour {
                     //rb.AddForce(force * 200, ForceMode.Force);
                     rb.AddForceAtPosition(force * 30, this.transform.position + new Vector3(0.0f, 0.1f, 0.0f), ForceMode.Force);
                     convo.nextLines();
+                    hitParticles.Play();
                     this.enabled = false;
                 }
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UITransition : MonoBehaviour {
 
@@ -63,7 +64,7 @@ public class UITransition : MonoBehaviour {
             blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, alpha);
             yield return new WaitForEndOfFrame();
         }
-        if (GameManager.instance.Player != null) { GameManager.instance.Player.State = PlayerState.ACTIVE; }
+        if (GameManager.instance.Player != null && SceneManager.GetActiveScene().name != "Neighborhood0") { GameManager.instance.Player.State = PlayerState.ACTIVE; }
         canvas.enabled = false;
         GameManager.instance.EventMan.uiFaded.Invoke();
     }

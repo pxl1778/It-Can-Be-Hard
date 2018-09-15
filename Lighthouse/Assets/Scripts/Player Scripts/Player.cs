@@ -15,7 +15,7 @@ public enum PlayerExpression
 public class Player : MonoBehaviour {
 	private string playerName = "Luke";
     private PlayerState state = PlayerState.ACTIVE;
-    public PlayerState State { get { return state; } set { state = value; } }
+    public PlayerState State { get { return state; } set { Debug.Log("Setting state: " + value); state = value; } }
 	//private GameManager gm;
 	// Use this for initialization
 	void Awake () {

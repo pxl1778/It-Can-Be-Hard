@@ -15,6 +15,7 @@ public class Cutscene1 : Cutscene
         cameraTimeline.Play();
         ResetPlayerParent();
         GameManager.instance.EventMan.endCutscene.AddListener(EndCutscene);
+        StartCoroutine(FadeOutAudio(0.5f, Camera.main.GetComponentInChildren<AudioSource>()));
         StartCoroutine(WaitForEnd(cameraTimeline.playableAsset.duration));
         PlayCutscene();
     } 
@@ -83,6 +84,19 @@ public class Cutscene1 : Cutscene
             yield return new WaitForEndOfFrame();
         }
         EndCutscene();
+    }
+
+    IEnumerator FadeOutAudio(float duration, AudioSource audio)
+    {
+        float elapsedTime = 0.0f;
+        float originalVolume = audio.volume;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            audio.volume = Mathf.Lerp(originalVolume, 0, elapsedTime / duration);
+            yield return new WaitForEndOfFrame();
+        }
+        audio.volume = 0;
     }
 
 }

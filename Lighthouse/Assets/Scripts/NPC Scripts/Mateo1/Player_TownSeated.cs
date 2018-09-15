@@ -63,7 +63,6 @@ public class Player_TownSeated : NPCTalkScript
         base.TalkedTo();
         if (!spokenTo)
         {
-            GameManager.instance.Globals.incrementTalkCount("mateo1Count");
             spokenTo = true;
         }
     }

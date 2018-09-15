@@ -30,7 +30,10 @@ public class PlayerController : MonoBehaviour {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         gm.EventMan.movePlayerToPosition.AddListener(StartMoveToPosition);
         bubble = this.GetComponentInChildren<PlayerBubble>();
-        bubble.Deactivate();
+        if(bubble != null)
+        {
+            bubble.Deactivate();
+        }
 	}
 	
 	// Update is called once per frame
@@ -46,15 +49,15 @@ public class PlayerController : MonoBehaviour {
         }
         if(gm.Player.State == PlayerState.ACTIVE)
         {
-            if (Input.GetButton("Fire1"))
-            {
-                acceleration = 7;
-            }
-            else
-            {
+            //if (Input.GetButton("Fire1"))
+            //{
+            //    acceleration = 7;
+            //}
+            //else
+            //{
                 acceleration = 5;
-            }
-            if (Input.GetButtonDown("Fire3") && !bubble.enabled)
+            //}
+            if (Input.GetButtonDown("Fire3") && bubble!=null && !bubble.enabled)
             {
                 Debug.Log("shift pressed");
                 bubble.enabled = true;
@@ -109,6 +112,7 @@ public class PlayerController : MonoBehaviour {
         else if(gm.Player.State == PlayerState.CUTSCENE)
         {
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            Debug.Log("in cutscene");
         }
         else
         {

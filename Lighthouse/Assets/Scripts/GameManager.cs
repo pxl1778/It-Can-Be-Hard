@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene pScene, LoadSceneMode pMode)
     {
-        if (!pScene.name.Contains("Template") && pScene.name != "Title" && !pScene.name.Contains("PhoneTransition"))
+        if (!pScene.name.Contains("Template") && pScene.name != "Title" && pScene.name != "EndScreen" && !pScene.name.Contains("PhoneTransition"))
         {
             //StartCoroutine(Example());
             string templateName = pScene.name.Substring(0, pScene.name.Length - 1);
@@ -88,6 +88,11 @@ public class GameManager : MonoBehaviour {
         {
             SceneManager.LoadScene("NeighborhoodTemplate", LoadSceneMode.Additive);
             SceneManager.SetActiveScene(pScene);
+            if(GameObject.Find("AudioManager") != null)
+            {
+                GameObject.Find("AudioManager").GetComponent<AudioSource>().Stop();
+                Destroy(GameObject.Find("AudioManager").gameObject);
+            }
         }
         else
         {
@@ -97,6 +102,13 @@ public class GameManager : MonoBehaviour {
             {
                 transitionCanvas.enabled = true;
                 transitionCanvas.GetComponent<UITransition>().StartFadeIn();
+            }
+        }
+        if(pScene.name == "Neighborhood1")
+        {
+            if(this.GetComponentInChildren<AudioSource>() != null)
+            {
+                this.GetComponentInChildren<AudioSource>().Play();
             }
         }
         uiMan.ResetPauseMenu();
@@ -122,7 +134,7 @@ public class GameManager : MonoBehaviour {
         transitionCanvas.enabled = true;
         if(SceneManager.GetActiveScene().name == "Neighborhood0")
         {
-            transitionCanvas.GetComponent<UITransition>().StartFadeOut(0.1f);
+            transitionCanvas.GetComponent<UITransition>().StartFadeOut(0.05f);
         }
         else
         {

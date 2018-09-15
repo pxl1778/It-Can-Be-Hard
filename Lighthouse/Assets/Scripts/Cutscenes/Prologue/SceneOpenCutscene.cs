@@ -18,8 +18,6 @@ public class SceneOpenCutscene : Cutscene {
 
     protected override void PlayCutscene()
     {
-        //gm.EventMan.movePlayerToPosition.Invoke(objectDictionary["PlayerNodes"][0].transform.position, objectDictionary["PlayerNodes"][0].delay, objectDictionary["PlayerNodes"][0].running);
-        //gm.EventMan.lerpCameraToTransform.Invoke(objectDictionary["CameraNodes"][0].transform, objectDictionary["CameraNodes"][0].delay, objectDictionary["CameraNodes"][0].duration);
     }
 
     public override void LerpCallback(string pName)

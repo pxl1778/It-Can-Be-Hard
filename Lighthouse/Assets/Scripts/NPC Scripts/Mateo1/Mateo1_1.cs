@@ -13,8 +13,7 @@ public class Mateo1_1 : NPCTalkScript {
 
     public override void secondStart()
     {
-        lines = new DialogueLine[] { new DialogueLine("mateo1_1_1")
-                                    };
+        lines = new DialogueLine[] { new DialogueLine("mateo1_1_1")};
         options = new string[] { gm.DialogueMan.getLine("mateo1_1_option1"), gm.DialogueMan.getLine("mateo1_1_option2") };
         originalLines = lines;
         originalOptions = options;
@@ -27,7 +26,7 @@ public class Mateo1_1 : NPCTalkScript {
         switch (optionNumber)
         {
             case 0:
-                lines = new DialogueLine[] { new DialogueLine("mateo1_1_2", () => { gm.EventMan.lerpToTarget.Invoke("shovel1", -45f, 1.0f); }, null, () => { gm.EventMan.lookAtPlayer.Invoke(); lines = new DialogueLine[] { new DialogueLine("mateo1_1_preshovel") }; }) };
+                lines = new DialogueLine[] { new DialogueLine("mateo1_1_2", () => { gm.EventMan.lerpToTarget.Invoke("shovel1", -45f, 1.0f); }, null, () => { gm.EventMan.lookAtPlayer.Invoke(); lines = new DialogueLine[] { new DialogueLine("mateo1_1_pretextbook") }; }) };
                 options = new string[] { };
                 lines[currentText].doLineStart();
                 break;
@@ -66,7 +65,7 @@ public class Mateo1_1 : NPCTalkScript {
         base.TalkedTo();
         if (!spokenTo)
         {
-            GameManager.instance.Globals.incrementTalkCount("mateo1Count");
+            //GameManager.instance.Globals.incrementTalkCount("mateo1Count");
             spokenTo = true;
         }
     }
@@ -87,8 +86,10 @@ public class Mateo1_1 : NPCTalkScript {
         if (gm.InventoryMan.HasItem("textbook"))
         {
             this.GetComponent<Collider>().enabled = false;
+            active = false;
             speechBubble.GetComponent<MeshRenderer>().enabled = false;
-            leaveCutscene.StartCutscene(); this.transform.parent.GetComponentInChildren<Animator>().SetBool("Turning", true);
+            leaveCutscene.StartCutscene();
+            this.transform.parent.GetComponentInChildren<Animator>().SetBool("Turning", true);
         }
     }
 }

@@ -38,7 +38,15 @@ public class TutorialCanvasScript : MonoBehaviour {
                     GameManager.instance.EventMan.startPlayerDialogue.Invoke(new string[] { GameManager.instance.DialogueMan.getLine("player_prologue_1") });
                 }
                 break;
-            case 4:
+            case 2:
+                if (Input.GetButton("Jump"))
+                {
+                    FadeOutTutorial();
+                    //GameManager.instance.EventMan.startPlayerDialogue.Invoke(new string[] { GameManager.instance.DialogueMan.getLine("player_prologue_1") });
+                }
+                break;
+
+            case 5:
                 if (Input.GetButton("Jump"))
                 {
                     FadeOutTutorial();

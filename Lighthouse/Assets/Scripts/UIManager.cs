@@ -68,7 +68,6 @@ public class UIManager : MonoBehaviour {
             }
             if (paused)
             {
-                Debug.Log("paused");
                 Time.timeScale = 1;
                 paused = false;
                 lastRoutine = StartCoroutine(LerpPhoneDown(0.5f, lowerY));
@@ -86,7 +85,7 @@ public class UIManager : MonoBehaviour {
             }
             else
             {
-                Debug.Log("not paused");
+                pauseMenu.GetComponentInChildren<Image>().enabled = true;
                 paused = true;
                 lastRoutine = StartCoroutine(LerpPhone(0.5f, 0.0f));
                 foreach (Transform t in pauseMenu.transform)
@@ -133,6 +132,7 @@ public class UIManager : MonoBehaviour {
         }
         phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, endY, phoneImage.rectTransform.localPosition.z);
         pauseMenu.GetComponent<PauseMenuScript>().ResetPhone();
+        pauseMenu.GetComponentInChildren<Image>().enabled = false;
     }
 
     public float calcEase(float pAlpha)

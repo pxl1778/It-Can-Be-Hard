@@ -11,12 +11,14 @@ public class PlayerBubble : MonoBehaviour {
     private float alpha = 0;
     private float speed = 1;
     private MeshRenderer meshRenderer;
+    private AudioSource bubbleSound;
 
 	// Use this for initialization
 	void Start () {
         meshRenderer = this.GetComponent<MeshRenderer>();
         meshRenderer.enabled = false;
         Deactivate();
+        bubbleSound = this.GetComponentInChildren<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -51,6 +53,9 @@ public class PlayerBubble : MonoBehaviour {
         Color c = meshRenderer.material.color;
         c.a = .2f;
         meshRenderer.material.SetColor("_Color", c);
+        bubbleSound.pitch = Random.Range(0.85f, 1.1f);
+        bubbleSound.volume = 1.0f;
+        bubbleSound.PlayOneShot(bubbleSound.clip);
     }
 
     public void Deactivate()
