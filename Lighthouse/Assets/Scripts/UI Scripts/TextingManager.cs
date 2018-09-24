@@ -14,6 +14,8 @@ public class TextingManager : MonoBehaviour {
     [SerializeField]
     private GameObject leftMessage;
     [SerializeField]
+    private GameObject dateMessage;
+    [SerializeField]
     private Button sendButton;
     [SerializeField]
     private AudioSource getMessageSound;
@@ -34,6 +36,10 @@ public class TextingManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         GameManager.instance.EventMan.uiFaded.AddListener(startLerp);
+        GameObject dateText = Object.Instantiate(dateMessage);
+        dateText.transform.parent = content;
+        dateText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine("texting1_date");
+        dateText.transform.localScale = new Vector3(1, 1, 1);
         textConvo = new string[]{ "texting1_1_1", "texting1_2_2", "texting1_3_1", "texting1_4_2", "texting1_5_2", "texting1_6_1", "texting1_7_2"};
 	}
 	
@@ -44,7 +50,8 @@ public class TextingManager : MonoBehaviour {
             elapsedTime += Time.deltaTime;
             if(elapsedTime >= replyTime)
             {
-                GameObject newText = Object.Instantiate(leftMessage); newText.transform.parent = content;
+                GameObject newText = Object.Instantiate(leftMessage);
+                newText.transform.parent = content;
                 newText.transform.localScale = new Vector3(1, 1, 1);
                 newText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine(textConvo[currentText]);
                 getMessageSound.PlayOneShot(getMessageSound.clip);

@@ -4,6 +4,10 @@
 			"name": "Texting1",
 			"objects":[
 				{
+					"text":"10/12/18  11:29 pm",
+					"name":"texting1_date"
+				},
+				{
 					"text":"Hey, have you done the homework yet?",
 					"name":"texting1_1_1"
 				},
