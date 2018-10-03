@@ -21,10 +21,14 @@ public class TextingManager : MonoBehaviour {
     private AudioSource getMessageSound;
     [SerializeField]
     private AudioSource sendMessageSound;
+    [SerializeField]
+    private string dialogPackName;
+    [SerializeField]
+    private string nextSceneName;
 
     private bool isLeft = true;
-    private string[] textConvo;
-    private int currentText = 0;
+    private DialogueObject[] textConvo;
+    private int currentText = 1;
     private bool canReply = false;
     private float cElapsedTime = 0;
     private float elapsedTime = 0;
@@ -40,7 +44,8 @@ public class TextingManager : MonoBehaviour {
         dateText.transform.parent = content;
         dateText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine("texting1_date");
         dateText.transform.localScale = new Vector3(1, 1, 1);
-        textConvo = new string[]{ "texting1_1_1", "texting1_2_2", "texting1_3_1", "texting1_4_2", "texting1_5_2", "texting1_6_1", "texting1_7_2"};
+        //textConvo = new string[]{ "texting1_1_1", "texting1_2_2", "texting1_3_1", "texting1_4_2", "texting1_5_2", "texting1_6_1", "texting1_7_2"};
+        textConvo = GameManager.instance.DialogueMan.getPack(dialogPackName);
 	}
 	
 	// Update is called once per frame
@@ -53,7 +58,7 @@ public class TextingManager : MonoBehaviour {
                 GameObject newText = Object.Instantiate(leftMessage);
                 newText.transform.parent = content;
                 newText.transform.localScale = new Vector3(1, 1, 1);
-                newText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine(textConvo[currentText]);
+                newText.GetComponentInChildren<Text>().text = textConvo[currentText].text;
                 getMessageSound.PlayOneShot(getMessageSound.clip);
                 StartCoroutine(LerpTextUp(0.2f, newText));
                 currentText++;
@@ -66,7 +71,7 @@ public class TextingManager : MonoBehaviour {
                     sendButton.image.color = new Color(0.51f, 0.51f, 0.51f, 1.0f);
                     return;
                 }
-                if (textConvo[currentText].Substring(textConvo[currentText].Length - 1, 1) == "1")
+                if (textConvo[currentText].speaker != "Luke")
                 {
                     canReply = false;
                     sendButton.interactable = false;
@@ -114,7 +119,7 @@ public class TextingManager : MonoBehaviour {
         GameObject newText = Object.Instantiate(rightMessage);
         newText.transform.parent = content;
         newText.transform.localScale = new Vector3(1, 1, 1);
-        newText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine(textConvo[currentText]);
+        newText.GetComponentInChildren<Text>().text = textConvo[currentText].text;
         currentText++;
         sendMessageSound.PlayOneShot(sendMessageSound.clip);
         StartCoroutine(LerpTextUp(0.2f, newText));
@@ -126,7 +131,7 @@ public class TextingManager : MonoBehaviour {
             sendButton.image.color = new Color(0.51f, 0.51f, 0.51f, 1.0f);
             return;
         }
-        if (textConvo[currentText].Substring(textConvo[currentText].Length - 1, 1) == "1")
+        if (textConvo[currentText].speaker != "Luke")
         {
             canReply = false;
             sendButton.interactable = false;
@@ -165,7 +170,7 @@ public class TextingManager : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, endY, phoneImage.rectTransform.localPosition.z);
-        GameManager.instance.StartLoadScene("Neighborhood0");
+        GameManager.instance.StartLoadScene(nextSceneName);
     }
 
     IEnumerator LerpTextUp(float duration, GameObject text)

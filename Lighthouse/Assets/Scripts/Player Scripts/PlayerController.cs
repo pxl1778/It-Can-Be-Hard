@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     private float turnSpeed = 650.0f;
     private float timer = 0;
     private float delay = 0;
+    private Vector3 previousPos;
     
     private Rigidbody rb;
     private GameObject cam;
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour {
     private PlayerBubble bubble;
     [SerializeField]
     private Cinemachine.CinemachineFreeLook playerCam;
+    [SerializeField]
+    private float maxHeightDifference = 0.01f;
 
     //lerping
     private Vector3 targetPosition;
@@ -34,11 +37,11 @@ public class PlayerController : MonoBehaviour {
         {
             bubble.Deactivate();
         }
+        previousPos = this.transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
     }
 
     void FixedUpdate()
@@ -62,20 +65,7 @@ public class PlayerController : MonoBehaviour {
                 Debug.Log("shift pressed");
                 bubble.enabled = true;
                 bubble.Activate();
-            }
-
-            //controlling camera when mouse is down
-            if (Input.GetMouseButton(0))
-            {
-                playerCam.m_XAxis.m_InputAxisName = "Mouse X";
-                playerCam.m_YAxis.m_InputAxisName = "Mouse Y";
-            }
-            else
-            {
-                playerCam.m_XAxis.m_InputAxisName = "";
-                playerCam.m_YAxis.m_InputAxisName = "";
-                playerCam.m_XAxis.m_InputAxisValue = 0;
-                playerCam.m_YAxis.m_InputAxisValue = 0;
+                GameManager.instance.EventMan.useBubble.Invoke();
             }
             //get the horizontal and vertical input components
             float h = Input.GetAxis("Horizontal");
@@ -111,13 +101,52 @@ public class PlayerController : MonoBehaviour {
         }
         else if(gm.Player.State == PlayerState.CUTSCENE)
         {
-            rb.velocity = new Vector3(0, rb.velocity.y, 0);
-            Debug.Log("in cutscene");
+            rb.velocity = new Vector3(0, 0, 0);
         }
         else
         {
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
             anim.SetFloat("Velocity", 0);
+        }
+    }
+
+    public void LateUpdate()
+    {
+        //checkGround();
+        if(this.transform.position.y - previousPos.y > maxHeightDifference)
+        {
+            Vector3 temp = this.transform.position;
+            temp.y = previousPos.y;
+            //this.transform.position = temp;
+        }
+        if (Input.GetButton("Fire3"))
+        {
+            playerCam.m_XAxis.m_InputAxisName = "";
+            playerCam.m_YAxis.m_InputAxisName = "";
+            playerCam.m_XAxis.m_InputAxisValue = 0;
+            playerCam.m_YAxis.m_InputAxisValue = 0;
+        }
+        else
+        {
+            playerCam.m_XAxis.m_InputAxisName = "Mouse X";
+            playerCam.m_YAxis.m_InputAxisName = "Mouse Y";
+        }
+    }
+
+    public void checkGround()
+    {
+        RaycastHit hit;
+        Vector3 rayOrigin = this.transform.position;
+        rayOrigin.y += 0.2f;
+        Ray ray = new Ray(rayOrigin, -this.transform.up);
+        //int layerMask = (1 << 8);
+        if (Physics.Raycast(ray, out hit, 100f))
+        {
+            //Debug.Log(hit.point.y);
+            if (Vector3.Distance(this.transform.position, hit.point) > 0.1f)
+            {
+                this.transform.position = new Vector3(this.transform.position.x, hit.point.y, this.transform.position.z);
+            }
         }
     }
 

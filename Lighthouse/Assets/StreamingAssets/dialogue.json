@@ -5,35 +5,43 @@
 			"objects":[
 				{
 					"text":"10/12/18  11:29 pm",
-					"name":"texting1_date"
+					"name":"texting1_date",
+					"speaker":""
 				},
 				{
 					"text":"Hey, have you done the homework yet?",
-					"name":"texting1_1_1"
+					"name":"texting1_1_1",
+					"speaker":"Mateo"
 				},
 				{
 					"text":"Naw...why?",
-					"name":"texting1_2_2"
+					"name":"texting1_2_2",
+					"speaker":"Luke"
 				},
 				{
 					"text":"Dude, I need help! You still have my book!",
-					"name":"texting1_3_1"
+					"name":"texting1_3_1",
+					"speaker":"Mateo"
 				},
 				{
 					"text":"Oh yeah, lemme grab it",
-					"name":"texting1_4_2"
+					"name":"texting1_4_2",
+					"speaker":"Luke"
 				},
 				{
 					"text":"....so I may or may not still have your book.",
-					"name":"texting1_5_2"
+					"name":"texting1_5_2",
+					"speaker":"Luke"
 				},
 				{
 					"text":"Aw, seriously?? You're so clumsy sometimes, you know that?",
-					"name":"texting1_6_1"
+					"name":"texting1_6_1",
+					"speaker":"Mateo"
 				},
 				{
 					"text":"Yeah yeah yeah, hold on, lemme go look for it.",
-					"name":"texting1_7_2"
+					"name":"texting1_7_2",
+					"speaker":"Luke"
 				}
 			]
 		},
@@ -41,28 +49,39 @@
 			"name": "Texting2",
 			"objects":[
 				{
+					"text":"10/13/18  10:26 am",
+					"name":"texting2_date",
+					"speaker":""
+				},
+				{
 					"text":"Are you awake yet??",
-					"name":"texting2_1_1"
+					"name":"texting2_1_1",
+					"speaker":"Mateo"
 				},
 				{
 					"text":"Your text just woke me up, Mat.",
-					"name":"texting2_2_2"
+					"name":"texting2_2_2",
+					"speaker":"Luke"
 				},
 				{
 					"text":"I had this really weird dream...there was some ball of light and like a deer statue??",
-					"name":"texting2_3_2"
+					"name":"texting2_3_2",
+					"speaker":"Luke"
 				},
 				{
 					"text":"There's gotta be some hippy dream meaning in there somewhere. You should ask Shay about it.",
-					"name":"texting2_4_1"
+					"name":"texting2_4_1",
+					"speaker":"Mateo"
 				},
 				{
 					"text":"Anyways, I'm waiting outside your door.",
-					"name":"texting2_5_1"
+					"name":"texting2_5_1",
+					"speaker":"Mateo"
 				},
 				{
 					"text":"Omg, let me get pants on first?",
-					"name":"texting2_6_2"
+					"name":"texting2_6_2",
+					"speaker":"Luke"
 				}
 			]
 		},
@@ -71,75 +90,93 @@
 			"objects":[
 				{
 					"text":"Hey, I'm still waiting on that text book, you know I need it to do the homework, too!",
-					"name":"mateo1_1_1"
+					"name":"mateo1_1_1",
+					"speaker":""
 				},
 				{
 					"text":"Yeah, just gimme a sec!",
-					"name":"mateo1_1_option1"
+					"name":"mateo1_1_option1",
+					"speaker":""
 				},
 				{
 					"text":"Aight, I'll be waiting here 'til you find it.",
-					"name":"mateo1_1_2"
+					"name":"mateo1_1_2",
+					"speaker":""
 				},
 				{
 					"text":"Don't you have straight A's?",
-					"name":"mateo1_1_option2"
+					"name":"mateo1_1_option2",
+					"speaker":""
 				},
 				{ 
 					"text":"Yeah, but I gotta keep those straight A's, buddy.",
-					"name":"mateo1_1_3"
+					"name":"mateo1_1_3",
+					"speaker":""
 				},
 				{ 
 					"text":"Hey, don't forget my book!",
-					"name":"mateo1_1_pretextbook"
+					"name":"mateo1_1_pretextbook",
+					"speaker":""
 				},
 				{ 
 					"text":"Thanks, took yah long enough!",
-					"name":"mateo1_1_helped1"
+					"name":"mateo1_1_helped1",
+					"speaker":""
 				},
 				{ 
 					"text":"Hey, are you okay? You seem a little shaken up...?",
-					"name":"mateo1_1_helped2"
+					"name":"mateo1_1_helped2",
+					"speaker":""
 				},
 				{ 
 					"text":"I, uhh, just...um",
-					"name":"mateo1_1_helped_option1"
+					"name":"mateo1_1_helped_option1",
+					"speaker":""
 				},
 				{ 
 					"text":"I did...thing..?!",
-					"name":"mateo1_1_helped_option2"
+					"name":"mateo1_1_helped_option2",
+					"speaker":""
 				},
 				{ 
 					"text":"Uhhh, alright. Well if you wanna study with me, I'll be at the cafe in town just up the road.",
-					"name":"mateo1_1_helped3"
+					"name":"mateo1_1_helped3",
+					"speaker":""
 				},
 				{ 
 					"text":"Luke, can you help me on question 3 of the physics homework?",
-					"name":"mateo1_2_1"
+					"name":"mateo1_2_1",
+					"speaker":""
 				},
 				{ 
 					"text":"Oh, crap...",
-					"name":"mateo1_2_option1"
+					"name":"mateo1_2_option1",
+					"speaker":""
 				},
 				{ 
 					"text":"Dude! It's due tomorrow! You better get cracking on it.",
-					"name":"mateo1_2_2"
+					"name":"mateo1_2_2",
+					"speaker":""
 				},
 				{ 
 					"text":"lol no way!",
-					"name":"mateo1_2_option2"
+					"name":"mateo1_2_option2",
+					"speaker":""
 				},
 				{ 
 					"text":"Aw c'mon, I need your help...Fine, I'll just ask Lily.",
-					"name":"mateo1_2_3"
+					"name":"mateo1_2_3",
+					"speaker":""
 				},
 				{ 
 					"text":"Hey Luke, hope you were able to get the homework finished!",
-					"name":"mateo1_3_1"
+					"name":"mateo1_3_1",
+					"speaker":""
 				},
 				{ 
 					"text":"Hey, you made it! Grab a seat.",
-					"name":"mateo1_Town1"
+					"name":"mateo1_Town1",
+					"speaker":""
 				}
 			]
 		},
@@ -148,27 +185,33 @@
 			"objects":[
 				{
 					"text":"That book has to be somewhere on the trail in the woods",
-					"name":"player_prologue_1"
+					"name":"player_prologue_1",
+					"speaker":""
 				},
 				{
 					"text":"What the...?",
-					"name":"player_prologue_2"
+					"name":"player_prologue_2",
+					"speaker":""
 				},
 				{
 					"text":"Following a mysterious glowing light in the woods, what could go wrong?",
-					"name":"player_prologue_3"
+					"name":"player_prologue_3",
+					"speaker":""
 				},
 				{
 					"text":"Please, please, please don't be a demon going to kill me.",
-					"name":"player_prologue_4"
+					"name":"player_prologue_4",
+					"speaker":""
 				},
 				{
 					"text":"WHAT just happened!",
-					"name":"player_chapter1_1"
+					"name":"player_chapter1_1",
+					"speaker":""
 				},
 				{
 					"text":"How did I...what the?",
-					"name":"player_chapter1_2"
+					"name":"player_chapter1_2",
+					"speaker":""
 				}
 			]
 		},
@@ -177,103 +220,128 @@
 			"objects":[
 				{ 
 					"text":"So, where's your notebook?",
-					"name":"mateo1_town1seated_1"
+					"name":"mateo1_town1seated_1",
+					"speaker":""
 				},
 				{ 
 					"text":"Uh, I'll do the homework later, I gotta tell you something...",
-					"name":"player_town1seated_1"
+					"name":"player_town1seated_1",
+					"speaker":""
 				},
 				{ 
 					"text":"Aww, hey it's okay Luke, I always figured you were, yah know...",
-					"name":"mateo1_town1seated_2"
+					"name":"mateo1_town1seated_2",
+					"speaker":""
 				},
 				{ 
 					"text":"...playing for the other team.",
-					"name":"mateo1_town1seated_3"
+					"name":"mateo1_town1seated_3",
+					"speaker":""
 				},
 				{ 
 					"text":"No! Well actually, yeah, but I'll get to that later.",
-					"name":"player_town1seated_2"
+					"name":"player_town1seated_2",
+					"speaker":""
 				},
 				{ 
 					"text":"I think I have...psychic powers.",
-					"name":"player_town1seated_3"
+					"name":"player_town1seated_3",
+					"speaker":""
 				},
 				{ 
 					"text":"LOL what? Wait so I was right?",
-					"name":"mateo1_town1seated_4"
+					"name":"mateo1_town1seated_4",
+					"speaker":""
 				},
 				{ 
 					"text":"Yes, but also no, just watch!",
-					"name":"player_town1seated_4"
+					"name":"player_town1seated_4",
+					"speaker":""
 				},
 				{ 
 					"text":"Well I hope you know I don't think of you any differently. I'm an ally!",
-					"name":"mateo1_town1seated_5"
+					"name":"mateo1_town1seated_5",
+					"speaker":""
 				},
 				{ 
 					"text":"Shut. Up. Just watch!",
-					"name":"player_town1seated_5"
+					"name":"player_town1seated_5",
+					"speaker":""
 				},
 				{ 
 					"text":"Woah what?",
-					"name":"mateo1_town1seated_6"
+					"name":"mateo1_town1seated_6",
+					"speaker":""
 				},
 				{ 
 					"text":"See!",
-					"name":"player_town1seated_6"
+					"name":"player_town1seated_6",
+					"speaker":""
 				},
 				{ 
 					"text":"You just hit the table with your foot.",
-					"name":"mateo1_town1seated_7"
+					"name":"mateo1_town1seated_7",
+					"speaker":""
 				},
 				{ 
 					"text":"No, I promise I didn't.",
-					"name":"player_town1seated_7"
+					"name":"player_town1seated_7",
+					"speaker":""
 				},
 				{ 
 					"text":"Ugh, let me try something else.",
-					"name":"player_town1seated_8"
+					"name":"player_town1seated_8",
+					"speaker":""
 				},
 				{ 
 					"text":"Woah! Okay, that totally could've been the wind.",
-					"name":"mateo1_town1seated_8"
+					"name":"mateo1_town1seated_8",
+					"speaker":""
 				},
 				{ 
 					"text":"C'mooon!",
-					"name":"player_town1seated_9"
+					"name":"player_town1seated_9",
+					"speaker":""
 				},
 				{ 
 					"text":"Okay, if you're really telling the truth...",
-					"name":"mateo1_town1seated_9"
+					"name":"mateo1_town1seated_9",
+					"speaker":""
 				},
 				{ 
 					"text":"Push me over!",
-					"name":"mateo1_town1seated_10"
+					"name":"mateo1_town1seated_10",
+					"speaker":""
 				},
 				{ 
 					"text":"Uhh, I dunno about that...I haven't used this on people yet.",
-					"name":"player_town1seated_10"
+					"name":"player_town1seated_10",
+					"speaker":""
 				},
 				{ 
 					"text":"How about we get back to the gay thing?",
-					"name":"player_town1seated_11"
+					"name":"player_town1seated_11",
+					"speaker":""
 				},
 				{ 
 					"text":"Oh, is that too hard for your 'powers'?",
-					"name":"mateo1_town1seated_11"
+					"name":"mateo1_town1seated_11",
+					"speaker":""
 				},
 				{ 
 					"text":"Push me!",
-					"name":"mateo1_town1seated_12"
+					"name":"mateo1_town1seated_12",
+					"speaker":""
 				},
 				{ 
 					"text":"No I just...I...",
-					"name":"player_town1seated_12"
+					"name":"player_town1seated_12",
+					"speaker":""
 				},
 				{ 
 					"text":"I gotta go!",
-					"name":"player_town1seated_13"
+					"name":"player_town1seated_13",
+					"speaker":""
 				}
 			]
 		}

@@ -29,6 +29,10 @@ public class PlayerDialogueBox : MonoBehaviour {
     void Update()
     {
         //rt.transform.forward = cam.transform.forward;
+        if(target == null)
+        {
+            return;
+        }
         Vector3 targetPos = new Vector3(target.position.x, target.position.y + 0.3f, target.position.z);
         Vector2 viewportPoint = cam.WorldToViewportPoint(targetPos);
         Vector2 desiredPoint = new Vector3(viewportPoint.x * canvasRect.sizeDelta.x, (viewportPoint.y) * canvasRect.sizeDelta.y, 0) * canvasRect.localScale.x;

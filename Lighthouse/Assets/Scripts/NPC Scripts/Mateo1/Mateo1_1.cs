@@ -74,7 +74,8 @@ public class Mateo1_1 : NPCTalkScript {
     {
         if (gm.InventoryMan.HasItem("textbook"))
         {
-            optionNumber++;
+            Debug.Log("check when activated and has textbook");
+            optionNumber = 0;
             lines = new DialogueLine[] { new DialogueLine("mateo1_1_helped1", null, ()=> { }), new DialogueLine("mateo1_1_helped2", null, () => { }) };
             options = new string[] { gm.DialogueMan.getLine("mateo1_1_helped_option1"), gm.DialogueMan.getLine("mateo1_1_helped_option2")};
         }

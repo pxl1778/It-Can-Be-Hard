@@ -2076,7 +2076,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.2149353, y: -0.00006107697}
+  m_AnchoredPosition: {x: -0.2149353, y: -0.00012207031}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &794723075
@@ -4736,7 +4736,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2024116003}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5696,6 +5696,8 @@ MonoBehaviour:
   sendButton: {fileID: 2059578398}
   getMessageSound: {fileID: 1343066673}
   sendMessageSound: {fileID: 1380495687}
+  dialogPackName: Texting1
+  nextSceneName: Neighborhood0
 --- !u!114 &2065062873
 MonoBehaviour:
   m_ObjectHideFlags: 0

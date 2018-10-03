@@ -6,4 +6,5 @@ using UnityEngine;
 public class DialogueObject {
     public string text;
     public string name;
+    public string speaker;
 }

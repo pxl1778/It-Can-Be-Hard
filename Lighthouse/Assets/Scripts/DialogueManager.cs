@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour {
 
     private Dictionary<string, string> lines = new Dictionary<string, string>();
     private DialogueSystem originalDialog;
+    private Dictionary<string, DialogueObject[]> packs = new Dictionary<string, DialogueObject[]>();
     private GameManager gm;
     private bool doneLoading = false;
     public bool DoneLoading { get { return doneLoading; } }
@@ -48,8 +49,10 @@ public class DialogueManager : MonoBehaviour {
 
         for (int i = 0; i < originalDialog.packs.Length; i++)
         {
+            packs.Add(originalDialog.packs[i].name, new DialogueObject[originalDialog.packs[i].objects.Length]);
             for (int j = 0; j < originalDialog.packs[i].objects.Length; j++)
             {
+                packs[originalDialog.packs[i].name][j] = originalDialog.packs[i].objects[j];
                 lines.Add(originalDialog.packs[i].objects[j].name, originalDialog.packs[i].objects[j].text);
             }
         }
@@ -57,6 +60,18 @@ public class DialogueManager : MonoBehaviour {
     }
 
     void Start () {
+    }
+
+    public DialogueObject[] getPack(string pPackName)
+    {
+        if (packs.ContainsKey(pPackName))
+        {
+            return packs[pPackName];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public string getLine(string pLineName)

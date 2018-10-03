@@ -76,7 +76,6 @@ abstract public class NPCTalkScript : MonoBehaviour {
     {
         if (col.gameObject.tag == "Player")
         {//makes the text window go away
-            exitDialogue();
             active = false;
             speechBubble.GetComponent<MeshRenderer>().enabled = false;
         }

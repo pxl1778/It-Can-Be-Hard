@@ -32,6 +32,9 @@ public class EventManager : MonoBehaviour {
     public UnityEvent endCutscene = new UnityEvent();
     public FloatUnityEvent changePlayerFace = new FloatUnityEvent();
 
+    //Gameplay Events
+    public UnityEvent useBubble = new UnityEvent();
+
     //Dialogue Events
     public StringArrayUnityEvent startPlayerDialogue = new StringArrayUnityEvent();
     public UnityEvent endPlayerDialogue = new UnityEvent();
