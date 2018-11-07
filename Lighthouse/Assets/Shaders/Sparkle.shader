@@ -2,10 +2,12 @@
 {
 	Properties
 	{
+		_Color("Color", Color) = (1,1,1,1)
 		_MainTex ("Texture", 2D) = "white" {}
 		_NoiseTex("Noise Texture", 2D) = "white" {}
 		_Scale("Scale", Float) = 1
 		_Intensity("Intensity", Float) = 50
+		_MovementScale("MovementScale", Float) = 1
 	}
 	SubShader
 	{
@@ -45,13 +47,15 @@
 			float _Scale;
 			float _Intensity;
 			float4 _MainTex_ST;
+			float4 _Color;
+			float _MovementScale;
 			
 			v2f vert (appdata v)
 			{
 				v2f o;
 				//v.vertex = v.vertex + float4((v.normal * sin(v.vertex.y*10 + _Time[2])), 0); //fun weird wobbly thing
-				v.vertex = v.vertex + float4(v.normal * saturate(sin(_Time[2] + v.vertex.y*80)*.1), 0);
-				v.vertex = v.vertex + float4(-v.normal * saturate(sin(_Time[2] + v.vertex.x * 40)*.05), 0);
+				v.vertex = v.vertex + float4(v.normal * saturate(sin(_Time[2] + v.vertex.y*80)*.1), 0) * _MovementScale;
+				v.vertex = v.vertex + float4(-v.normal * saturate(sin(_Time[2] + v.vertex.x * 40)*.05), 0) * _MovementScale;
 				//o.vertex = UnityObjectToClipPos(v.vertex+(v.normal * (sin(_Time[2])+.5)/15));
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -65,7 +69,7 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 				// sample the texture
-				fixed4 col = tex2D(_MainTex, i.uv);
+				fixed4 col = tex2D(_MainTex, i.uv) * _Color;
 				// apply fog
 				//UNITY_APPLY_FOG(i.fogCoord, col);
 
