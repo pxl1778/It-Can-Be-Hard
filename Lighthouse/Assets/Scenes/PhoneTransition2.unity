@@ -2046,7 +2046,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.2149353, y: -0.00019708097}
+  m_AnchoredPosition: {x: -0.2149353, y: -0.00014618335}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &963878488
@@ -3287,7 +3287,6 @@ GameObject:
   - component: {fileID: 1437939883}
   - component: {fileID: 1437939882}
   - component: {fileID: 1437939881}
-  - component: {fileID: 1437939880}
   - component: {fileID: 1437939886}
   m_Layer: 5
   m_Name: Phone Menu
@@ -3296,26 +3295,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1437939880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1437939879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 453272f783bb3184f8fa3a078f442549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  phoneImage: {fileID: 2123260401}
-  content: {fileID: 963878487}
-  rightMessage: {fileID: 1821355304592604, guid: 7e166771b687d1540b4287467be8e885,
-    type: 2}
-  leftMessage: {fileID: 1284200012242140, guid: 8b7c98e29df52df418ed52b0b6959971,
-    type: 2}
-  sendButton: {fileID: 1532711923}
-  getMessageSound: {fileID: 1981164429}
-  sendMessageSound: {fileID: 1881262402}
 --- !u!82 &1437939881
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3934,7 +3913,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437939880}
+      - m_Target: {fileID: 1437939886}
         m_MethodName: clickReply
         m_Mode: 1
         m_Arguments:
@@ -5207,7 +5186,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 777764772}
   m_Direction: 2
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

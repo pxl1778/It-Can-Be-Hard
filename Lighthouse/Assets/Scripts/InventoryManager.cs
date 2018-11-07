@@ -10,7 +10,7 @@ public class InventoryManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         inventory = new Dictionary<string, int>();
-        inventory.Add("textbook", 1);
+        //inventory.Add("textbook", 1);
 	}
 	
 	// Update is called once per frame
