@@ -17,7 +17,10 @@ public class AntlersEffect : MonoBehaviour {
 
     private void OnDestroy()
     {
-        GameManager.instance.EventMan.useBubble.RemoveListener(resetRadius);
+        if(GameManager.instance != null)
+        {
+            GameManager.instance.EventMan.useBubble.RemoveListener(resetRadius);
+        }
     }
 
     // Update is called once per frame
