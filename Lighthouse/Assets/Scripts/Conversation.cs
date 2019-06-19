@@ -181,6 +181,7 @@ public class Conversation : MonoBehaviour {
                             townChair.enabled = true;
                             break;
                         case 2:
+                            //make it like...not end, yah know?
                             GameManager.instance.StartLoadScene("EndScreen");
                             break;
                         case 3:

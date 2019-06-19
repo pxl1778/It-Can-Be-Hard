@@ -13,7 +13,7 @@
 
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard alphatest:_Cutoff
+		#pragma surface surf Unlit alphatest:_Cutoff
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
@@ -36,13 +36,19 @@
 			// put more per-instance properties here
 		UNITY_INSTANCING_BUFFER_END(Props)
 
-		void surf (Input IN, inout SurfaceOutputStandard o) {
+		half4 LightingUnlit(SurfaceOutput s, half3 lightDir, half atten)
+		{
+			return half4(s.Albedo, s.Alpha);
+		}
+
+		void surf (Input IN, inout SurfaceOutput o) {
 			// Albedo comes from a texture tinted by color
 			fixed4 c = tex2D (_MainTex, IN.uv_MainTex + float2(_FaceNumber, 0.0)) * _Color;
-			o.Albedo = c.rgb;
+			o.Albedo = c.rgb * 0.0f;
+			o.Emission = c.rgb;
 			// Metallic and smoothness come from slider variables
-			o.Metallic = _Metallic;
-			o.Smoothness = _Glossiness;
+			/*o.Metallic = _Metallic;
+			o.Smoothness = _Glossiness;*/
 			o.Alpha = c.a;
 		}
 		ENDCG

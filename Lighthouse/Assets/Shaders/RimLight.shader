@@ -34,6 +34,7 @@
 
 		half4 LightingToonRamp(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten) {
 			s.Normal = normalize(s.Normal);
+			//lightDir = normalize(half3(0.0f, 1.0f, 0.2f));
 			half NdotL = dot(s.Normal, lightDir);
 			half4 color;
 			half diff = NdotL * 0.5 + 0.5;

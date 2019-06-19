@@ -14,6 +14,7 @@ public class Globals : MonoBehaviour {
 
         dictionary.Add("glowRadius", 0.0f);
         dictionary.Add("mateo1Count", 0);
+        dictionary.Add("shayCount", 0);
         dictionary.Add("doorActive", false);
     }
 

@@ -181,6 +181,16 @@
 			]
 		},
 		{
+			"name":"Shay",
+			"objects":[
+				{
+					"text":"Hey, I think they made my coffee wrong...",
+					"name":"shay_1_1",
+					"speaker":""
+				}
+			]
+		},
+		{
 			"name":"Player",
 			"objects":[
 				{
