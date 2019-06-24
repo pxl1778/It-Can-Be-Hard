@@ -17,6 +17,8 @@ abstract public class NPCTalkScript : MonoBehaviour {
     private int choice = 0;
     protected int optionNumber = -1;
     private float timer = 0;
+    private float faceTimer = 0;
+    private float faceTimerMax = 0.2f;
     protected Vector3 targetRotation;
     protected Vector3 originalRotation;
     protected Vector3 originalCamPosition;
@@ -33,6 +35,9 @@ abstract public class NPCTalkScript : MonoBehaviour {
     protected GameManager gm;
     protected NPCSpeechBubble speechBubble;
     protected Cinemachine.CinemachineVirtualCamera npcCam;
+
+    private Material[] mat;
+    private SkinnedMeshRenderer faceRenderer;
 
     public AudioSource[] talkSounds;
     private int currentSound = 0;
