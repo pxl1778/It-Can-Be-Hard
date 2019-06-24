@@ -27,11 +27,13 @@ abstract public class NPCTalkScript : MonoBehaviour {
     private Text[] optionsArray;
     protected DialogueLine[] lines;
     protected DialogueLine[] originalLines;
-    protected string[] options = new string[] { };
-    protected string[] originalOptions = new string[] { };
+    protected DialogueLine[] options = new DialogueLine[] { };
+    protected DialogueLine[] originalOptions = new DialogueLine[] { };
+    protected Dictionary<string, DialogueLine> dialogueDict = new Dictionary<string, DialogueLine>();
     protected GameManager gm;
     protected NPCSpeechBubble speechBubble;
     protected Cinemachine.CinemachineVirtualCamera npcCam;
+
     public AudioSource[] talkSounds;
     private int currentSound = 0;
     private int soundCount = 0;
@@ -89,8 +91,6 @@ abstract public class NPCTalkScript : MonoBehaviour {
         currentCharacter = 0;
         currentText = 0;
         optionNumber = -1;
-        //lines = originalLines;
-        //options = originalOptions;
         gm.Player.State = PlayerState.ACTIVE;
         text.text = "";
     }
@@ -140,7 +140,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 choice = 0;
                 for (int i = 0; i < options.Length; i++)
                 {
-                    optionsArray[i].text = options[i];
+                    optionsArray[i].text = options[i].line;
                 }
             }
             else
@@ -255,6 +255,80 @@ abstract public class NPCTalkScript : MonoBehaviour {
         GameManager.instance.Player.GetComponentInChildren<Animator>().SetBool("Turning", false);
     }
 
+    protected void manageDictionary(string[] packs)
+    {
+        foreach(string p in packs)
+        {
+            DialogueObject[] pack = gm.DialogueMan.getPack(p);
+            for (int i = 0; i < pack.Length; i++)
+            {
+                dialogueDict[pack[i].name] = new DialogueLine(pack[i].name, null, null, null, pack[i].speaker, pack[i].next, pack[i].options);
+            }
+        }
+        setupLines(packs[0]);
+    }
+
+    protected void setupLines(string packName)
+    {
+        DialogueObject[] pack = gm.DialogueMan.getPack(packName);
+        List<DialogueLine> dList = new List<DialogueLine>();
+        DialogueLine temp = new DialogueLine(pack[0].name, null, null, null, pack[0].speaker, pack[0].next, pack[0].options);
+        dList.Add(temp);
+        //going from line to it's next until we reach the end
+        while (temp.next != "")
+        {
+            if (dialogueDict.ContainsKey(temp.next))
+            {
+                temp = dialogueDict[temp.next];
+                dList.Add(temp);
+            }
+            else
+            {
+                break;
+            }
+        }
+        lines = dList.ToArray();
+        //checking if there are options
+        if (temp.options.Length > 1)
+        {
+            options = new DialogueLine[] { dialogueDict[temp.options[0]], dialogueDict[temp.options[1]] };
+        }
+        else
+        {
+            options = new DialogueLine[] { };
+        }
+    }
+
+    protected void setupLines(DialogueLine pNext)
+    {
+        List<DialogueLine> dList = new List<DialogueLine>();
+        DialogueLine temp = pNext;
+        dList.Add(temp);
+        //going from line to it's next until we reach the end
+        while (temp.next != "")
+        {
+            if (dialogueDict.ContainsKey(temp.next))
+            {
+                temp = dialogueDict[temp.next];
+                dList.Add(temp);
+            }
+            else
+            {
+                break;
+            }
+        }
+        lines = dList.ToArray();
+        //checking if there are options
+        if (temp.options.Length > 1)
+        {
+            options = new DialogueLine[] { dialogueDict[temp.options[0]], dialogueDict[temp.options[1]] };
+        }
+        else
+        {
+            options = new DialogueLine[] { };
+        }
+    }
+
     protected virtual void TalkedTo()
     {
 
@@ -267,6 +341,9 @@ abstract public class NPCTalkScript : MonoBehaviour {
         currentCharacter = 0;
         optionsBox.gameObject.SetActive(false);
         textUI.enabled = true;
+        options[0].doLineComplete();
+        setupLines(dialogueDict[options[0].next]);
+        lines[currentText].doLineStart();
     }
     public virtual void bottomOption()
     {
@@ -275,6 +352,9 @@ abstract public class NPCTalkScript : MonoBehaviour {
         currentCharacter = 0;
         optionsBox.gameObject.SetActive(false);
         textUI.enabled = true;
+        options[1].doLineComplete();
+        setupLines(dialogueDict[options[1].next]);
+        lines[currentText].doLineStart();
     }
     public abstract void secondStart();
     public abstract void checkWhenActivated();

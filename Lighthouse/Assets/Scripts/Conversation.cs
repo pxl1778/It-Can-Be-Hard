@@ -182,7 +182,7 @@ public class Conversation : MonoBehaviour {
                             break;
                         case 2:
                             //make it like...not end, yah know?
-                            GameManager.instance.StartLoadScene("EndScreen");
+                            GameManager.instance.StartLoadScene("Town1");
                             break;
                         case 3:
                             break;

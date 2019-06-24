@@ -12,7 +12,7 @@ public class Mateo1_3 : NPCTalkScript
 
     public override void secondStart()
     {
-        lines = new DialogueLine[] { new DialogueLine("mateo1_3_1")};
+        manageDictionary(new string[] { "Mateo1_3" });
         originalLines = lines;
         originalOptions = options;
     }

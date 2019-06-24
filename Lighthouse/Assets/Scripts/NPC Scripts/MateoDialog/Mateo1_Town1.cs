@@ -12,7 +12,9 @@ public class Mateo1_Town1 : NPCTalkScript
 
     public override void secondStart()
     {
-        lines = new DialogueLine[] { new DialogueLine("mateo1_Town1", null, null, ()=> { GameManager.instance.StartLoadScene("Town1Seated"); }) };
+        manageDictionary(new string[] { "Mateo1_Town1" });
+        dialogueDict["mateo1_Town1"].lineComplete = () => { GameManager.instance.StartLoadScene("Town1Seated"); };
+        setupLines(dialogueDict["mateo1_Town1"]);
         originalLines = lines;
         originalOptions = options;
         turnTowardsPlayer = false;

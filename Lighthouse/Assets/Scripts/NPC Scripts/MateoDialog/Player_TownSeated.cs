@@ -12,7 +12,7 @@ public class Player_TownSeated : NPCTalkScript
     {
         lines = new DialogueLine[] { new DialogueLine("mateo1_1_1")
                                     };
-        options = new string[] { gm.DialogueMan.getLine("mateo1_1_option1"), gm.DialogueMan.getLine("mateo1_1_option2") };
+        //options = new string[] { gm.DialogueMan.getLine("mateo1_1_option1"), gm.DialogueMan.getLine("mateo1_1_option2") };
         originalLines = lines;
         originalOptions = options;
         leaveCutscene = GameObject.Find("Neighbor1LeaveCutsceneCam1").GetComponent<Cutscene>();
@@ -25,12 +25,12 @@ public class Player_TownSeated : NPCTalkScript
         {
             case 0:
                 //lines = new DialogueLine[] {"mateo1_1_2", () => { gm.EventMan.lerpToTarget.Invoke("shovel1", -45f, 1.0f); }, null, () => { gm.EventMan.lookAtPlayer.Invoke(); lines = new DialogueLine[] { new DialogueLine("mateo1_1_preshovel") }; }) };
-                options = new string[] { };
+                //options = new string[] { };
                 lines[currentText].doLineStart();
                 break;
             case 1:
                 lines = new DialogueLine[] { new DialogueLine("mateo1_1_helped3", () => { }, null, () => { }) };
-                options = new string[] { };
+                //options = new string[] { };
                 lines[currentText].doLineStart();
                 break;
             default:
@@ -45,12 +45,12 @@ public class Player_TownSeated : NPCTalkScript
         {
             case 0:
                 lines = new DialogueLine[] { new DialogueLine(gm.DialogueMan.getLine("mateo1_1_3"), () => { gm.EventMan.lerpToTarget.Invoke("shovel1", -45f, 1.0f); }, null, () => { gm.EventMan.lookAtPlayer.Invoke(); lines = new DialogueLine[] { new DialogueLine(gm.DialogueMan.getLine("mateo1_1_pretextbook")) }; }) };
-                options = new string[] { };
+                //options = new string[] { };
                 lines[currentText].doLineStart();
                 break;
             case 1:
                 lines = new DialogueLine[] { new DialogueLine(gm.DialogueMan.getLine("mateo1_1_helped3"), () => { }, null, () => { }) };
-                options = new string[] { };
+                //options = new string[] { };
                 lines[currentText].doLineStart();
                 break;
             default:
@@ -73,7 +73,7 @@ public class Player_TownSeated : NPCTalkScript
         {
             optionNumber++;
             lines = new DialogueLine[] { new DialogueLine(gm.DialogueMan.getLine("mateo1_1_helped1"), null, () => { }), new DialogueLine(gm.DialogueMan.getLine("mateo1_1_helped2"), null, () => { }) };
-            options = new string[] { gm.DialogueMan.getLine("mateo1_1_helped_option1"), gm.DialogueMan.getLine("mateo1_1_helped_option2") };
+            //options = new string[] { gm.DialogueMan.getLine("mateo1_1_helped_option1"), gm.DialogueMan.getLine("mateo1_1_helped_option2") };
         }
     }
 

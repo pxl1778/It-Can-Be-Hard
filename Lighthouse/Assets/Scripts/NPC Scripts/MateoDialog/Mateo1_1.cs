@@ -13,51 +13,12 @@ public class Mateo1_1 : NPCTalkScript {
 
     public override void secondStart()
     {
-        lines = new DialogueLine[] { new DialogueLine("mateo1_1_1")};
-        options = new string[] { gm.DialogueMan.getLine("mateo1_1_option1"), gm.DialogueMan.getLine("mateo1_1_option2") };
+        manageDictionary(new string[] { "Mateo1_1", "Mateo1_1_pretextbook", "Mateo1_1_helped" });
+        dialogueDict["mateo1_1_2"].lineComplete = () => { gm.EventMan.lookAtPlayer.Invoke(); setupLines(dialogueDict["mateo1_1_pretextbook"]); };
+        dialogueDict["mateo1_1_3"].lineComplete = () => { gm.EventMan.lookAtPlayer.Invoke(); setupLines(dialogueDict["mateo1_1_pretextbook"]); };
         originalLines = lines;
         originalOptions = options;
         leaveCutscene = GameObject.Find("Neighbor1LeaveCutsceneCam1").GetComponent<Cutscene>();
-    }
-
-    public override void topOption()
-    {
-        base.topOption();
-        switch (optionNumber)
-        {
-            case 0:
-                lines = new DialogueLine[] { new DialogueLine("mateo1_1_2", () => { gm.EventMan.lerpToTarget.Invoke("shovel1", -45f, 1.0f); }, null, () => { gm.EventMan.lookAtPlayer.Invoke(); lines = new DialogueLine[] { new DialogueLine("mateo1_1_pretextbook") }; }) };
-                options = new string[] { };
-                lines[currentText].doLineStart();
-                break;
-            case 1:
-                lines = new DialogueLine[] { new DialogueLine("mateo1_1_helped3", () => { }, null, () => { }) };
-                options = new string[] { };
-                lines[currentText].doLineStart();
-                break;
-            default:
-                break;
-        }
-    }
-
-    public override void bottomOption()
-    {
-        base.bottomOption();
-        switch (optionNumber)
-        {
-            case 0:
-                lines = new DialogueLine[] { new DialogueLine("mateo1_1_3", () => { gm.EventMan.lerpToTarget.Invoke("shovel1", -45f, 1.0f); }, null, () => { gm.EventMan.lookAtPlayer.Invoke(); lines = new DialogueLine[] { new DialogueLine("mateo1_1_pretextbook") }; }) };
-                options = new string[] { };
-                lines[currentText].doLineStart();
-                break;
-            case 1:
-                lines = new DialogueLine[] { new DialogueLine("mateo1_1_helped3", () => { }, null, () => {  }) };
-                options = new string[] { };
-                lines[currentText].doLineStart();
-                break;
-            default:
-                break;
-        }
     }
 
     protected override void TalkedTo()
@@ -65,7 +26,6 @@ public class Mateo1_1 : NPCTalkScript {
         base.TalkedTo();
         if (!spokenTo)
         {
-            //GameManager.instance.Globals.incrementTalkCount("mateo1Count");
             spokenTo = true;
         }
     }
@@ -76,8 +36,7 @@ public class Mateo1_1 : NPCTalkScript {
         {
             Debug.Log("check when activated and has textbook");
             optionNumber = 0;
-            lines = new DialogueLine[] { new DialogueLine("mateo1_1_helped1", null, ()=> { }), new DialogueLine("mateo1_1_helped2", null, () => { }) };
-            options = new string[] { gm.DialogueMan.getLine("mateo1_1_helped_option1"), gm.DialogueMan.getLine("mateo1_1_helped_option2")};
+            setupLines("Mateo1_1_helped");
         }
     }
 
