@@ -7,4 +7,6 @@ public class DialogueObject {
     public string text;
     public string name;
     public string speaker;
+    public string next;
+    public string[] options;
 }

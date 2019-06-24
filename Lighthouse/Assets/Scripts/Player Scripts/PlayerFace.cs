@@ -21,7 +21,10 @@ public class PlayerFace : MonoBehaviour {
 	void Update () {
 		for(int i=0; i<5; i++)
         {
-            mat[i].SetFloat("_FaceNumber", faceNum);
+            if(mat.Length > i)
+            {
+                mat[i].SetFloat("_FaceNumber", faceNum);
+            }
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {

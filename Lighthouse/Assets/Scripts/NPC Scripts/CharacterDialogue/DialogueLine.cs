@@ -12,13 +12,25 @@ public class DialogueLine : ScriptableObject {
     public LineEndDelegate lineEnd;
     public LineCompleteDelegate lineComplete;
     public string speaker;
+    public string next;
+    public string[] options;
 
-    public DialogueLine(string pLine, LineStartDelegate pLineStart = null, LineEndDelegate pLineEnd = null, LineCompleteDelegate pLineComplete = null, string pSpeaker = ""){
+    public DialogueLine(string pLine, LineStartDelegate pLineStart = null, LineEndDelegate pLineEnd = null, LineCompleteDelegate pLineComplete = null, string pSpeaker = "", string pNext = "", string[] pOptions = null)
+    {
         line = GameManager.instance.DialogueMan.getLine(pLine);
         lineStart = pLineStart;
         lineEnd = pLineEnd;
         lineComplete = pLineComplete;
         speaker = pSpeaker;
+        next = pNext;
+        if(pOptions == null)
+        {
+            options = new string[] { };
+        }
+        else
+        {
+            options = pOptions;
+        }
     }
 
     public void doLineStart()

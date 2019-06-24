@@ -83,7 +83,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RimPower: 1
-    - _Smoothness: 0
+    - _Smoothness: 0.128
     - _SmoothnessTextureChannel: 0
     - _SpecPower: 5.6
     - _SpecularHighlights: 1

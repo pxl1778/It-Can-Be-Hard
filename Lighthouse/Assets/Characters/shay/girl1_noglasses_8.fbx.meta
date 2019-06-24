@@ -1,15 +1,36 @@
 fileFormatVersion: 2
-guid: 823bb44c41d6fad43b595525b41859ec
+guid: c5bbbff592d32aa4783ee4ea51b113f8
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: polySurface7
+    100004: polySurface8
+    100006: polySurface8 1
+    100008: polySurface9
+    100010: pTorus6
+    100012: transform10
+    100014: transform11
+    100016: transform8
+    100018: transform9
     400000: //RootNode
-    2100000: PeterChar_2_10_18__lambert2
+    400002: polySurface7
+    400004: polySurface8
+    400006: polySurface8 1
+    400008: polySurface9
+    400010: pTorus6
+    400012: transform10
+    400014: transform11
+    400016: transform8
+    400018: transform9
+    2100000: lambert8
     2100002: lambert1
     2300000: //RootNode
+    2300002: polySurface8
     3300000: //RootNode
-    4300000: pTorus2
+    3300002: polySurface8
+    4300000: pTorus6
+    4300002: polySurface8
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -60,7 +81,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

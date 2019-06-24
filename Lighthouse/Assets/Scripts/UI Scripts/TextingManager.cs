@@ -44,7 +44,6 @@ public class TextingManager : MonoBehaviour {
         dateText.transform.parent = content;
         dateText.GetComponentInChildren<Text>().text = GameManager.instance.DialogueMan.getLine("texting1_date");
         dateText.transform.localScale = new Vector3(1, 1, 1);
-        //textConvo = new string[]{ "texting1_1_1", "texting1_2_2", "texting1_3_1", "texting1_4_2", "texting1_5_2", "texting1_6_1", "texting1_7_2"};
         textConvo = GameManager.instance.DialogueMan.getPack(dialogPackName);
 	}
 	

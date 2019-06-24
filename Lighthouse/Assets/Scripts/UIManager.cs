@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class UIManager : MonoBehaviour {
 
@@ -59,7 +60,7 @@ public class UIManager : MonoBehaviour {
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Cancel"))
         {
             if (lastRoutine != null)
             {
@@ -85,6 +86,9 @@ public class UIManager : MonoBehaviour {
             }
             else
             {
+                //disable camera controls
+                GameManager.instance.Player.State = PlayerState.INACTIVE;
+                GameManager.instance.Player.DeactivateCamera();
                 pauseMenu.GetComponentInChildren<Image>().enabled = true;
                 paused = true;
                 lastRoutine = StartCoroutine(LerpPhone(0.5f, 0.0f));
@@ -133,6 +137,8 @@ public class UIManager : MonoBehaviour {
         phoneImage.rectTransform.localPosition = new Vector3(phoneImage.rectTransform.localPosition.x, endY, phoneImage.rectTransform.localPosition.z);
         pauseMenu.GetComponent<PauseMenuScript>().ResetPhone();
         pauseMenu.GetComponentInChildren<Image>().enabled = false;
+        GameManager.instance.Player.State = PlayerState.ACTIVE;
+        GameManager.instance.Player.ActivateCamera();
     }
 
     public float calcEase(float pAlpha)

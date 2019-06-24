@@ -5,16 +5,20 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Mateo1_3 : NPCTalkScript
+public class Mateo1_Town1 : NPCTalkScript
 {
 
     private bool spokenTo = false;
 
     public override void secondStart()
     {
-        lines = new DialogueLine[] { new DialogueLine("mateo1_3_1")};
+        manageDictionary(new string[] { "Mateo1_Town1" });
+        dialogueDict["mateo1_Town1"].lineComplete = () => { GameManager.instance.StartLoadScene("Town1Seated"); };
+        setupLines(dialogueDict["mateo1_Town1"]);
         originalLines = lines;
         originalOptions = options;
+        turnTowardsPlayer = false;
+        this.transform.parent.GetComponentInChildren<Animator>().SetBool("Sitting", true);
     }
 
     public override void topOption()
@@ -32,7 +36,7 @@ public class Mateo1_3 : NPCTalkScript
         base.TalkedTo();
         if (!spokenTo)
         {
-            GameManager.instance.Globals.incrementTalkCount("mateo1Count");
+            //GameManager.instance.Globals.incrementTalkCount("mateo1Count");
             spokenTo = true;
         }
     }
@@ -41,3 +45,4 @@ public class Mateo1_3 : NPCTalkScript
     {
     }
 }
+
