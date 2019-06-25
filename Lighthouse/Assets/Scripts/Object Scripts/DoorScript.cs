@@ -24,7 +24,7 @@ public class DoorScript : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && (bool)GameManager.instance.Globals.Dictionary["doorActive"])
+        if (other.gameObject.tag == "Player" && (bool)GameManager.instance.Globals.Dictionary[GlobalData.DOOR_ACTIVE])
         {
             active = true;
         }

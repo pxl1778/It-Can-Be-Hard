@@ -20,6 +20,7 @@ public class Conversation : MonoBehaviour {
     protected DialogueLine[] lines1;
     protected DialogueLine[] lines2;
     protected DialogueLine[] lines3;
+    protected DialogueLine[] lines4;
     protected DialogueLine[][] lines;
 
     private int currentText = 0;
@@ -58,15 +59,9 @@ public class Conversation : MonoBehaviour {
             new DialogueLine("player_town1seated_7", null, null, null, "player"),
             new DialogueLine("player_town1seated_8", null, null, null, "player")};
         lines3 = new DialogueLine[] { new DialogueLine("mateo1_town1seated_8", null, null, null, "mateo"),
-            new DialogueLine("player_town1seated_9", null, null, null, "player"),
-            new DialogueLine("mateo1_town1seated_9", null, null, null, "mateo"),
-            new DialogueLine("mateo1_town1seated_10", null, null, null, "mateo"),
-            new DialogueLine("player_town1seated_10", null, null, null, "player"),
-            new DialogueLine("player_town1seated_11", null, null, null, "player"),
-            new DialogueLine("mateo1_town1seated_11", null, null, null, "mateo"),
-            new DialogueLine("mateo1_town1seated_12", null, null, null, "mateo"),
-            new DialogueLine("player_town1seated_12", null, null, null, "player"),
-            new DialogueLine("player_town1seated_13", null, null, null, "player")};
+            new DialogueLine("player_town1seated_9", null, null, null, "player")};
+        lines4 = new DialogueLine[] { new DialogueLine("mateo1_town1seated_9", null, null, null, "mateo"),
+            new DialogueLine("player_town1seated_10", null, null, null, "mateo")};//add extra dialogue
         lines = new DialogueLine[][]{ lines1, lines2, lines3};
         nextLines();
 	}
@@ -181,8 +176,7 @@ public class Conversation : MonoBehaviour {
                             townChair.enabled = true;
                             break;
                         case 2:
-                            //make it like...not end, yah know?
-                            GameManager.instance.StartLoadScene("Town1");
+                            GameManager.instance.StartLoadScene("EndScreen");
                             break;
                         case 3:
                             break;

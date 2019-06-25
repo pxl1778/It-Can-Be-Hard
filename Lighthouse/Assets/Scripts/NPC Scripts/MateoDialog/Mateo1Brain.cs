@@ -17,7 +17,7 @@ public class Mateo1Brain : MonoBehaviour {
         this.transform.parent.GetComponentInChildren<Animator>().SetBool("Sitting", sitting);
         if(normalScene)
         {
-            switch ((int)GameManager.instance.Globals.Dictionary["mateo1Count"])
+            switch ((int)GameManager.instance.Globals.GetCharacterCount(Character.MATEO))
             {
                 case 0:
                     currentDialogue = this.gameObject.AddComponent<Mateo1_1>();

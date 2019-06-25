@@ -32,7 +32,7 @@ public class Mateo1_3 : NPCTalkScript
         base.TalkedTo();
         if (!spokenTo)
         {
-            GameManager.instance.Globals.incrementTalkCount("mateo1Count");
+            GameManager.instance.Globals.IncrementTalkCount(Character.MATEO);
             spokenTo = true;
         }
     }

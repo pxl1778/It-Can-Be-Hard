@@ -6,8 +6,8 @@ public class EndScreen : MonoBehaviour {
 
 	public void BackToTitle()
     {
-        GameManager.instance.Globals.Dictionary["mateo1Count"] = 0;
-        GameManager.instance.Globals.Dictionary["glowRadius"] = 0.0f;
+        //GameManager.instance.Globals.Dictionary[GlobalData.CHARACTER_COUNTS] = 0;
+        GameManager.instance.Globals.Dictionary[GlobalData.GLOW_RADIUS] = 0.0f;
         GameManager.instance.InventoryMan.resetInventory();
         GameManager.instance.StartLoadScene("Title");
     }

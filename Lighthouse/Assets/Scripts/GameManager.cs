@@ -6,6 +6,29 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
+public enum Character { LUKE, MATEO, SHAY, JACE }
+
+[System.Serializable]
+public struct SerializableVector3
+{
+    public float x, y, z;
+
+    public SerializableVector3(float pX, float pY, float pZ)
+    {
+        x = pX; y = pY; z = pZ;
+    }
+
+    public SerializableVector3(Vector3 pVector)
+    {
+        x = pVector.x; y = pVector.y; z = pVector.z;
+    }
+
+    public Vector3 toVector3()
+    {
+        return new Vector3(x, y, z);
+    }
+}
+
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
@@ -29,6 +52,7 @@ public class GameManager : MonoBehaviour {
 
 	void Awake(){
 		if (instance == null) {
+            //Starting up the game
 			instance = this;
             if(GameObject.Find("Player") != null)
             {
@@ -165,8 +189,13 @@ public class GameManager : MonoBehaviour {
 
         SaveData data = new SaveData();
         data.currentScene = SceneManager.GetActiveScene().name;
-        data.mateo1Count = (int)Globals.Dictionary["mateo1Count"];
         data.inventory = inventoryMan.GetAllItems();
+        data.peopleSpokenTo = globals.GetPeopleSpokenTo();
+        data.playerPos = new SerializableVector3(GameManager.instance.player.transform.position);
+        data.characterProgress = globals.GetCharacterProgress();
+        data.dayNum = (int)globals.Dictionary[GlobalData.CURRENT_DAY];
+        data.questsDone = globals.GetQuestsDone();
+        data.ongoingQuests = globals.GetOngoingQuests();
 
         bf.Serialize(file, data);
         file.Close();
@@ -181,11 +210,15 @@ public class GameManager : MonoBehaviour {
             SaveData data = (SaveData)bf.Deserialize(file);
             file.Close();
 
-            Globals.Dictionary["mateo1Count"] = data.mateo1Count;
             for(int i = 0; i < data.inventory.Length; i++)
             {
                 inventoryMan.AddItemToInventory(data.inventory[i], 1);
             }
+            globals.LoadPeopleSpokenTo(data.peopleSpokenTo);
+            globals.LoadCharacterProgress(data.characterProgress);
+            globals.LoadDayNum(data.dayNum);
+            globals.LoadQuestsDone(data.questsDone);
+            globals.LoadOngoingQuests(data.ongoingQuests);
 
             return data.currentScene;
         }
@@ -195,12 +228,38 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void ClearSaveData()
+    {
+        if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
+        {
+            try
+            {
+                File.Delete(Application.persistentDataPath + "/playerInfo.dat");
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+        }
+    }
+
+    public void EndDay()
+    {
+        globals.ClearSpokenToList();
+        globals.IncrementDay();
+    }
+
     [Serializable]
     class SaveData
     {
         public string currentScene;
-        public int mateo1Count;
+        public string[] peopleSpokenTo;
+        public SerializableVector3 playerPos;
+        public string[] characterProgress;
         public string[] inventory;
+        public int dayNum;
+        public string[] questsDone;
+        public string[] ongoingQuests;
     }
 
     IEnumerator Example()
@@ -212,3 +271,4 @@ public class GameManager : MonoBehaviour {
         }
     }
 }
+

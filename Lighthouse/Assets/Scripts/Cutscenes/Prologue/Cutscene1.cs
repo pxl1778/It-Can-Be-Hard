@@ -40,7 +40,7 @@ public class Cutscene1 : Cutscene
             em.rateOverTime = 250.0f;
             ParticleSystem.MainModule mm = dog.GetComponentInChildren<ParticleSystem>().main;
             mm.startSpeed = 3.0f;
-            GameManager.instance.EventMan.lerpGlobalValue.Invoke("glowRadius", 10, 1);
+            GameManager.instance.EventMan.lerpGlobalValue.Invoke(GlobalData.GLOW_RADIUS, 10, 1);
         };
         callbackDictionary["DogNodes"][1] = () => {
             

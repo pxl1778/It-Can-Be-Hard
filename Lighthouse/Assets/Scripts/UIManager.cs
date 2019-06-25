@@ -153,10 +153,12 @@ public class UIManager : MonoBehaviour {
         string currentScene = GameManager.instance.Load();
         if (currentScene != "")
         {
+            //Load scene from save data
             GameManager.instance.StartLoadScene(currentScene);
         }
         else
         {
+            //No data, new game
             GameManager.instance.StartLoadScene("PhoneTransition1");
         }
     }

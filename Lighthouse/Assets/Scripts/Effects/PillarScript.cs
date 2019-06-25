@@ -21,6 +21,6 @@ public class PillarScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         mat.SetVector("_MaterializingPoint", new Vector4(glow.transform.position.x, glow.transform.position.y, glow.transform.position.z, 0));
-        mat.SetFloat("_Radius", (float)gm.Globals.Dictionary["glowRadius"]);
+        mat.SetFloat("_Radius", (float)gm.Globals.Dictionary[GlobalData.GLOW_RADIUS]);
     }
 }

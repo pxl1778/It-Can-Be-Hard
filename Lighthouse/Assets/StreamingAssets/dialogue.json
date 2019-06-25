@@ -271,6 +271,13 @@
 					"text":"Hey, I think they made my coffee wrong...",
 					"name":"shay_1_1",
 					"speaker":"",
+					"next":"shay_1_2", 
+					"options":[]
+				},
+				{
+					"text":"Maybe I'll go get another one or something, wanna come with?",
+					"name":"shay_1_2",
+					"speaker":"",
 					"next":"", 
 					"options":[]
 				}
@@ -453,71 +460,43 @@
 					"options":[]
 				},
 				{ 
-					"text":"Push me over!",
+					"text":"Woah, do you think they found a lead on Jason?",
 					"name":"mateo1_town1seated_10",
 					"speaker":"mateo",
 					"next":"", 
 					"options":[]
 				},
 				{ 
-					"text":"Uhh, I dunno about that...I haven't used this on people yet.",
+					"text":"Jason? What did he steal something again?",
 					"name":"player_town1seated_10",
 					"speaker":"player",
 					"next":"", 
 					"options":[]
 				},
 				{ 
-					"text":"How about we get back to the gay thing?",
-					"name":"player_town1seated_11",
-					"speaker":"player",
-					"next":"", 
-					"options":[]
-				},
-				{ 
-					"text":"Oh, is that too hard for your 'powers'?",
+					"text":"He went missing...Apparently he's been missing for a day now.",
 					"name":"mateo1_town1seated_11",
 					"speaker":"mateo",
 					"next":"", 
 					"options":[]
 				},
 				{ 
-					"text":"Push me!",
-					"name":"mateo1_town1seated_12",
-					"speaker":"mateo",
-					"next":"", 
-					"options":[]
-				},
-				{ 
-					"text":"No I just...I...",
+					"text":"Oh...Did he run away or something?",
 					"name":"player_town1seated_12",
 					"speaker":"player",
 					"next":"", 
 					"options":[]
 				},
 				{ 
-					"text":"Forget it!",
-					"name":"player_town1seated_13",
-					"speaker":"player",
-					"next":"", 
-					"options":[]
-				},
-				{ 
-					"text":"Alright, man, I'm just messing with yah. Let's get this work done already.",
+					"text":"I dunno, I don't think the police are telling anyone anything yet.",
 					"name":"mateo1_town1seated_13",
 					"speaker":"mateo",
 					"next":"", 
 					"options":[]
 				},
 				{ 
-					"text":"...",
+					"text":"Huh...That's pretty freaky...",
 					"name":"player_town1seated_14",
-					"speaker":"player",
-					"next":"", 
-					"options":[]
-				},
-				{ 
-					"text":"Fine, but you better help me catch up!",
-					"name":"player_town1seated_15",
 					"speaker":"player",
 					"next":"", 
 					"options":[]

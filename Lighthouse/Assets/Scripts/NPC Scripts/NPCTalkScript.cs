@@ -7,7 +7,7 @@ using UnityEngine.UI;
 abstract public class NPCTalkScript : MonoBehaviour {
 
     [SerializeField]
-    private float textSpeed = 0.01f;
+    protected float textSpeed = 0.5f;
     [SerializeField]
     protected bool turnTowardsPlayer = true;
     protected bool active = false;
@@ -18,7 +18,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
     protected int optionNumber = -1;
     private float timer = 0;
     private float faceTimer = 0;
-    private float faceTimerMax = 0.2f;
+    private float faceTimerMax = 0.1f;
     protected Vector3 targetRotation;
     protected Vector3 originalRotation;
     protected Vector3 originalCamPosition;
@@ -38,6 +38,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
 
     private Material[] mat;
     private SkinnedMeshRenderer faceRenderer;
+    private float faceNum = 0;
 
     public AudioSource[] talkSounds;
     private int currentSound = 0;
@@ -59,6 +60,8 @@ abstract public class NPCTalkScript : MonoBehaviour {
         originalCamPosition = npcCam.transform.position;
         secondStart();
         talkSounds = this.GetComponentsInChildren<AudioSource>();
+        faceRenderer = this.transform.parent.GetComponentInChildren<SkinnedMeshRenderer>();
+        mat = faceRenderer.materials;
     }
 
     // Update is called once per frame
@@ -169,6 +172,16 @@ abstract public class NPCTalkScript : MonoBehaviour {
         if (active && textUI.enabled && currentCharacter < lines[currentText].line.Length)
         {
             timer += Time.deltaTime;
+            faceTimer += Time.deltaTime;
+            if(faceTimer >= faceTimerMax)
+            {
+                faceNum = faceNum > 0.0f ? 0.0f : 0.3f;
+                for (int i = 0; i < mat.Length; i++)
+                {
+                    mat[i].SetFloat("_FaceNumber", faceNum);
+                }
+                faceTimer = 0.0f;
+            }
             if (timer >= textSpeed)
             {
                 text.text = lines[currentText].line.Substring(0, currentCharacter + 1);
@@ -176,19 +189,26 @@ abstract public class NPCTalkScript : MonoBehaviour {
                 soundCount++;
                 if(soundCount >= 5)
                 {
-                    talkSounds[currentSound].pitch = Random.Range(0.7f, 0.9f);
-                    talkSounds[currentSound].volume = 0.2f;
-                    talkSounds[currentSound].Play();
-                    timer = 0;
-                    currentSound++;
-                    if (currentSound >= talkSounds.Length)
+                    if(talkSounds.Length > 0)
                     {
-                        currentSound = 0;
+                        talkSounds[currentSound].pitch = Random.Range(0.7f, 0.9f);
+                        talkSounds[currentSound].volume = 0.2f;
+                        talkSounds[currentSound].Play();
+                        timer = 0;
+                        currentSound++;
+                        if (currentSound >= talkSounds.Length)
+                        {
+                            currentSound = 0;
+                        }
+                        soundCount = 0;
                     }
-                    soundCount = 0;
                 }
                 if(currentCharacter >= lines[currentText].line.Length)
                 {
+                    for (int i = 0; i < mat.Length; i++)
+                    {
+                        mat[i].SetFloat("_FaceNumber", 0);
+                    }
                     lines[currentText].doLineEnd();
                 }
             }

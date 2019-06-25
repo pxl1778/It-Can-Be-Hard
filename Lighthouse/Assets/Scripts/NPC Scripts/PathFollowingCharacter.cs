@@ -135,6 +135,6 @@ public class PathFollowingCharacter : MonoBehaviour {
         {
             meshArray[i].enabled = true;
         }
-        GameManager.instance.EventMan.lerpGlobalValue.Invoke("glowRadius", 10, 2);
+        GameManager.instance.EventMan.lerpGlobalValue.Invoke(GlobalData.GLOW_RADIUS, 10, 2);
     }
 }

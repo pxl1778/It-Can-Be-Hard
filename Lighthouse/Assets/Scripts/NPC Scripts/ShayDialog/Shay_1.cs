@@ -14,6 +14,7 @@ public class Shay_1 : NPCTalkScript
 
     public override void secondStart()
     {
+        manageDictionary(new string[]{ "Shay_1"});
         //lines = new DialogueLine[] { new DialogueLine("shay_1_1") };
         //options = new string[] { };
         originalLines = lines;
@@ -26,7 +27,7 @@ public class Shay_1 : NPCTalkScript
         base.TalkedTo();
         if (!spokenTo)
         {
-            GameManager.instance.Globals.incrementTalkCount("mateo1Count");
+            GameManager.instance.Globals.IncrementTalkCount(Character.SHAY);
             spokenTo = true;
         }
     }

@@ -18,7 +18,7 @@ public class ShayBrain : MonoBehaviour
         this.transform.parent.GetComponentInChildren<Animator>().SetBool("Sitting", sitting);
         if (normalScene)
         {
-            switch ((int)GameManager.instance.Globals.Dictionary["shayCount"])
+            switch ((int)GameManager.instance.Globals.GetCharacterCount(Character.SHAY))
             {
                 case 0:
                     currentDialogue = this.gameObject.AddComponent<Shay_1>();

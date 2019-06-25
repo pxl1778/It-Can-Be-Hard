@@ -15,6 +15,8 @@ public class Vector3UnityEvent : UnityEvent<Vector3,float, bool> { }
 public class TransformUnityEvent : UnityEvent<Transform, float, float> { }
 [System.Serializable]
 public class FloatUnityEvent : UnityEvent<float> { }
+[System.Serializable]
+public class GlobalDataUnityEvent : UnityEvent<GlobalData, float, float> { }
 
 public class EventManager : MonoBehaviour {
     //Loading events
@@ -28,7 +30,7 @@ public class EventManager : MonoBehaviour {
     public UnityEvent stopPlayer = new UnityEvent();
     public Vector3UnityEvent movePlayerToPosition = new Vector3UnityEvent();
     public TransformUnityEvent lerpCameraToTransform = new TransformUnityEvent();
-    public StringFloat2UnityEvent lerpGlobalValue = new StringFloat2UnityEvent();
+    public GlobalDataUnityEvent lerpGlobalValue = new GlobalDataUnityEvent();
     public UnityEvent endCutscene = new UnityEvent();
     public FloatUnityEvent changePlayerFace = new FloatUnityEvent();
 
