@@ -56,6 +56,11 @@ public class UIManager : MonoBehaviour {
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            //delete later
+            GameManager.instance.ClearSaveData();
+        }
         if(pauseMenu == null)
         {
             return;
@@ -139,6 +144,7 @@ public class UIManager : MonoBehaviour {
         pauseMenu.GetComponentInChildren<Image>().enabled = false;
         GameManager.instance.Player.State = PlayerState.ACTIVE;
         GameManager.instance.Player.ActivateCamera();
+        GameManager.instance.Save();
     }
 
     public float calcEase(float pAlpha)

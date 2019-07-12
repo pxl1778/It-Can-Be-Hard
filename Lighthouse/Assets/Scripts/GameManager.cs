@@ -185,7 +185,15 @@ public class GameManager : MonoBehaviour {
     public void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
+        FileStream file;
+        if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
+        {
+            file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
+        }
+        else
+        {
+            file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
+        }
 
         SaveData data = new SaveData();
         data.currentScene = SceneManager.GetActiveScene().name;
@@ -205,6 +213,7 @@ public class GameManager : MonoBehaviour {
     {
         if(File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
         {
+            Debug.Log("starting load sequence");
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
             SaveData data = (SaveData)bf.Deserialize(file);
@@ -219,6 +228,7 @@ public class GameManager : MonoBehaviour {
             globals.LoadDayNum(data.dayNum);
             globals.LoadQuestsDone(data.questsDone);
             globals.LoadOngoingQuests(data.ongoingQuests);
+            Debug.Log("ending load sequence");
 
             return data.currentScene;
         }
@@ -232,6 +242,7 @@ public class GameManager : MonoBehaviour {
     {
         if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
         {
+            Debug.Log("deleting save data");
             try
             {
                 File.Delete(Application.persistentDataPath + "/playerInfo.dat");

@@ -86,11 +86,9 @@ public class TextingManager : MonoBehaviour {
         }
         if(currentText >= textConvo.Length && closing)
         {
-            Debug.Log("we made it here");
             elapsedTime += Time.deltaTime;
             if(elapsedTime >= closeTime)
             {
-                Debug.Log("now here!");
                 elapsedTime = 0;
                 StartCoroutine(LerpPhoneDown(0.2f, -1500));
                 closing = false;
