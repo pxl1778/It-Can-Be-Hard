@@ -6,6 +6,7 @@ using UnityEngine;
 public class BoulderPush : MonoBehaviour {
 
     private float alpha = 0;
+    private Color originalColor;
     private bool selectable = false;
     private bool active = false;
     private bool moved = false;
@@ -23,6 +24,8 @@ public class BoulderPush : MonoBehaviour {
         director = transform.GetComponent<PlayableDirector>();
         tkParticle = transform.GetComponentInChildren<ParticleSystem>();
         mat = GetComponentInChildren<MeshRenderer>().material;
+        originalColor = mat.GetColor("_EffectColor");
+        mat.SetColor("_EffectColor", Color.black);
     }
 
     void Update () {
@@ -50,7 +53,7 @@ public class BoulderPush : MonoBehaviour {
         {
             active = false;
             tkParticle.Stop();
-            mat.SetColor("_RimColor", new Vector4(0, 0, 0, 1));
+            mat.SetColor("_EffectColor", Color.black);
             director.Play();
             hitParticles.Play();
         }
@@ -61,7 +64,7 @@ public class BoulderPush : MonoBehaviour {
         active = false;
         selectable = false;
         Material m = GetComponent<MeshRenderer>().material;
-        m.SetColor("_RimColor", new Vector4(0, 0, 0, 1));
+        m.SetColor("_EffectColor", Color.black);
         tkParticle.Stop();
         boulderCam.Priority = 0;
         GameManager.instance.Player.State = PlayerState.ACTIVE;
@@ -74,7 +77,7 @@ public class BoulderPush : MonoBehaviour {
         {//check if you touched the object WITH YOUR MIND
             selectable = true;
             tkParticle.Play();
-            mat.SetColor("_RimColor", new Vector4(0.9680033f, 1, 0, 1));
+            mat.SetColor("_EffectColor", originalColor);
             GameObject.Find("TutorialCanvas").GetComponent<TutorialCanvasScript>().FadeOutTutorial(4);
         }
     }

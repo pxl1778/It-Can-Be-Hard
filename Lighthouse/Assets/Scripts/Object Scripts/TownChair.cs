@@ -37,7 +37,7 @@ public class TownChair : MonoBehaviour {
                     active = true;
                     active = false;
                     tkParticle.Stop();
-                    mat.SetColor("_RimColor", new Vector4(0, 0, 0, 1));
+                    mat.SetColor("_EffectColor", Color.black);
                     Vector3 force = this.transform.position - GameManager.instance.Player.transform.position;
                     //rb.AddForce(force * 200, ForceMode.Force);
                     rb.AddForceAtPosition(force * 50, this.transform.position + new Vector3(0.0f, 0.3f, 0.0f), ForceMode.Force);
@@ -54,7 +54,7 @@ public class TownChair : MonoBehaviour {
         active = false;
         selectable = false;
         Material m = GetComponent<MeshRenderer>().material;
-        m.SetColor("_RimColor", new Vector4(0, 0, 0, 1));
+        mat.SetColor("_EffectColor", Color.black);
         tkParticle.Stop();
     }
 
@@ -64,7 +64,7 @@ public class TownChair : MonoBehaviour {
         {//check if you touched the object WITH YOUR MIND
             selectable = true;
             tkParticle.Play();
-            mat.SetColor("_RimColor", new Vector4(0.9680033f, 1, 0, 1));
+            mat.SetColor("_EffectColor", new Vector4(1.0f, 0.9f, 0.9f, 1));
         }
     }
 }

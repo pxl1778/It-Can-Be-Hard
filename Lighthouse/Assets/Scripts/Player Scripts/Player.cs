@@ -15,7 +15,7 @@ public enum PlayerExpression
 public class Player : MonoBehaviour {
 	private string playerName = "Luke";
     private PlayerState state = PlayerState.ACTIVE;
-    public PlayerState State { get { return state; } set { Debug.Log("Setting state: " + value); state = value; } }
+    public PlayerState State { get { return state; } set { Debug.Log("Setting Player state: " + value); state = value; } }
 
     private float camSpeedX = 0;
     private float camSpeedY = 0;
