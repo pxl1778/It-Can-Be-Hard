@@ -38,14 +38,14 @@
 
 		half4 LightingUnlit(SurfaceOutput s, half3 lightDir, half atten)
 		{
-			return half4(s.Albedo, s.Alpha);
+			return half4(s.Albedo * _LightColor0.rgb * atten, s.Alpha);
 		}
 
 		void surf (Input IN, inout SurfaceOutput o) {
 			// Albedo comes from a texture tinted by color
 			fixed4 c = tex2D (_MainTex, IN.uv_MainTex + float2(_FaceNumber, 0.0)) * _Color;
-			o.Albedo = c.rgb * 0.0f;
-			o.Emission = c.rgb;
+			o.Albedo = c.rgb;
+			//o.Emission = c.rgb;
 			// Metallic and smoothness come from slider variables
 			/*o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;*/

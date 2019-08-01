@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour {
     private float timer = 0;
     private float delay = 0;
     private Vector3 previousPos;
-    
+
+    private SkinnedMeshRenderer skinnedMesh;
     private Rigidbody rb;
     private GameObject cam;
     private GameManager gm;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour {
             bubble.Deactivate();
         }
         previousPos = this.transform.position;
+        skinnedMesh = this.GetComponentInChildren<SkinnedMeshRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -52,14 +54,8 @@ public class PlayerController : MonoBehaviour {
         }
         if(gm.Player.State == PlayerState.ACTIVE)
         {
-            //if (Input.GetButton("Fire1"))
-            //{
-            //    acceleration = 7;
-            //}
-            //else
-            //{
-                acceleration = 5;
-            //}
+            //Increase acceleration for sprinting
+            acceleration = 5;
             if (Input.GetButtonDown("Fire3") && bubble!=null && !bubble.enabled)
             {
                 Debug.Log("shift pressed");
@@ -87,7 +83,39 @@ public class PlayerController : MonoBehaviour {
             Vector3 newVelocity = Vector3.ClampMagnitude(m_Move, 1) * acceleration;
             if (!anim.GetCurrentAnimatorStateInfo(0).IsName("sitting"))
             {
-                rb.velocity = new Vector3(newVelocity.x, Mathf.Clamp(rb.velocity.y, -100, 1), newVelocity.z);
+                //check to make sure you don't go up a slope
+                Vector3 rayOriginTop = skinnedMesh.transform.position + new Vector3(0, 0.2f, 0) + (skinnedMesh.transform.forward * 0.6f);
+                Vector3 rayOriginBot = skinnedMesh.transform.position + new Vector3(0, 0.1f, 0) + (skinnedMesh.transform.forward * 0.6f);
+                RaycastHit hitTop;
+                RaycastHit hitBot;
+                Debug.DrawRay(rayOriginTop, skinnedMesh.transform.forward * 0.7f, Color.yellow);
+                Debug.DrawRay(rayOriginBot, skinnedMesh.transform.forward * 0.7f, Color.red);
+                if (Physics.Raycast(rayOriginBot, skinnedMesh.transform.forward, out hitBot, 0.7f))
+                {
+                    if (Physics.Raycast(rayOriginTop, skinnedMesh.transform.forward, out hitTop, 0.7f))
+                    {
+                        Vector3 hitResultTop = rayOriginTop + skinnedMesh.transform.forward * hitTop.distance;
+                        Vector3 hitResultBot = rayOriginBot + skinnedMesh.transform.forward * hitBot.distance;
+                        float angleBetween = Vector3.Angle(skinnedMesh.transform.forward, hitResultTop - hitResultBot);
+                        Debug.Log("angle between: " + angleBetween);
+                        if( angleBetween > 50 && angleBetween < 90)
+                        {
+                            newVelocity.x = 0;
+                            newVelocity.z = 0;
+                        }
+                    }
+                }
+                float yVelocity = Mathf.Clamp(rb.velocity.y, -100, 1);
+                if (h == 0 && v == 0)
+                {
+                    yVelocity = 0;
+                    rb.useGravity = false;
+                }
+                else
+                {
+                    rb.useGravity = true;
+                }
+                rb.velocity = new Vector3(newVelocity.x, yVelocity, newVelocity.z);
                 if (m_Move.x != 0 || m_Move.y != 0)
                 {
                     this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(m_Move), turnSpeed * Time.deltaTime);
@@ -105,7 +133,7 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            //rb.velocity = new Vector3(0, rb.velocity.y, 0);
             anim.SetFloat("Velocity", 0);
         }
     }

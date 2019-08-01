@@ -63,6 +63,15 @@ Shader "Custom/MoveableObject" {
 				float3 viewDir;// view direction built-in value we're using for rimlight
 			};
 
+			//struct SurfaceOutput {
+			//	fixed3 Albedo;  // diffuse color
+			//	fixed3 Normal;  // tangent space normal, if written
+			//	fixed3 Emission;
+			//	half Specular;  // specular power in 0..1 range
+			//	fixed Gloss;    // specular intensity
+			//	fixed Alpha;    // alpha for transparencies
+			//};
+
 			half _Glossiness;
 			half _Metallic;
 			fixed4 _Color;
@@ -72,7 +81,8 @@ Shader "Custom/MoveableObject" {
 				//mainTexture
 				float3 effectTexture = tex2D(_SecondaryTex, (IN.worldPos.xy * _SecondaryTex_ST.xy) + (_Time[2] * _EffectSpeed));
 
-				o.Albedo = (effectTexture * _EffectColor * _EffectPower) + tex2D(_MainTex, IN.uv_MainTex).rgb;
+				o.Albedo = /*(effectTexture * _EffectColor * _EffectPower) + */tex2D(_MainTex, IN.uv_MainTex).rgb;
+				o.Emission = effectTexture * _EffectColor * _EffectPower;
 
 				o.Alpha = 1;
 			}
