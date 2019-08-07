@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class StaticObjects : MonoBehaviour {
 
-    private bool selectable = false;
-    private bool active = false;
-    private Color originalColor;
-    private Material mat;
-    private Rigidbody rb;
+    protected bool selectable = false;
+    protected bool active = false;
+    protected Color originalColor;
+    protected Material mat;
+    protected Rigidbody rb;
     [SerializeField]
-    private ParticleSystem hitParticles;
+    protected ParticleSystem hitParticles;
     [SerializeField]
-    private ParticleSystem tkParticle;
+    protected ParticleSystem tkParticle;
 
     // Use this for initialization
     void Start () {
@@ -30,21 +30,28 @@ public class StaticObjects : MonoBehaviour {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             int layerMask = (1 << 8);
+            Debug.Log("shootin ray");
             if (Physics.Raycast(ray, out hit, 100f, layerMask))
             {
+                Debug.Log("hit something: " + hit.transform.name);
                 if (hit.transform == this.transform)
                 {//clicked on object
-                    selectable = false;
-                    active = false;
-                    tkParticle.Stop();
-                    mat.SetColor("_EffectColor", Color.black);
-                    Vector3 force = this.transform.position - GameManager.instance.Player.transform.position;
-                    rb.isKinematic = false;
-                    rb.AddForceAtPosition(force * 30, this.transform.position + new Vector3(0.0f, 0.1f, 0.0f), ForceMode.Force);
-                    hitParticles.Play();
+                    Interaction();
                 }
             }
         }
+    }
+
+    virtual protected void Interaction()
+    {
+        selectable = false;
+        active = false;
+        tkParticle.Stop();
+        mat.SetColor("_EffectColor", Color.black);
+        Vector3 force = this.transform.position - GameManager.instance.Player.transform.position;
+        rb.isKinematic = false;
+        rb.AddForceAtPosition(force * 30, this.transform.position + new Vector3(0.0f, 0.1f, 0.0f), ForceMode.Force);
+        hitParticles.Play();
     }
 
     public void DeactivateObject()
@@ -60,9 +67,14 @@ public class StaticObjects : MonoBehaviour {
     {
         if (other.GetComponent<PlayerBubble>() && this.enabled)
         {//check if you touched the object WITH YOUR MIND
-            selectable = true;
-            tkParticle.Play();
-            mat.SetColor("_EffectColor", originalColor);
+            ActivateObject();
         }
+    }
+
+    virtual protected void ActivateObject()
+    {
+        selectable = true;
+        tkParticle.Play();
+        mat.SetColor("_EffectColor", originalColor);
     }
 }

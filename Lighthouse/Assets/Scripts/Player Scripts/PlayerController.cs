@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour {
                         Vector3 hitResultTop = rayOriginTop + skinnedMesh.transform.forward * hitTop.distance;
                         Vector3 hitResultBot = rayOriginBot + skinnedMesh.transform.forward * hitBot.distance;
                         float angleBetween = Vector3.Angle(skinnedMesh.transform.forward, hitResultTop - hitResultBot);
-                        Debug.Log("angle between: " + angleBetween);
+                        //Debug.Log("angle between: " + angleBetween);
                         if( angleBetween > 50 && angleBetween < 90)
                         {
                             newVelocity.x = 0;

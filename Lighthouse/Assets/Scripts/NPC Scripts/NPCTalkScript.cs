@@ -7,7 +7,7 @@ using UnityEngine.UI;
 abstract public class NPCTalkScript : MonoBehaviour {
 
     [SerializeField]
-    protected float textSpeed = 0.5f;
+    protected float textSpeed = 0.01f;
     [SerializeField]
     protected bool turnTowardsPlayer = true;
     protected bool active = false;
@@ -38,7 +38,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
 
     private Material[] mat;
     private SkinnedMeshRenderer faceRenderer;
-    private float faceNum = 0;
+    private float faceNum = 0.0f;
 
     public AudioSource[] talkSounds;
     private int currentSound = 0;
@@ -176,6 +176,7 @@ abstract public class NPCTalkScript : MonoBehaviour {
             if(faceTimer >= faceTimerMax)
             {
                 faceNum = faceNum > 0.0f ? 0.0f : 0.3f;
+                Debug.Log("changing face: " + faceNum);
                 for (int i = 0; i < mat.Length; i++)
                 {
                     mat[i].SetFloat("_FaceNumber", faceNum);
